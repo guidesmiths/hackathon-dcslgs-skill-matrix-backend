@@ -1,0 +1,61 @@
+{
+  "name": "skill-matrix",
+  "version": "0.0.1",
+  "description": "",
+  "author": {
+    "name": "author",
+    "email": "author@domain.com"
+  },
+  "main": "index.js",
+  "scripts": {
+    "local": "SERVICE_ENV=local node index.js",
+    "start": "node index.js",
+    "test": "NODE_ENV=test jest --detectOpenHandles --forceExit --reporters=default",
+    "test-ci": "NODE_ENV=test jest --detectOpenHandles --forceExit --coverage",
+    "lint": "eslint .",
+    "manifest": "node_modules/make-manifest/bin/make-manifest",
+    "qa": "npm run lint && npm run test",
+    "precommit": "npm run lint",
+    "prepush": "npm run test",
+    "docker": "docker-compose --file ./docker/docker-compose.yml pull && docker-compose --file ./docker/docker-compose.yml up -d --force-recreate --remove-orphans"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run test"
+    }
+  },
+  "devDependencies": {
+    "eslint": "^6.7.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^24.1.5",
+    "expect.js": "^0.3.1",
+    "husky": "^3.1.0",
+    "jest": "^26.6.3",
+    "jest-config": "^26.6.3",
+    "jest-junit": "^12.0.0",
+    "sinon": "^7.5.0",
+    "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "@hapi/boom": "^9.1.0",
+    "body-parser": "^1.19.0",
+    "bunyan": "^1.8.12",
+    "chalk": "^4.0.0",
+    "confabulous": "^1.7.0",
+    "debug": "^4.1.1",
+    "helmet": "^4.1.1",
+    "hogan.js": "^3.0.2",
+    "make-manifest": "^1.0.4",
+    "on-headers": "^1.0.2",
+    "optimist": "^0.6.1",
+    "optional": "^0.1.4",
+    "prepper": "^1.2.0",
+    "ramda": "^0.27.0",
+    "swagger-endpoint-validator": "^2.0.2",
+    "systemic": "^3.3.7",
+    "systemic-domain-runner": "^1.1.0",
+    "systemic-express": "^1.1.1"
+  }
+}
