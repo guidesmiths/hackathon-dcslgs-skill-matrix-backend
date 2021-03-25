@@ -33,3 +33,12 @@ VALUES (1, 'React', 2, 1, 1, '', '{
          "3": "I can write both sync and async sagas processes",
          "4": "I can use Sagas to manage the state of all the components such ui (modals/toast) navigation (navigate between screens) and app state"
        }');
+
+INSERT INTO skills.user (user_id, email, "name", "role")
+VALUES  ('asldkan21ansdkasnd', 'johndoe@guidesmiths.com', 'John Doe', 'user'),
+        ('asldka12312sdkasnd', 'janedoe@guidesmiths.com', 'Jane Doe', 'user');
+
+INSERT INTO skills.user_skill (id, skill_id, user_id, skill_value)
+VALUES  (1, 1, 'asldkan21ansdkasnd', 4),
+        (2, 4, 'asldkan21ansdkasnd', 3),
+        (3, 2, 'asldkan21ansdkasnd', 2);

@@ -8,5 +8,9 @@ module.exports = new System({ name: 'routes' })
   .dependsOn('config', 'logger', 'app', 'middleware.prepper', 'manifest')
   .add('routes.catalog', apiRoutes.catalog())
   .dependsOn('logger', 'app', 'controller')
+  .add('routes.users', apiRoutes.users())
+  .dependsOn('logger', 'app', 'controller')
+  .add('routes.answers', apiRoutes.answers())
+  .dependsOn('logger', 'app', 'controller')
   .add('routes')
-  .dependsOn('routes.admin', 'routes.catalog');
+  .dependsOn('routes.admin', 'routes.catalog', 'routes.users', 'routes.answers');
