@@ -33,7 +33,6 @@ describe('Catalog API routes', () => {
         expect(body[0].name).toEqual('Redux-Sagas');
         expect(body[0].role).toEqual('Frontend');
         expect(body[0].type).toEqual('Hard');
-        expect(body[0].levels['1']).toEqual('I can add new sagas into a working project');
       }));
   });
 });
