@@ -24,15 +24,34 @@ describe('Users API routes', () => {
     await sys.stop();
   });
 
-  describe('GET /api/v1/answers', () => {
-    it('should return OK (200) with the users', () => request
-      .get('/api/v1/answers')
+  describe('POST /api/v1/answers', () => {
+    it('should return the users with filters', () => request
+      .post('/api/v1/answers')
+      .send([{ skill: 1, level: 2 }, { skill: 2, level: 2 }])
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(3);
-        expect(body[0].user_name).toEqual('John Doe');
-        expect(body[0].skill_name).toEqual('React');
-        expect(body[0].skill_value).toEqual(4);
+        expect(body).toHaveLength(1);
+        expect(body[0].name).toEqual('John Doe');
+        expect(body[0].user_id).toEqual('asldkan21ansdkasnd');
+        expect(body[0].email).toEqual('johndoe@guidesmiths.com');
+        expect(body[0].skills).toHaveLength(3);
+        expect(body[0].skills[0].id).toEqual(1);
+        expect(body[0].skills[0].skillName).toEqual('React');
+        expect(body[0].skills[0].level).toEqual(4);
+      }));
+    it('should return the users without filters', () => request
+      .post('/api/v1/answers')
+      .send([])
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        expect(body).toHaveLength(2);
+        expect(body[0].name).toEqual('Jane Doe');
+        expect(body[0].user_id).toEqual('asldka12312sdkasnd');
+        expect(body[0].email).toEqual('janedoe@guidesmiths.com');
+        expect(body[0].skills).toHaveLength(1);
+        expect(body[0].skills[0].id).toEqual(1);
+        expect(body[0].skills[0].skillName).toEqual('React');
+        expect(body[0].skills[0].level).toEqual(3);
       }));
   });
 });

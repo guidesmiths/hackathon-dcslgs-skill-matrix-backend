@@ -40,4 +40,5 @@ VALUES  ('asldkan21ansdkasnd', 'johndoe@guidesmiths.com', 'John Doe', 'user'),
 INSERT INTO skills.user_skill (id, skill_id, user_id, skill_value)
 VALUES  (1, 1, 'asldkan21ansdkasnd', 4),
         (2, 4, 'asldkan21ansdkasnd', 3),
+        (4, 1, 'asldka12312sdkasnd', 3),
         (3, 2, 'asldkan21ansdkasnd', 2);

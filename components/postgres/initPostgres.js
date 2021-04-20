@@ -2,6 +2,20 @@ const initHandyPg = require('handy-postgres');
 
 const { buildUpsertQuery } = require('./utils/queryBuilder');
 
+const getFiltersSubquery = filters => {
+  let text = `where us.user_id in (
+    select u.user_id from skills."user" u
+    left join skills.user_skill us on us.user_id = u.user_id
+    where`;
+  filters.forEach((filter, index) => {
+    text += `(us.skill_id = ${filter.skill} and us.skill_value >= ${filter.level})  ${index < filters.length - 1 ? ' or ' : ''}`;
+  });
+  text += `group by u.user_id
+    having count(*) = ${filters.length}
+    )`;
+  return text;
+};
+
 module.exports = ({ configPath }) => {
   let handyPg;
 
@@ -41,6 +55,21 @@ module.exports = ({ configPath }) => {
           columnsWithValue.map(key => rowData[key]),
         );
       },
+
+      fetchAnswers: filters => pgAPI.query(`
+        select u."name", u.user_id, u.email,
+        coalesce(json_agg(
+          json_build_object(
+          'id', us.skill_id,
+          'skillName', sc."name",
+          'level', us.skill_value
+        )), '[]') AS skills
+        from skills.user_skill us
+        left join skills.skill_catalog sc on sc.id = us.skill_id
+        left join skills."user" u on u.user_id = us.user_id
+        ${filters.length ? getFiltersSubquery(filters) : ''}
+        group by u.user_id;
+      `),
     };
   };
 
