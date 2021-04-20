@@ -4,10 +4,11 @@ module.exports = () => {
   const start = async ({
     app, controller, logger,
   }) => {
-    app.get('/api/v1/answers',
+    app.post('/api/v1/answers',
       async (req, res, next) => {
+        const { body: filters } = req;
         try {
-          const answers = await controller.answers.fetchAnswers();
+          const answers = await controller.answers.fetchAnswers(filters);
           res.send(answers);
         } catch (error) {
           next(tagError(error));

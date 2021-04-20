@@ -1,7 +1,7 @@
 module.exports = () => {
   const start = async ({ pg }) => ({
-    fetchAnswers: async () => {
-      const { rows } = await pg.query('select-answers');
+    fetchAnswers: async filters => {
+      const { rows } = await pg.fetchAnswers(filters);
       return rows;
     },
   });
