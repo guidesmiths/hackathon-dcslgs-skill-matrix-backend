@@ -37,8 +37,8 @@ INSERT INTO skills.user (user_id, email, "name", "role")
 VALUES  ('asldkan21ansdkasnd', 'johndoe@guidesmiths.com', 'John Doe', 'user'),
         ('asldka12312sdkasnd', 'janedoe@guidesmiths.com', 'Jane Doe', 'user');
 
-INSERT INTO skills.user_skill (id, skill_id, user_id, skill_value)
-VALUES  (1, 1, 'asldkan21ansdkasnd', 4),
-        (2, 4, 'asldkan21ansdkasnd', 3),
-        (4, 1, 'asldka12312sdkasnd', 3),
-        (3, 2, 'asldkan21ansdkasnd', 2);
+INSERT INTO skills.user_skill (skill_id, user_id, skill_value)
+VALUES  (1, 'asldkan21ansdkasnd', 4),
+        (4, 'asldkan21ansdkasnd', 3),
+        (1, 'asldka12312sdkasnd', 3),
+        (2, 'asldkan21ansdkasnd', 2);

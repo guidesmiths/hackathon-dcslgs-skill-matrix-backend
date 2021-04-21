@@ -54,4 +54,16 @@ describe('Users API routes', () => {
         expect(body[0].skills[0].level).toEqual(3);
       }));
   });
+
+  describe('POST /api/v1/answer', () => {
+    it('should create a new answer', () => request
+      .post('/api/v1/answer')
+      .send({ skill_id: 3, user_id: 'asldka12312sdkasnd', skill_value: 4 })
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        expect(body.skill_id).toEqual(3);
+        expect(body.user_id).toEqual('asldka12312sdkasnd');
+        expect(body.skill_value).toEqual(4);
+      }));
+  });
 });
