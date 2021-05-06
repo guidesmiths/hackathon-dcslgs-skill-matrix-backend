@@ -8,6 +8,12 @@ module.exports = () => {
       return store.answers.fetchAnswers(filters);
     };
 
+    const fetchAnswersByUser = async userId => {
+      logger.info('Fetching answers by user');
+      debug('Fetching answers by user');
+      return store.answers.fetchAnswersByUser(userId);
+    };
+
     const insertAnswer = async payload => {
       logger.info('Creating new answer from an user');
       const answer = await store.answers.insertAnswer(payload);
@@ -16,6 +22,7 @@ module.exports = () => {
 
     return {
       fetchAnswers,
+      fetchAnswersByUser,
       insertAnswer,
     };
   };
