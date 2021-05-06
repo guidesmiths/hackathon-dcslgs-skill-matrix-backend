@@ -15,6 +15,18 @@ module.exports = () => {
         }
       });
 
+    app.get('/api/v1/users/:userId/answers',
+      async (req, res, next) => {
+        const { params } = req;
+        const { userId } = params;
+        try {
+          const answers = await controller.answers.fetchAnswersByUser(userId);
+          res.send(answers);
+        } catch (error) {
+          next(tagError(error));
+        }
+      });
+
     app.post('/api/v1/answer',
       async (req, res, next) => {
         const { body: payload } = req;

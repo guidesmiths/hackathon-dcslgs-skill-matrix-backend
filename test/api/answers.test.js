@@ -66,4 +66,19 @@ describe('Users API routes', () => {
         expect(body.skill_value).toEqual(4);
       }));
   });
+
+  describe('GET /api/v1/users/:userId/answers', () => {
+    it('should get the answers by userId', () => request
+      .get(`/api/v1/users/${'asldkan21ansdkasnd'}/answers`)
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        expect(body.name).toEqual('John Doe');
+        expect(body.user_id).toEqual('asldkan21ansdkasnd');
+        expect(body.email).toEqual('johndoe@guidesmiths.com');
+        expect(body.skills).toHaveLength(3);
+        expect(body.skills[1].id).toEqual(2);
+        expect(body.skills[1].skillName).toEqual('Next.js');
+        expect(body.skills[1].level).toEqual(2);
+      }));
+  });
 });
