@@ -29,7 +29,7 @@ describe('Users API routes', () => {
       .get('/api/v1/users')
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(2);
+        expect(body).toHaveLength(7);
         expect(body[0].email).toEqual('johndoe@guidesmiths.com');
         expect(body[0].name).toEqual('John Doe');
         expect(body[0].role).toEqual('user');
