@@ -7,12 +7,20 @@ const getFiltersSubquery = filters => {
     select u.user_id from skills."user" u
     left join skills.user_skill us on us.user_id = u.user_id
     where`;
+  let name = '';
+  let filterLength = 0;
   filters.forEach((filter, index) => {
-    text += `(us.skill_id = ${filter.skill} and us.skill_value >= ${filter.level})  ${index < filters.length - 1 ? ' or ' : ''}`;
+    if (filter.name) {
+      name = filter.name || '';
+    }
+    if (filter.skill) {
+      text += ` (us.skill_id = ${filter.skill} and us.skill_value >= ${filter.level}) ${index < filters.length - 1 ? 'or' : ''}`;
+      filterLength += 1;
+    }
   });
   text += `group by u.user_id
-    having count(*) = ${filters.length}
-    )`;
+    having count(*) = ${filterLength}
+    ) and lower(u."name") like '%${name}%'`;
   return text;
 };
 

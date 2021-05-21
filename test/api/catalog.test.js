@@ -32,13 +32,13 @@ describe('Catalog API routes', () => {
         expect(body).toHaveLength(4);
         const {
           levels, name, role, type,
-        } = body[0];
+        } = body[2];
         expect(name).toEqual('Redux');
         expect(role).toEqual('Frontend');
         expect(type).toEqual('Hard');
         expect(levels).toHaveLength(4);
-        expect(levels[0].description).toEqual('I can use the library in combination of others to build complex solutions.');
-        expect(levels[0].level).toEqual(4);
+        expect(levels[3].description).toEqual('I can use the library in combination of others to build complex solutions.');
+        expect(levels[3].level).toEqual(4);
       }));
   });
 });
