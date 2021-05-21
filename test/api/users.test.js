@@ -30,9 +30,12 @@ describe('Users API routes', () => {
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         expect(body).toHaveLength(7);
-        expect(body[0].email).toEqual('johndoe@guidesmiths.com');
-        expect(body[0].name).toEqual('John Doe');
-        expect(body[0].role).toEqual('user');
+        const {
+          email, name, role,
+        } = body[0];
+        expect(email).toEqual('johndoe@guidesmiths.com');
+        expect(name).toEqual('John Doe');
+        expect(role).toEqual('user');
       }));
   });
 });
