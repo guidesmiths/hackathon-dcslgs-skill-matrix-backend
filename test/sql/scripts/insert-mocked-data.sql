@@ -12,7 +12,8 @@ INSERT INTO skills.skill_catalog (id, "name", "type", ecosystem, "role", "descri
 VALUES (1, 'React', 2, 1, 1, ''),
        (2, 'Next.js', 2, 1, 1, ''),
        (3, 'Redux', 2, 1, 1, ''),
-       (4, 'Redux-Sagas', 2, 1, 1, '');
+       (4, 'Redux-Sagas', 2, 1, 1, ''),
+       (5, 'Gatsby', 2, 1, 1, '');
 
 INSERT INTO skills.skill_catalog_level (id, "level", "description", "skill_id")
 VALUES (1, 1, 'I have a basic knowledge of the framework. Understand the framework principles and can implement solutions defined at the documentation or tutorials', 1),

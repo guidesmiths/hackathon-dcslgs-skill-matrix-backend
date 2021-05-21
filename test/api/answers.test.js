@@ -110,7 +110,7 @@ describe('Users API routes', () => {
         expect(skills[0].skillName).toEqual('React');
         expect(skills[0].level).toEqual(4);
       }));
-    it('should return the users filtered by two skills and name', () => request
+    it('should return the users filtered by two skills and one letter for name', () => request
       .post('/api/v1/answers')
       .send([{ name: 'j' }, { skill: 4, level: 2 }, { skill: 1, level: 2 }])
       .expect(StatusCodes.OK)
@@ -127,7 +127,7 @@ describe('Users API routes', () => {
         expect(skills[0].skillName).toEqual('React');
         expect(skills[0].level).toEqual(4);
       }));
-    it('should return no users filtered by two skills and name', () => request
+    it('should return no users filtered by two skills and two letters for name', () => request
       .post('/api/v1/answers')
       .send([{ name: 'ja' }, { skill: 4, level: 2 }, { skill: 1, level: 2 }])
       .expect(StatusCodes.OK)
@@ -150,7 +150,7 @@ describe('Users API routes', () => {
 
   describe('GET /api/v1/users/:userId/answers', () => {
     it('should get the answers by userId', () => request
-      .get(`/api/v1/users/${'asldkan21ansdkasnd'}/answers`)
+      .get('/api/v1/users/asldkan21ansdkasnd/answers')
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         const {
