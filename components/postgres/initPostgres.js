@@ -2,25 +2,17 @@ const initHandyPg = require('handy-postgres');
 
 const { buildUpsertQuery } = require('./utils/queryBuilder');
 
-const getFiltersSubquery = filters => {
-  let text = `where us.user_id in (
+const getFiltersSubquery = ({ skills }) => {
+  let text = `us.user_id in (
     select u.user_id from skills."user" u
     left join skills.user_skill us on us.user_id = u.user_id
     where`;
-  let name = '';
-  let filterLength = 0;
-  filters.forEach((filter, index) => {
-    if (filter.name) {
-      name = filter.name || '';
-    }
-    if (filter.skill) {
-      text += ` (us.skill_id = ${filter.skill} and us.skill_value >= ${filter.level}) ${index < filters.length - 1 ? 'or' : ''}`;
-      filterLength += 1;
-    }
+  skills.forEach((skillLevel, index) => {
+    text += ` (us.skill_id = ${skillLevel.skill} and us.skill_value >= ${skillLevel.level || 0}) ${index < skills.length - 1 ? 'or' : ''}`;
   });
   text += `group by u.user_id
-    having count(*) = ${filterLength}
-    ) and lower(u."name") like '%${name}%'`;
+    having count(*) = ${skills.length}
+    ) and`;
   return text;
 };
 
@@ -75,7 +67,8 @@ module.exports = ({ configPath }) => {
         from skills.user_skill us
         left join skills.skill_catalog sc on sc.id = us.skill_id
         left join skills."user" u on u.user_id = us.user_id
-        ${filters.length ? getFiltersSubquery(filters) : ''}
+        where ${filters.skills ? getFiltersSubquery(filters) : ''}
+        lower(u."name") like '%${filters.name || ''}%'
         group by u.user_id;
       `),
     };
