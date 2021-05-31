@@ -67,7 +67,7 @@ describe('Users API routes', () => {
         expect(body).toHaveLength(7);
         const {
           name, user_id: userId, email, skills,
-        } = body[3];
+        } = body[1];
         expect(name).toEqual('Jane Doe');
         expect(userId).toEqual('asldka12312sdkasnd');
         expect(email).toEqual('janedoe@guidesmiths.com');
