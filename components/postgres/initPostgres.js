@@ -57,19 +57,15 @@ module.exports = ({ configPath }) => {
       },
 
       fetchAnswers: filters => pgAPI.query(`
-        select u."name", u.user_id, u.email,
-        coalesce(json_agg(
-          json_build_object(
-          'id', us.skill_id,
-          'skillName', sc."name",
-          'level', us.skill_value
-        )), '[]') AS skills
-        from skills.user_skill us
+        select u."name" as "userName", u.user_id as "userId", u.email,
+        us.skill_id as "skillId", sc."name" as "skillName", us.skill_value,
+        se.id as "ecosystemId", se."name" as "ecosystemName"
+        from skills."user" u
+        left join skills.user_skill us on us.user_id = u.user_id
         left join skills.skill_catalog sc on sc.id = us.skill_id
-        left join skills."user" u on u.user_id = us.user_id
+        left join skills.skill_ecosystem se on se.id = sc.ecosystem
         where ${filters.skills ? getFiltersSubquery(filters) : ''}
         lower(u."name") like '%${filters.name || ''}%'
-        group by u.user_id;
       `),
     };
   };

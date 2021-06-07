@@ -29,7 +29,7 @@ describe('Catalog API routes', () => {
       .get('/api/v1/skills/catalog')
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(5);
+        expect(body).toHaveLength(6);
         const {
           levels, name, role, type,
         } = body[2];

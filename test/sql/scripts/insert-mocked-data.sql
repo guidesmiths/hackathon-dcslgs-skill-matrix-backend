@@ -1,5 +1,6 @@
 INSERT INTO skills.skill_ecosystem (id, "name")
-VALUES (1, 'React');
+VALUES (1, 'React'),
+       (2, 'NodeJS');
 
 INSERT INTO skills.skill_type (id, "name")
 VALUES (1, 'Soft'),
@@ -13,7 +14,8 @@ VALUES (1, 'React', 2, 1, 1, ''),
        (2, 'Next.js', 2, 1, 1, ''),
        (3, 'Redux', 2, 1, 1, ''),
        (4, 'Redux-Sagas', 2, 1, 1, ''),
-       (5, 'Gatsby', 2, 1, 1, '');
+       (5, 'Gatsby', 2, 1, 1, ''),
+       (6, 'Express', 2, 2, 1, '');
 
 INSERT INTO skills.skill_catalog_level (id, "level", "description", "skill_id")
 VALUES (1, 1, 'I have a basic knowledge of the framework. Understand the framework principles and can implement solutions defined at the documentation or tutorials', 1),
@@ -59,4 +61,6 @@ VALUES  (1, 'asldkan21ansdkasnd', 4),
         (1, 'asldka12367sdkasnd', 2),
         (2, 'asldka12367sdkasnd', 1),
         (4, 'asldka12387sdkasnd', 2),
-        (2, 'asldka12387sdkasnd', 3);
+        (2, 'asldka12387sdkasnd', 3),
+        (6, 'asldkan21ansdkasnd', 1),
+        (6, 'asldka12312sdkasnd', 1);

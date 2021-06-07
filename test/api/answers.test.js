@@ -32,14 +32,19 @@ describe('Users API routes', () => {
       .then(({ body }) => {
         expect(body).toHaveLength(4);
         const {
-          name, user_id: userId, email, skills,
-        } = body[3];
+          id, email, name, ecosystems,
+        } = body[0];
         expect(name).toEqual('John Doe');
-        expect(userId).toEqual('asldkan21ansdkasnd');
+        expect(id).toEqual('asldkan21ansdkasnd');
         expect(email).toEqual('johndoe@guidesmiths.com');
+        expect(ecosystems).toHaveLength(2);
+        const {
+          skills, average,
+        } = ecosystems[0];
+        expect(average).toEqual(3);
         expect(skills).toHaveLength(3);
         expect(skills[0].id).toEqual(1);
-        expect(skills[0].skillName).toEqual('React');
+        expect(skills[0].name).toEqual('React');
         expect(skills[0].level).toEqual(4);
       }));
     it('should return the users with two filters', () => request
@@ -49,14 +54,19 @@ describe('Users API routes', () => {
       .then(({ body }) => {
         expect(body).toHaveLength(2);
         const {
-          name, user_id: userId, email, skills,
-        } = body[1];
+          id, email, name, ecosystems,
+        } = body[0];
         expect(name).toEqual('John Doe');
-        expect(userId).toEqual('asldkan21ansdkasnd');
+        expect(id).toEqual('asldkan21ansdkasnd');
         expect(email).toEqual('johndoe@guidesmiths.com');
+        expect(ecosystems).toHaveLength(2);
+        const {
+          skills, average,
+        } = ecosystems[0];
+        expect(average).toEqual(3);
         expect(skills).toHaveLength(3);
         expect(skills[0].id).toEqual(1);
-        expect(skills[0].skillName).toEqual('React');
+        expect(skills[0].name).toEqual('React');
         expect(skills[0].level).toEqual(4);
       }));
     it('should return the users without filters', () => request
@@ -66,14 +76,18 @@ describe('Users API routes', () => {
       .then(({ body }) => {
         expect(body).toHaveLength(7);
         const {
-          name, user_id: userId, email, skills,
+          id, email, name, ecosystems,
         } = body[1];
         expect(name).toEqual('Jane Doe');
-        expect(userId).toEqual('asldka12312sdkasnd');
+        expect(id).toEqual('asldka12312sdkasnd');
         expect(email).toEqual('janedoe@guidesmiths.com');
-        expect(skills).toHaveLength(1);
+        expect(ecosystems).toHaveLength(2);
+        const {
+          skills, average,
+        } = ecosystems[0];
+        expect(average).toEqual(3);
         expect(skills[0].id).toEqual(1);
-        expect(skills[0].skillName).toEqual('React');
+        expect(skills[0].name).toEqual('React');
         expect(skills[0].level).toEqual(3);
       }));
     it('should return the users filtered by one skill', () => request
@@ -83,14 +97,19 @@ describe('Users API routes', () => {
       .then(({ body }) => {
         expect(body).toHaveLength(4);
         const {
-          name, user_id: userId, email, skills,
-        } = body[3];
+          id, email, name, ecosystems,
+        } = body[0];
         expect(name).toEqual('John Doe');
-        expect(userId).toEqual('asldkan21ansdkasnd');
+        expect(id).toEqual('asldkan21ansdkasnd');
         expect(email).toEqual('johndoe@guidesmiths.com');
+        expect(ecosystems).toHaveLength(2);
+        const {
+          skills, average,
+        } = ecosystems[0];
+        expect(average).toEqual(3);
         expect(skills).toHaveLength(3);
         expect(skills[0].id).toEqual(1);
-        expect(skills[0].skillName).toEqual('React');
+        expect(skills[0].name).toEqual('React');
         expect(skills[0].level).toEqual(4);
       }));
     it('should return the users filtered by one skill and name', () => request
@@ -100,14 +119,19 @@ describe('Users API routes', () => {
       .then(({ body }) => {
         expect(body).toHaveLength(2);
         const {
-          name, user_id: userId, email, skills,
-        } = body[1];
+          id, email, name, ecosystems,
+        } = body[0];
         expect(name).toEqual('John Doe');
-        expect(userId).toEqual('asldkan21ansdkasnd');
+        expect(id).toEqual('asldkan21ansdkasnd');
         expect(email).toEqual('johndoe@guidesmiths.com');
+        expect(ecosystems).toHaveLength(2);
+        const {
+          skills, average,
+        } = ecosystems[0];
+        expect(average).toEqual(3);
         expect(skills).toHaveLength(3);
         expect(skills[0].id).toEqual(1);
-        expect(skills[0].skillName).toEqual('React');
+        expect(skills[0].name).toEqual('React');
         expect(skills[0].level).toEqual(4);
       }));
     it('should return the users filtered by two skills and one letter for name', () => request
@@ -117,14 +141,19 @@ describe('Users API routes', () => {
       .then(({ body }) => {
         expect(body).toHaveLength(1);
         const {
-          name, user_id: userId, email, skills,
+          id, email, name, ecosystems,
         } = body[0];
         expect(name).toEqual('John Doe');
-        expect(userId).toEqual('asldkan21ansdkasnd');
+        expect(id).toEqual('asldkan21ansdkasnd');
         expect(email).toEqual('johndoe@guidesmiths.com');
+        expect(ecosystems).toHaveLength(2);
+        const {
+          skills, average,
+        } = ecosystems[0];
+        expect(average).toEqual(3);
         expect(skills).toHaveLength(3);
         expect(skills[0].id).toEqual(1);
-        expect(skills[0].skillName).toEqual('React');
+        expect(skills[0].name).toEqual('React');
         expect(skills[0].level).toEqual(4);
       }));
     it('should return no users filtered by two skills and two letters for name', () => request
@@ -141,14 +170,19 @@ describe('Users API routes', () => {
       .then(({ body }) => {
         expect(body).toHaveLength(3);
         const {
-          name, user_id: userId, email, skills,
-        } = body[2];
+          id, email, name, ecosystems,
+        } = body[0];
         expect(name).toEqual('John Doe');
-        expect(userId).toEqual('asldkan21ansdkasnd');
+        expect(id).toEqual('asldkan21ansdkasnd');
         expect(email).toEqual('johndoe@guidesmiths.com');
+        expect(ecosystems).toHaveLength(2);
+        const {
+          skills, average,
+        } = ecosystems[0];
+        expect(average).toEqual(3);
         expect(skills).toHaveLength(3);
         expect(skills[0].id).toEqual(1);
-        expect(skills[0].skillName).toEqual('React');
+        expect(skills[0].name).toEqual('React');
         expect(skills[0].level).toEqual(4);
       }));
     it('should return the users filtered with name and skill, without level', () => request
@@ -158,15 +192,54 @@ describe('Users API routes', () => {
       .then(({ body }) => {
         expect(body).toHaveLength(4);
         const {
-          name, user_id: userId, email, skills,
-        } = body[3];
+          id, email, name, ecosystems,
+        } = body[0];
         expect(name).toEqual('John Doe');
-        expect(userId).toEqual('asldkan21ansdkasnd');
+        expect(id).toEqual('asldkan21ansdkasnd');
         expect(email).toEqual('johndoe@guidesmiths.com');
+        expect(ecosystems).toHaveLength(2);
+        const {
+          skills, average,
+        } = ecosystems[0];
+        expect(average).toEqual(3);
         expect(skills).toHaveLength(3);
         expect(skills[0].id).toEqual(1);
-        expect(skills[0].skillName).toEqual('React');
+        expect(skills[0].name).toEqual('React');
         expect(skills[0].level).toEqual(4);
+      }));
+    it('refactor', () => request
+      .post('/api/v1/answers')
+      .send({ name: 'doe' })
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        expect(body).toHaveLength(2);
+        const {
+          name, id, email, ecosystems,
+        } = body[0];
+        expect(name).toEqual('John Doe');
+        expect(id).toEqual('asldkan21ansdkasnd');
+        expect(email).toEqual('johndoe@guidesmiths.com');
+        expect(ecosystems).toHaveLength(2);
+        expect(ecosystems[0].id).toEqual(1);
+        expect(ecosystems[0].name).toEqual('React');
+        expect(ecosystems[0].average).toEqual(3);
+        expect(ecosystems[0].skills).toHaveLength(3);
+        expect(ecosystems[0].skills[0].id).toEqual(1);
+        expect(ecosystems[0].skills[0].name).toEqual('React');
+        expect(ecosystems[0].skills[0].level).toEqual(4);
+        expect(ecosystems[0].skills[1].id).toEqual(4);
+        expect(ecosystems[0].skills[1].name).toEqual('Redux-Sagas');
+        expect(ecosystems[0].skills[1].level).toEqual(3);
+        expect(ecosystems[0].skills[2].id).toEqual(2);
+        expect(ecosystems[0].skills[2].name).toEqual('Next.js');
+        expect(ecosystems[0].skills[2].level).toEqual(2);
+        expect(ecosystems[1].id).toEqual(2);
+        expect(ecosystems[1].name).toEqual('NodeJS');
+        expect(ecosystems[1].skills).toHaveLength(1);
+        expect(ecosystems[1].average).toEqual(1);
+        expect(ecosystems[1].skills[0].id).toEqual(6);
+        expect(ecosystems[1].skills[0].name).toEqual('Express');
+        expect(ecosystems[1].skills[0].level).toEqual(1);
       }));
   });
 
@@ -182,20 +255,25 @@ describe('Users API routes', () => {
       }));
   });
 
-  describe('GET /api/v1/users/:userId/answers', () => {
-    it('should get the answers by userId', () => request
+  describe('GET /api/v1/users/:id/answers', () => {
+    it('should get the answers by id', () => request
       .get('/api/v1/users/asldkan21ansdkasnd/answers')
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         const {
-          name, user_id: userId, email, skills,
+          name, id, email, ecosystems,
         } = body;
         expect(name).toEqual('John Doe');
-        expect(userId).toEqual('asldkan21ansdkasnd');
+        expect(id).toEqual('asldkan21ansdkasnd');
         expect(email).toEqual('johndoe@guidesmiths.com');
+        expect(ecosystems).toHaveLength(2);
+        const {
+          skills, average,
+        } = ecosystems[0];
+        expect(average).toEqual(3);
         expect(skills).toHaveLength(3);
         expect(skills[1].id).toEqual(2);
-        expect(skills[1].skillName).toEqual('Next.js');
+        expect(skills[1].name).toEqual('Next.js');
         expect(skills[1].level).toEqual(2);
       }));
   });
