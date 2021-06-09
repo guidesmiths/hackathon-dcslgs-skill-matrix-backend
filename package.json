@@ -11,7 +11,7 @@
     "local": "SERVICE_ENV=local node index.js",
     "start": "node index.js",
     "test": "NODE_ENV=test jest --detectOpenHandles --forceExit --reporters=default",
-    "test-ci": "NODE_ENV=test jest --detectOpenHandles --forceExit --coverage",
+    "test:report": "NODE_ENV=test jest --detectOpenHandles --forceExit --coverage",
     "lint": "eslint .",
     "manifest": "node_modules/make-manifest/bin/make-manifest",
     "qa": "npm run lint && npm run test",
