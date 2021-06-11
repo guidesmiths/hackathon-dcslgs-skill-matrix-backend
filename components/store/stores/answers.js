@@ -40,11 +40,11 @@ module.exports = () => {
       return results;
     },
 
-    fetchAnswersByUser: async userId => {
-      const { rows } = await pg.query('select-answers-by-user', userId);
+    fetchAnswersByUser: async id => {
+      const { rows } = await pg.query('select-answers-by-user', id);
       const { email, userName } = rows[0];
       const user = {
-        id: userId, email, name: userName, ecosystems: [],
+        id, email, name: userName, ecosystems: [],
       };
 
       const groupedByEcosystem = groupByProperty(rows, 'ecosystemId');

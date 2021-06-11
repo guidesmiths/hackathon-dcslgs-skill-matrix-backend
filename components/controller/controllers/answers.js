@@ -8,10 +8,10 @@ module.exports = () => {
       return store.answers.fetchAnswers(filters);
     };
 
-    const fetchAnswersByUser = async userId => {
+    const fetchAnswersByUser = async id => {
       logger.info('Fetching answers by user');
       debug('Fetching answers by user');
-      return store.answers.fetchAnswersByUser(userId);
+      return store.answers.fetchAnswersByUser(id);
     };
 
     const insertAnswer = async payload => {

@@ -114,7 +114,7 @@ describe('Catalog API routes', () => {
       }));
   });
 
-  describe('DELETE /api/v1/skill', () => {
+  describe('DELETE /api/v1/skill/:id', () => {
     it('should delete a skill', () => request
       .delete('/api/v1/skill/5')
       .expect(StatusCodes.OK)
@@ -123,7 +123,7 @@ describe('Catalog API routes', () => {
       }));
   });
 
-  describe('DELETE /api/v1/skill/level', () => {
+  describe('DELETE /api/v1/skill/level/:id', () => {
     it('should delete a skill level', () => request
       .delete('/api/v1/skill/level/16')
       .expect(StatusCodes.OK)

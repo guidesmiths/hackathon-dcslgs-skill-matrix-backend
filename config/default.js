@@ -1,4 +1,33 @@
 module.exports = {
+  routes: {
+    admin: {
+      swaggerOptions: {
+        info: {
+          description: 'Documentation for Skill-Matrix',
+          title: 'Skill-Matrix API',
+          version: '1.0.0',
+          contact: {
+            name: '',
+            email: '',
+          },
+        },
+        servers: [],
+        baseDir: process.cwd(),
+        swaggerUIPath: '/docs/api',
+        filesPattern: [
+          './components/routes/**-routes.js',
+          './components/routes/schema/*.js',
+          './components/routes/api/*.js',
+        ],
+      },
+      generatedDocs: [
+        {
+          path: '/docs/jsdoc',
+          srcFolder: 'jsdoc',
+        },
+      ],
+    },
+  },
   server: {
     host: '0.0.0.0',
     port: 4000,
