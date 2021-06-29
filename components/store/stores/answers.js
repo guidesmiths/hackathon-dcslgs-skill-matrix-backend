@@ -2,23 +2,38 @@ const R = require('ramda');
 
 const groupByProperty = (input, property) => Object.values(R.groupBy(R.prop(property), input));
 
-const getAnswerByUser = (groupedByEcosystem, user) => {
-  const currentUser = user;
-  groupedByEcosystem.forEach((grouped, idx) => {
-    const { ecosystemId, ecosystemName } = grouped[0];
-    user.ecosystems.push({ id: ecosystemId, name: ecosystemName, skills: [] });
+const getSkill = ({ skillId, skillName, skillValue }) => (
+  {
+    id: skillId,
+    name: skillName,
+    level: skillValue,
+  }
+);
 
-    const skillsArray = [];
-    let sumValues = 0;
-    grouped.forEach(skill => {
-      const { skillId, skillName, skill_value: level } = skill;
-      sumValues += level;
-      skillsArray.push({ id: skillId, name: skillName, level });
-      currentUser.ecosystems[idx].skills = skillsArray;
-    });
-    currentUser.ecosystems[idx].average = sumValues / grouped.length;
-  });
-  return currentUser;
+const getEcosystem = ecosystem => {
+  const { ecosystemId, ecosystemName } = ecosystem[0];
+  const average = ecosystem.reduce((sum, value) => sum + value.skillValue, 0) / ecosystem.length;
+  const skills = ecosystem.map(getSkill);
+
+  return {
+    id: ecosystemId,
+    name: ecosystemName,
+    average,
+    skills,
+  };
+};
+
+const getAnswerByUser = answerUser => {
+  const { userId, email, userName } = answerUser[0];
+  const groupedByEcosystem = groupByProperty(answerUser, 'ecosystemId');
+  const ecosystems = groupedByEcosystem.map(getEcosystem);
+
+  return {
+    id: userId,
+    email,
+    name: userName,
+    ecosystems,
+  };
 };
 
 module.exports = () => {
@@ -26,29 +41,12 @@ module.exports = () => {
     fetchAnswers: async filters => {
       const { rows } = await pg.fetchAnswers(filters);
       const groupedByUser = groupByProperty(rows, 'userId');
-      const results = [];
-
-      groupedByUser.forEach(groupedUser => {
-        const { userId, email, userName } = groupedUser[0];
-        const user = {
-          id: userId, email, name: userName, ecosystems: [],
-        };
-
-        const groupedByEcosystem = groupByProperty(groupedUser, 'ecosystemId');
-        results.push(getAnswerByUser(groupedByEcosystem, user));
-      });
-      return results;
+      return groupedByUser.map(getAnswerByUser);
     },
 
-    fetchAnswersByUser: async id => {
-      const { rows } = await pg.query('select-answers-by-user', id);
-      const { email, userName } = rows[0];
-      const user = {
-        id, email, name: userName, ecosystems: [],
-      };
-
-      const groupedByEcosystem = groupByProperty(rows, 'ecosystemId');
-      return getAnswerByUser(groupedByEcosystem, user);
+    fetchAnswersByUser: async userId => {
+      const { rows } = await pg.query('select-answers-by-user', userId);
+      return getAnswerByUser(rows);
     },
 
     insertAnswer: async payload => {
