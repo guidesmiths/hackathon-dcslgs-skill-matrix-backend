@@ -2,11 +2,15 @@ const R = require('ramda');
 
 const groupByProperty = (input, property) => Object.values(R.groupBy(R.prop(property), input));
 
-const getSkill = ({ skillId, skillName, skillValue }) => (
+const getSkill = ({
+  skillId, skillName, skillValue, interested, comments,
+}) => (
   {
     id: skillId,
     name: skillName,
     level: skillValue,
+    interested,
+    comments,
   }
 );
 

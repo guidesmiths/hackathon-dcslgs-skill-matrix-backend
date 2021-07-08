@@ -11,24 +11,7 @@ module.exports = () => {
      * @tags Skills
      * @return {array<SkillWithLevels>} 200 - Successful operation
      * @example response - 200 - success response example
-     * [
-     *    {"id": 3, "name": "Redux", "ecosystem": "React", "role": "Frontend", "type": "Hard",
-     *      "levels": [
-     *        { "description": "I can use the library in combination of others to build complex solutions.", "level": 4 },
-     *        { "description": "I am able to keep a normalised state, using complex reducers in order to guarantee immutability and flatten/efficient structures", "level": 3 },
-     *        { "description": "I can separate concepts and I have a proper usage of actions and reducers", "level": 2 },
-     *        { "description": "I have a basic knowledge of the library. I understand when use redux state and when use the component state.", "level": 1 }
-     *      ]
-     *    },
-     *    {"id": 2, "name": "Next.js", "ecosystem": "React", "role": "Frontend", "type": "Hard",
-     *      "levels": [
-     *        { "description": "I can define complex architectures and I can provide optimised solutions", "level": 4 },
-     *        { "description": "I can analyse working solutions and I can propose refactors and generalisations", "level": 3 },
-     *        { "description": "I modify effectively already working solutions to include new features", "level": 2 },
-     *        { "description": "I understand the framework principles and I can implement solutions defined at the documentation or tutorials", "level": 1 }
-     *      ]
-     *    }
-     * ]
+     * [{"id":1,"name":"React","ecosystem":"React","role":"Frontend","type":"Hard","levels":[{"description":"I have a basic knowledge of the framework. Understand the framework principles and can implement solutions defined at the documentation or tutorials","level":1},{"description":"I can define complex architectures and I can provide optimised solutions","level":4},{"description":"I can analyse working solutions and propose refactors and generalization","level":3},{"description":"I can modify effectively already working solutions to include new features","level":2}]},{"id":2,"name":"Next.js","ecosystem":"React","role":"Frontend","type":"Hard","levels":[{"description":"I understand the framework principles and I can implement solutions defined at the documentation or tutorials","level":1},{"description":"I can define complex architectures and I can provide optimised solutions","level":4},{"description":"I can analyse working solutions and I can propose refactors and generalisations","level":3},{"description":"I modify effectively already working solutions to include new features","level":2}]},{"id":3,"name":"Redux","ecosystem":"React","role":"Frontend","type":"Hard","levels":[{"description":"I have a basic knowledge of the library. I understand when use redux state and when use the component state.","level":1},{"description":"I can use the library in combination of others to build complex solutions.","level":4},{"description":"I am able to keep a normalised state, using complex reducers in order to guarantee immutability and flatten/efficient structures","level":3},{"description":"I can separate concepts and I have a proper usage of actions and reducers","level":2}]},{"id":4,"name":"Redux-Sagas","ecosystem":"React","role":"Frontend","type":"Hard","levels":[{"description":"I can configure from the scratch a new project","level":2},{"description":"I can use Sagas to manage the state of all the components such ui (modals/toast) navigation (navigate between screens) and app state","level":4},{"description":"I can write both sync and async sagas processes","level":3},{"description":"I can add new sagas into a working project","level":1}]},{"id":5,"name":"Gatsby","ecosystem":"React","role":"Frontend","type":"Hard","levels":[{"description":null,"level":null}]},{"id":6,"name":"Express","ecosystem":"NodeJS","role":"Frontend","type":"Hard","levels":[{"description":null,"level":null}]}]
      * @security JWT
      */
     app.get('/api/v1/skills/catalog',

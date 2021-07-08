@@ -1,5 +1,5 @@
 select u."name" as "userName", u.user_id as "userId", u.email,
-us.skill_id as "skillId", sc."name" as "skillName", us.skill_value as "skillValue",
+us.skill_id as "skillId", sc."name" as "skillName", us.skill_value as "skillValue", us.interested, us.comments,
 se.id as "ecosystemId", se."name" as "ecosystemName"
 from skills."user" u
 left join skills.user_skill us on us.user_id = u.user_id

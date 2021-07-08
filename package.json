@@ -17,7 +17,7 @@
     "qa": "npm run lint && npm run test",
     "precommit": "npm run lint",
     "prepush": "npm run test",
-    "docker": "docker-compose --file ./docker/docker-compose.yml pull && docker-compose --file ./docker/docker-compose.yml up -d --force-recreate --remove-orphans"
+    "docker": "docker-compose --file ./docker/cicd/docker-compose.yml pull && docker-compose --file ./docker/cicd/docker-compose.yml up -d --force-recreate --remove-orphans"
   },
   "husky": {
     "hooks": {
