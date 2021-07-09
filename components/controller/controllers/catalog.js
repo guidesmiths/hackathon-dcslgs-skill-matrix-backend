@@ -2,38 +2,53 @@ const debug = require('debug')('skill-matrix:controller:catalog');
 
 module.exports = () => {
   const start = async ({ store, logger }) => {
-    const fetchSkillCatalog = async () => {
-      logger.info('Fetching skill catalog');
-      debug('Fetching skill catalog');
-      return store.catalog.fetchSkillCatalog();
+    const fetchEcosystems = async () => {
+      logger.info('Fetching skills by ecosystems');
+      debug('Fetching skills by ecosystems');
+      return store.catalog.fetchEcosystems();
+    };
+
+    const insertEcosystem = async payload => {
+      logger.info('Creating a new ecosystem');
+      return store.catalog.insertEcosystem(payload);
+    };
+
+    const deleteEcosystem = async id => {
+      logger.info('Deleting an ecosystem');
+      return store.catalog.deleteEcosystem(id);
+    };
+
+    const fetchSkills = async () => {
+      logger.info('Fetching skills');
+      debug('Fetching skills');
+      return store.catalog.fetchSkills();
     };
 
     const insertSkill = async payload => {
-      logger.info('Creating new skill');
-      const skill = await store.catalog.insertSkill(payload);
-      return skill;
+      logger.info('Creating a new skill');
+      return store.catalog.insertSkill(payload);
     };
 
     const deleteSkill = async id => {
       logger.info('Deleting a skill');
-      const skill = await store.catalog.deleteSkill(id);
-      return skill;
+      return store.catalog.deleteSkill(id);
     };
 
     const insertSkillLevel = async payload => {
-      logger.info('Creating new skill level');
-      const skillLevel = await store.catalog.insertSkillLevel(payload);
-      return skillLevel;
+      logger.info('Creating a new skill level');
+      return store.catalog.insertSkillLevel(payload);
     };
 
     const deleteSkillLevel = async id => {
       logger.info('Deleting a skill level');
-      const skillLevel = await store.catalog.deleteSkillLevel(id);
-      return skillLevel;
+      return store.catalog.deleteSkillLevel(id);
     };
 
     return {
-      fetchSkillCatalog,
+      fetchEcosystems,
+      insertEcosystem,
+      deleteEcosystem,
+      fetchSkills,
       insertSkill,
       deleteSkill,
       insertSkillLevel,

@@ -24,21 +24,77 @@ describe('Catalog API routes', () => {
     await sys.stop();
   });
 
-  describe('GET /api/v1/skills/catalog', () => {
-    it('should return OK (200) with the skills catalog', () => request
-      .get('/api/v1/skills/catalog')
+  describe('GET /api/v1/ecosystems', () => {
+    it('should return OK (200) with the skills by ecosystem', () => request
+      .get('/api/v1/ecosystems')
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        expect(body).toHaveLength(2);
+        const {
+          id, name, skills,
+        } = body[0];
+        expect(id).toEqual(1);
+        expect(name).toEqual('React');
+        expect(skills).toHaveLength(5);
+        expect(skills[1].name).toEqual('Next.js');
+        expect(skills[1].role.name).toEqual('Frontend');
+        expect(skills[1].type.name).toEqual('Hard');
+        expect(skills[1].levels).toHaveLength(4);
+        expect(skills[1].levels[0].description).toEqual('I understand the framework principles and I can implement solutions defined at the documentation or tutorials');
+        expect(skills[1].levels[0].level).toEqual(1);
+      }));
+  });
+
+  describe('POST /api/v1/ecosystem', () => {
+    it('should create a new ecosystem', () => request
+      .post('/api/v1/ecosystem')
+      .send({
+        id: 3, name: 'Testingg',
+      })
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        const {
+          id, name,
+        } = body;
+        expect(id).toEqual(3);
+        expect(name).toEqual('Testingg');
+      }));
+
+    it('should update an existing skill', () => request
+      .post('/api/v1/ecosystem')
+      .send({
+        id: 3, name: 'Testing',
+      })
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        const {
+          id, name,
+        } = body;
+        expect(id).toEqual(3);
+        expect(name).toEqual('Testing');
+      }));
+  });
+
+  describe('DELETE /api/v1/ecosystem/:id', () => {
+    it('should delete a ecosystem', () => request
+      .delete('/api/v1/ecosystem/2')
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        expect(body.rowCount).toEqual(1);
+      }));
+  });
+
+  describe('GET /api/v1/skills', () => {
+    it('should return OK (200) with all the skills', () => request
+      .get('/api/v1/skills')
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         expect(body).toHaveLength(6);
         const {
-          levels, name, role, type,
-        } = body[1];
-        expect(name).toEqual('Redux');
-        expect(role).toEqual('Frontend');
-        expect(type).toEqual('Hard');
-        expect(levels).toHaveLength(4);
-        expect(levels[0].description).toEqual('I can use the library in combination of others to build complex solutions.');
-        expect(levels[0].level).toEqual(4);
+          id, name,
+        } = body[0];
+        expect(id).toEqual(1);
+        expect(name).toEqual('React');
       }));
   });
 
