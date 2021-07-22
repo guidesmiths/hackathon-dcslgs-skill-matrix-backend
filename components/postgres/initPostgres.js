@@ -58,7 +58,7 @@ module.exports = ({ configPath }) => {
 
       fetchAnswers: filters => pgAPI.query(`
         select u."name" as "userName", u.user_id as "userId", u.email,
-        us.skill_id as "skillId", sc."name" as "skillName", us.skill_value as "skillValue", us.interested, us.comments,
+        us.skill_id as "skillId", sc."name" as "skillName", us.skill_value as "skillValue", us.skill_subvalue as "skillSubvalue", us.interested, us.comments,
         se.id as "ecosystemId", se."name" as "ecosystemName"
         from skills."user" u
         left join skills.user_skill us on us.user_id = u.user_id
@@ -66,6 +66,7 @@ module.exports = ({ configPath }) => {
         left join skills.skill_ecosystem se on se.id = sc.ecosystem
         where ${filters.skills ? getFiltersSubquery(filters) : ''}
         lower(u."name") like '%${filters.name || ''}%'
+        order by u.user_id, us.skill_id
       `),
     };
   };
