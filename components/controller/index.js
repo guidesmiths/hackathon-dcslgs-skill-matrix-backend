@@ -9,6 +9,8 @@ module.exports = new System({ name: 'controller' })
   .dependsOn('logger', 'store')
   .add('controller.answers', controllers.answers())
   .dependsOn('logger', 'store')
+  .add('controller.suggestions', controllers.suggestions())
+  .dependsOn('logger', 'store')
   .add('controller')
   .dependsOn(
     {
@@ -20,6 +22,9 @@ module.exports = new System({ name: 'controller' })
     }, {
       component: 'controller.answers',
       destination: 'answers',
+    }, {
+      component: 'controller.suggestions',
+      destination: 'suggestions',
     },
 
   );

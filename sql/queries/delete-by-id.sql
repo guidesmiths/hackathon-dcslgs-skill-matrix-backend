@@ -1,0 +1,1 @@
+DELETE FROM skills.%s:tableName WHERE id = %L:id;

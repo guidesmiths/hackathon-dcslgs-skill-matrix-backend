@@ -64,3 +64,9 @@ VALUES  (1, 'asldkan21ansdkasnd', 4, true, '', 'minus'),
         (2, 'asldka12387sdkasnd', 3, true, '', 'minus'),
         (6, 'asldkan21ansdkasnd', 1, true, '', 'plus'),
         (6, 'asldka12312sdkasnd', 1, false, '', 'neutral');
+
+INSERT INTO skills.user_suggestion (id, "description", "subject", user_id)
+VALUES  (1, 'This is a suggestion related to the skill Next.js.', 'Skills', 'asldkan21ansdkasnd'),
+        (2, 'This is an other suggestion related to the skill Next.js.', 'Skills', 'asldka12312sdkasnd'),
+        (3, 'I would like to add "Chinese" as a new skill', 'Skills', 'asldka12345sdkasnd'),
+        (4, 'This is a suggestion', 'Others', 'asldka12367sdkasnd');

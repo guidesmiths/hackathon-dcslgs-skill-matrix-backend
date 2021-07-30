@@ -9,6 +9,8 @@ module.exports = new System({ name: 'store' })
   .dependsOn('pg')
   .add('store.answers', stores.answers())
   .dependsOn('pg')
+  .add('store.suggestions', stores.suggestions())
+  .dependsOn('pg')
   .add('store')
   .dependsOn({
     component: 'store.catalog',
@@ -19,4 +21,7 @@ module.exports = new System({ name: 'store' })
   }, {
     component: 'store.answers',
     destination: 'answers',
+  }, {
+    component: 'store.suggestions',
+    destination: 'suggestions',
   });

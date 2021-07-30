@@ -12,5 +12,7 @@ module.exports = new System({ name: 'routes' })
   .dependsOn('logger', 'app', 'controller')
   .add('routes.answers', apiRoutes.answers())
   .dependsOn('logger', 'app', 'controller')
+  .add('routes.suggestions', apiRoutes.suggestions())
+  .dependsOn('logger', 'app', 'controller')
   .add('routes')
-  .dependsOn('routes.admin', 'routes.catalog', 'routes.users', 'routes.answers');
+  .dependsOn('routes.admin', 'routes.catalog', 'routes.users', 'routes.answers', 'routes.suggestions');
