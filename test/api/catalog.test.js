@@ -30,48 +30,122 @@ describe('Catalog API routes', () => {
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         expect(body).toHaveLength(2);
-        const {
-          id, name, skills,
-        } = body[0];
-        expect(id).toEqual(1);
+        const { name, skills } = body[0];
         expect(name).toEqual('React');
         expect(skills).toHaveLength(5);
         expect(skills[1].name).toEqual('Next.js');
         expect(skills[1].role.name).toEqual('Frontend');
         expect(skills[1].type.name).toEqual('Hard');
         expect(skills[1].levels).toHaveLength(4);
-        expect(skills[1].levels[0].description).toEqual('I understand the framework principles and I can implement solutions defined at the documentation or tutorials');
+        expect(skills[1].levels[0].levelDescription).toEqual('I understand the framework principles and I can implement solutions defined at the documentation or tutorials');
         expect(skills[1].levels[0].level).toEqual(1);
       }));
   });
 
   describe('POST /api/v1/ecosystem', () => {
-    it('should create a new ecosystem', () => request
+    it('should create a new ecosystem with one skill', () => request
       .post('/api/v1/ecosystem')
       .send({
-        id: 3, name: 'Testingg',
+        name: 'Testingg',
+        skills: [
+          {
+            name: 'Cypress',
+            type: 1,
+            role: 1,
+            description: '',
+            levels: [
+              { level: 1, description: 'I work effectively modifying existing solutions implemented with it.' },
+              { level: 2, description: 'I can develop new solutions that use it. I am able to implement a not so basic text suite with its related fixtures.' },
+              { level: 3, description: 'I can design new solutions that use it, in order to optimize response time, processing cost, managing a huge amount test specs. I can handle the cy-data anchors in an efficient way. I can implement custom commands.' },
+              { level: 4, description: 'I deeply understand the library in order to get the most out of it. I understand the API integration that cypress provides and I am able to work with it in CI/CD process' },
+            ],
+          },
+        ],
       })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         const {
-          id, name,
+          name: ecosystemName, skills,
         } = body;
-        expect(id).toEqual(3);
-        expect(name).toEqual('Testingg');
+        expect(ecosystemName).toEqual('Testingg');
+        expect(skills).toHaveLength(1);
+        const {
+          name: skillName, type: skillType, description: skillDescription, levels,
+        } = skills[0];
+        expect(skillName).toEqual('Cypress');
+        expect(skillType.id).toEqual(1);
+        expect(skillDescription).toEqual('');
+        expect(levels).toHaveLength(4);
+        const {
+          level, levelDescription,
+        } = levels[0];
+        expect(level).toEqual(1);
+        expect(levelDescription).toEqual('I work effectively modifying existing solutions implemented with it.');
       }));
 
-    it('should update an existing skill', () => request
+    it('should create a new ecosystem with two skills', () => request
       .post('/api/v1/ecosystem')
       .send({
-        id: 3, name: 'Testing',
+        name: 'Web Client',
+        skills: [
+          {
+            name: 'CSS',
+            type: 1,
+            role: 1,
+            description: '',
+            levels: [
+              { level: 1, description: 'I have a basic knowledge of HTML. I know how to make a style rule. I understand the differences between a tag, ID, and class rule declaration. I understand how styles ‘cascade’ downward.' },
+              { level: 2, description: 'I know what pseudo-classes are, and how to target rules on to them. I know  what web fonts and system fonts are. I know  what the rule !important does and why not to use it in most cases.' },
+              { level: 3, description: 'I know most of the style rules. I know how to target rules based on HTML attributes. I understand the various ways of positioning and when to use them. I understand the box model, when to use position, margin, border, padding, height, and width.' },
+              { level: 4, description: 'I have an advanced knowledge of HTML. I know all style rules and when they apply to specific tags. I know sibling selectors, like > and +. I know how to solve style issues caused by browser compatibility.' },
+            ],
+          },
+          {
+            name: 'SASS',
+            type: 1,
+            role: 1,
+            description: '',
+            levels: [
+              { level: 1, description: 'I work effectively modifying existing solutions implemented with it' },
+              { level: 2, description: 'I develop new solutions that use it. I can implement variables, nesting, and imports' },
+              { level: 3, description: 'I can implement advanced concepts like mixins, extends, sass built-in function, and operators' },
+              { level: 4, description: 'I deeply understands the library to get the most out of it. I can configure it and define style guidelines for all the team members' },
+            ],
+          },
+        ],
       })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         const {
-          id, name,
+          name: ecosystemName, skills,
         } = body;
-        expect(id).toEqual(3);
-        expect(name).toEqual('Testing');
+        expect(ecosystemName).toEqual('Web Client');
+        expect(skills).toHaveLength(2);
+        const {
+          name: skillName, type: skillType, description: skillDescription, levels,
+        } = skills[1];
+        expect(skillName).toEqual('SASS');
+        expect(skillType.id).toEqual(1);
+        expect(skillDescription).toEqual('');
+        expect(levels).toHaveLength(4);
+        const {
+          level, levelDescription,
+        } = levels[0];
+        expect(level).toEqual(1);
+        expect(levelDescription).toEqual('I work effectively modifying existing solutions implemented with it');
+      }));
+  });
+
+  describe('PUT /api/v1/ecosystem/:id', () => {
+    it('should update an existing skill', () => request
+      .put('/api/v1/ecosystem/2')
+      .send({ name: 'Node.js' })
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        const {
+          name,
+        } = body;
+        expect(name).toEqual('Node.js');
       }));
   });
 
@@ -102,71 +176,37 @@ describe('Catalog API routes', () => {
     it('should create a new skill', () => request
       .post('/api/v1/skill')
       .send({
-        id: 6, name: 'ReactCssTransition', type: 2, ecosystem: 1, role: 1, description: '',
+        name: 'ReactCssTransition', type: 2, ecosystem: 1, role: 1, description: '',
       })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         const {
-          id, name, type, ecosystem, role, description,
+          name, type, ecosystem, role, description,
         } = body;
-        expect(id).toEqual(6);
         expect(name).toEqual('ReactCssTransition');
         expect(type).toEqual(2);
         expect(ecosystem).toEqual(1);
         expect(role).toEqual(1);
         expect(description).toEqual('');
       }));
+  });
 
+  describe('PUT /api/v1/skill/:id', () => {
     it('should update an existing skill', () => request
-      .post('/api/v1/skill')
+      .put('/api/v1/skill/2')
       .send({
-        id: 6, name: 'ReactCssTransition', type: 2, ecosystem: 1, role: 1, description: 'New description',
+        name: 'NodeJS', type: 2, ecosystem: 1, role: 1, description: 'New description',
       })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         const {
-          id, name, type, ecosystem, role, description,
+          name, type, ecosystem, role, description,
         } = body;
-        expect(id).toEqual(6);
-        expect(name).toEqual('ReactCssTransition');
+        expect(name).toEqual('NodeJS');
         expect(type).toEqual(2);
         expect(ecosystem).toEqual(1);
         expect(role).toEqual(1);
         expect(description).toEqual('New description');
-      }));
-  });
-
-  describe('POST /api/v1/skill/level', () => {
-    it('should create a new skill level', () => request
-      .post('/api/v1/skill/level')
-      .send({
-        id: 17, level: 1, description: 'I have a basic knowledge of the framework. I understand the framework principles and I can implement solutions defined at the documentation or tutorials', skill_id: 5,
-      })
-      .expect(StatusCodes.OK)
-      .then(({ body }) => {
-        const {
-          id, level, description, skill_id: skillId,
-        } = body;
-        expect(id).toEqual(17);
-        expect(level).toEqual(1);
-        expect(description).toEqual('I have a basic knowledge of the framework. I understand the framework principles and I can implement solutions defined at the documentation or tutorials');
-        expect(skillId).toEqual(5);
-      }));
-
-    it('should update an existing skill level', () => request
-      .post('/api/v1/skill/level')
-      .send({
-        id: 17, level: 1, description: 'I can write a new description', skill_id: 5,
-      })
-      .expect(StatusCodes.OK)
-      .then(({ body }) => {
-        const {
-          id, level, description, skill_id: skillId,
-        } = body;
-        expect(id).toEqual(17);
-        expect(level).toEqual(1);
-        expect(description).toEqual('I can write a new description');
-        expect(skillId).toEqual(5);
       }));
   });
 
@@ -176,6 +216,40 @@ describe('Catalog API routes', () => {
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         expect(body.rowCount).toEqual(1);
+      }));
+  });
+
+  describe('POST /api/v1/skill/level', () => {
+    it('should create a new skill level', () => request
+      .post('/api/v1/skill/level')
+      .send({
+        level: 1, description: 'I have a basic knowledge of the framework. I understand the framework principles and I can implement solutions defined at the documentation or tutorials', skill_id: 5,
+      })
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        const {
+          level, description, skill_id: skillId,
+        } = body;
+        expect(level).toEqual(1);
+        expect(description).toEqual('I have a basic knowledge of the framework. I understand the framework principles and I can implement solutions defined at the documentation or tutorials');
+        expect(skillId).toEqual(5);
+      }));
+  });
+
+  describe('PUT /api/v1/skill/level/:id', () => {
+    it('should update an existing skill level', () => request
+      .put('/api/v1/skill/level/5')
+      .send({
+        level: 1, description: 'I understand the framework principles and I can implement solutions defined at the documentation or tutorials.', skill_id: 5,
+      })
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        const {
+          level, description, skill_id: skillId,
+        } = body;
+        expect(level).toEqual(1);
+        expect(description).toEqual('I understand the framework principles and I can implement solutions defined at the documentation or tutorials.');
+        expect(skillId).toEqual(5);
       }));
   });
 

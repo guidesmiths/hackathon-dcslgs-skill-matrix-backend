@@ -2,7 +2,8 @@ select se.id as "ecosystemId", se."name" as "ecosystemName",
 sc.id as "skillId", sc."name" as "skillName",
 sr.id as "roleId", sr."name" as "roleName",
 st.id as "typeId", st."name" as "typeName",
-scl."level", scl.description
+sc.description as "skillDescription",
+scl."level", scl.description as "levelDescription"
 from skills.skill_catalog sc
 left join skills.skill_ecosystem se on se.id = sc.ecosystem
 left join skills.skill_role sr on sr.id = sc."role"
