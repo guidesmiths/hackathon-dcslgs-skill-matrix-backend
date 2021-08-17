@@ -269,7 +269,7 @@ describe('Users API routes', () => {
         expect(ecosystems[1].id).toEqual(2);
         expect(ecosystems[1].name).toEqual('NodeJS');
         expect(ecosystems[1].skills).toHaveLength(1);
-        expect(ecosystems[1].average).toEqual(1);
+        expect(ecosystems[1].average).toEqual(1.33);
         expect(ecosystems[1].skills[0].id).toEqual(6);
         expect(ecosystems[1].skills[0].name).toEqual('Express');
         expect(ecosystems[1].skills[0].level).toEqual(1);

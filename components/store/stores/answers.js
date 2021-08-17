@@ -15,9 +15,16 @@ const getSkill = ({
   }
 );
 
+const sumSubValue = subvalue => {
+  if (subvalue === 'plus') return 0.33;
+  if (subvalue === 'minus') return -0.33;
+  return 0;
+};
+
 const getEcosystem = ecosystem => {
   const { ecosystemId, ecosystemName } = ecosystem[0];
-  const average = ecosystem.reduce((sum, value) => sum + value.skillValue, 0) / ecosystem.length;
+  const sumReducer = (sum, curr) => sum + curr.skillValue + sumSubValue(curr.skillSubvalue);
+  const average = ecosystem.reduce(sumReducer, 0) / ecosystem.length;
   const skills = ecosystem.map(getSkill);
 
   return {
