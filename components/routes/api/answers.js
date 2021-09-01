@@ -25,7 +25,7 @@ module.exports = () => {
       });
 
     /**
-       * GET /api/v1/users/{id}/answers
+       * GET /api/v1/user/{id}/answers
        * @summary Get answers filtered by user id
        * @tags Answers
        * @param {number} id.params.required - User id
@@ -33,7 +33,7 @@ module.exports = () => {
        * @example response - 200 - success response example
        * {"id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","name":"John Doe","ecosystems":[{"id":1,"name":"React","average":3,"skills":[{"id":1,"name":"React","level":4,"sublevel":"minus","interested":true,"comments":""},{"id":2,"name":"Next.js","level":2,"sublevel":"neutral","interested":false,"comments":""},{"id":4,"name":"Redux-Sagas","level":3,"sublevel":"plus","interested":true,"comments":""}]},{"id":2,"name":"NodeJS","average":1,"skills":[{"id":6,"name":"Express","level":1,"sublevel":"plus","interested":true,"comments":""}]}]}
      */
-    app.get('/api/v1/users/:id/answers',
+    app.get('/api/v1/user/:id/answers',
       async (req, res, next) => {
         const { params } = req;
         const { id } = params;
@@ -45,19 +45,20 @@ module.exports = () => {
         }
       });
     /**
-     * POST /api/v1/answer
-     * @summary Create a new answer or update an existing one
+     * POST /api/v1/user/{id}/answers
+     * @summary Create, update or delete answers
      * @tags Answers
-     * @param {Answer} request.body.required - Filter by name, skill id & level
+     * @param {array<Answer>} request.body.required - Filter by name, skill id & level
      * @return {object} 200 - Answers response
      * @example response - 200 - success response example
-     * {"skill_id":3,"user_id":"asldka12312sdkasnd","skill_value":4,"created_on":"2021-07-13T12:53:04.076Z","updated_on":"2021-07-13T12:53:04.076Z","interested":true,"comments":"This is my comment","skill_subvalue":"minus"}
+     * [{"skill_id":2,"skill_value":2,"interested":true,"comments":"This is my comment","skill_subvalue":"plus"},{"skill_id":3,"skill_value":4,"interested":true,"comments":"This is my comment","skill_subvalue":"minus"}]
      */
-    app.post('/api/v1/answer',
+    app.post('/api/v1/user/:id/answers',
       async (req, res, next) => {
-        const { body: payload } = req;
+        const { body: payload, params } = req;
+        const { id } = params;
         try {
-          const answer = await controller.answers.insertAnswer(payload);
+          const answer = await controller.answers.insertAnswers(id, payload);
           res.send(answer);
         } catch (error) {
           next(tagError(error));

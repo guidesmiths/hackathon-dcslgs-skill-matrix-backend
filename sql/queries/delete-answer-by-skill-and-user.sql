@@ -1,0 +1,1 @@
+DELETE FROM skills.user_skill WHERE user_id = %L:user_id and skill_id = %L:skill_id;

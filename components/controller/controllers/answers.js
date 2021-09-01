@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 const debug = require('debug')('skill-matrix:controller:answers');
 
 module.exports = () => {
@@ -14,16 +15,25 @@ module.exports = () => {
       return store.answers.fetchAnswersByUser(id);
     };
 
-    const insertAnswer = async payload => {
-      logger.info('Creating new answer from an user');
-      const answer = await store.answers.insertAnswer(payload);
-      return answer;
+    const insertAnswers = async (id, answers) => {
+      logger.info('Creating new answers from an user');
+      for await (const answer of answers) {
+        const { skill_value: skillValue, skill_id: skillId } = answer;
+        if (skillValue === 0) {
+          debug('Deleting an answer');
+          await store.answers.deleteAnswer(id, skillId);
+        } else {
+          debug('Creating a new answer');
+          await store.answers.insertAnswer({ user_id: id, ...answer });
+        }
+      }
+      return store.answers.fetchAnswersByUser(id);
     };
 
     return {
       fetchAnswers,
       fetchAnswersByUser,
-      insertAnswer,
+      insertAnswers,
     };
   };
   return { start };

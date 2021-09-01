@@ -279,26 +279,75 @@ describe('Users API routes', () => {
       }));
   });
 
-  describe('POST /api/v1/answer', () => {
-    it('should create a new answer', () => request
-      .post('/api/v1/answer')
-      .send({
-        skill_id: 3, user_id: 'asldka12312sdkasnd', skill_value: 4, skill_subvalue: 'minus', interested: true, comments: 'This is my comment',
-      })
+  describe('POST /api/v1/user/:id/answers', () => {
+    it('should create new answers', () => request
+      .post('/api/v1/user/asldka12312sdkasnd/answers')
+      .send([
+        {
+          skill_id: 2, skill_value: 2, interested: true, comments: 'This is my second comment', skill_subvalue: 'plus',
+        },
+        {
+          skill_id: 3, skill_value: 4, interested: true, comments: 'This is my comment', skill_subvalue: 'minus',
+        },
+      ])
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body.skill_id).toEqual(3);
-        expect(body.user_id).toEqual('asldka12312sdkasnd');
-        expect(body.skill_value).toEqual(4);
-        expect(body.skill_subvalue).toEqual('minus');
-        expect(body.interested).toEqual(true);
-        expect(body.comments).toEqual('This is my comment');
+        expect(body.id).toEqual('asldka12312sdkasnd');
+        const { skills } = body.ecosystems[0];
+        expect(skills).toHaveLength(3);
+        const {
+          id: skillId, level, sublevel, interested, comments,
+        } = skills[2];
+        expect(skillId).toEqual(3);
+        expect(level).toEqual(4);
+        expect(sublevel).toEqual('minus');
+        expect(interested).toEqual(true);
+        expect(comments).toEqual('This is my comment');
+      }));
+
+    it('should update an answer', () => request
+      .post('/api/v1/user/asldka12312sdkasnd/answers')
+      .send([
+        {
+          skill_id: 1, skill_value: 3, interested: true, comments: 'This is my second comment', skill_subvalue: 'neutral',
+        },
+      ])
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        expect(body.id).toEqual('asldka12312sdkasnd');
+        const { skills } = body.ecosystems[0];
+        expect(skills).toHaveLength(1);
+        const {
+          id: skillId, level, sublevel, interested, comments,
+        } = skills[0];
+        expect(skillId).toEqual(1);
+        expect(level).toEqual(3);
+        expect(sublevel).toEqual('neutral');
+        expect(interested).toEqual(true);
+        expect(comments).toEqual('This is my second comment');
+      }));
+
+    it('should delete an answer', () => request
+      .post('/api/v1/user/asldka12312sdkasnd/answers')
+      .send([
+        {
+          skill_id: 2, skill_value: 2, interested: true, comments: 'This is my second comment', skill_subvalue: 'plus',
+        },
+        {
+          skill_id: 3, skill_value: 0, interested: true, comments: 'This is my comment', skill_subvalue: 'neutral',
+        },
+      ])
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        expect(body.id).toEqual('asldka12312sdkasnd');
+        const { skills } = body.ecosystems[0];
+        expect(skills).not.toHaveLength(3);
       }));
   });
 
-  describe('GET /api/v1/users/:id/answers', () => {
+  describe('GET /api/v1/user/:id/answers', () => {
     it('should get the answers by id', () => request
-      .get('/api/v1/users/asldkan21ansdkasnd/answers')
+      .get('/api/v1/user/asldkan21ansdkasnd/answers')
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         const {
