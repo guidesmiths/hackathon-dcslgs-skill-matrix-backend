@@ -44,31 +44,31 @@ describe('Suggestion API routes', () => {
     it('should create a new suggestion', () => request
       .post('/api/v1/suggestion')
       .send({
-        id: 5, description: 'This is a new suggestionnn.', subject: 'Others', user_id: 'asldka12367sdkasnd',
+        description: 'This is a new suggestion.', subject: 'Others', user_id: 'asldka12367sdkasnd',
       })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         const {
-          id, description, subject, user_id: userId,
+          description, subject, user_id: userId,
         } = body;
-        expect(id).toEqual(5);
-        expect(description).toEqual('This is a new suggestionnn.');
+        expect(description).toEqual('This is a new suggestion.');
         expect(subject).toEqual('Others');
         expect(userId).toEqual('asldka12367sdkasnd');
       }));
+  });
 
-    it('should update an existing skill', () => request
-      .post('/api/v1/suggestion')
+  describe('PUT /api/v1/suggestion/:id', () => {
+    it('should update an existing suggestion', () => request
+      .put('/api/v1/suggestion/4')
       .send({
-        id: 5, description: 'This is a new suggestion.', subject: 'Others', user_id: 'asldka12367sdkasnd',
+        description: 'This is another suggestion.', subject: 'Others', user_id: 'asldka12367sdkasnd',
       })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         const {
-          id, description, subject, user_id: userId,
+          description, subject, user_id: userId,
         } = body;
-        expect(id).toEqual(5);
-        expect(description).toEqual('This is a new suggestion.');
+        expect(description).toEqual('This is another suggestion.');
         expect(subject).toEqual('Others');
         expect(userId).toEqual('asldka12367sdkasnd');
       }));

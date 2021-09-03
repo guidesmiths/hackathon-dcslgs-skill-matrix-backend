@@ -11,6 +11,12 @@ module.exports = {
             email: '',
           },
         },
+        security: {
+          jwtAuth: {
+            type: 'http',
+            scheme: 'bearer',
+          },
+        },
         servers: [],
         baseDir: process.cwd(),
         swaggerUIPath: '/docs/api',

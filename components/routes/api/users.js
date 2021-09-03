@@ -11,25 +11,8 @@ module.exports = () => {
      * @tags Users
      * @return {array<User>} 200 - Successful operation
      * @example response - 200 - success response example
-     * [
-     *   {
-     *      "user_id": "asldkan21ansdkasnd",
-     *      "email": "johndoe@guidesmiths.com",
-     *      "img_url": null,
-     *      "name": "John Doe",
-     *      "domain": null,
-     *      "role":"user"
-     *   },
-     *   {
-     *      "user_id": "asldka12312sdkasnd",
-     *      "email": "janedoe@guidesmiths.com",
-     *      "img_url": null,
-     *      "name": "Jane Doe",
-     *      "domain": null,
-     *      "role":"user"
-     *   }
-     * ]
-     * @security JWT
+     * [{"user_id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","img_url":null,"name":"John Doe","domain":null,"role":"user"},{"user_id":"asldka12312sdkasnd","email":"janedoe@guidesmiths.com","img_url":null,"name":"Jane Doe","domain":null,"role":"user"},{"user_id":"asldka12345sdkasnd","email":"jennygo@guidesmiths.com","img_url":null,"name":"Jenny Goijman","domain":null,"role":"user"},{"user_id":"asldka12367sdkasnd","email":"danicolas@guidesmiths.com","img_url":null,"name":"Daniel Colas","domain":null,"role":"user"},{"user_id":"asldka12389sdkasnd","email":"dyusta@guidesmiths.com","img_url":null,"name":"David Yusta","domain":null,"role":"user"},{"user_id":"asldka12387sdkasnd","email":"ssanchez@guidesmiths.com","img_url":null,"name":"Sofia Sanchez","domain":null,"role":"user"},{"user_id":"asldka12311sdkasnd","email":"rachelFern@guidesmiths.com","img_url":null,"name":"Raquel Fernandez","domain":null,"role":"user"}]
+     * @security jwtAuth
      */
     app.get('/api/v1/users',
       async (req, res, next) => {

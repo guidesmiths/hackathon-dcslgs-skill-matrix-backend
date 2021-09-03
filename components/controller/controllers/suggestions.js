@@ -13,6 +13,11 @@ module.exports = () => {
       return store.suggestions.insertSuggestion(payload);
     };
 
+    const updateSuggestion = async (id, payload) => {
+      logger.info('Update an existing suggestion');
+      return store.suggestions.updateSuggestion(id, payload);
+    };
+
     const deleteSuggestion = async id => {
       logger.info('Deleting a suggestion');
       return store.suggestions.deleteSuggestion(id);
@@ -20,6 +25,7 @@ module.exports = () => {
 
     return {
       fetchSuggestions,
+      updateSuggestion,
       insertSuggestion,
       deleteSuggestion,
     };

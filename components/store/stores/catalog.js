@@ -66,7 +66,7 @@ module.exports = () => {
       return rows[0];
     },
 
-    deleteEcosystem: async id => pg.formattedQuery(`DELETE FROM skills.skill_ecosystem WHERE id = ${id};`),
+    deleteEcosystem: async id => pg.formattedQuery('delete-by-id', { tableName: 'skill_ecosystem', id }),
 
     fetchSkills: async () => {
       const { rows } = await pg.query('select-skills');
@@ -83,7 +83,7 @@ module.exports = () => {
       return rows[0];
     },
 
-    deleteSkill: async id => pg.formattedQuery(`DELETE FROM skills.skill_catalog WHERE id = ${id};`),
+    deleteSkill: async id => pg.formattedQuery('delete-by-id', { tableName: 'skill_catalog', id }),
 
     insertSkillLevel: async payload => {
       const { rows } = await pg.upsert('skills.skill_catalog_level', payload);
@@ -95,7 +95,7 @@ module.exports = () => {
       return rows[0];
     },
 
-    deleteSkillLevel: async id => pg.formattedQuery(`DELETE FROM skills.skill_catalog_level WHERE id = ${id};`),
+    deleteSkillLevel: async id => pg.formattedQuery('delete-by-id', { tableName: 'skill_catalog_level', id }),
 
   });
   return { start };
