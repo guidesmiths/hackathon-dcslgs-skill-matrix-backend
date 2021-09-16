@@ -8,9 +8,15 @@ pool:
   name: Hosted Ubuntu 1604
 
 steps:
+  - task: npmAuthenticate@0
+    displayName: 'npm Authenticate .npmrc'
+    inputs:
+      workingFile: .npmrc
+
   - task: Docker@2
     displayName: "Build an image"
     inputs:
+      containerRegistry: "ACR Connection"
       repository: $(Build.Repository.Name)
       command: "build"
       Dockerfile: "**/Dockerfile"
@@ -24,6 +30,9 @@ steps:
       ERROR_UP=$((docker-compose --file ./docker/cicd/docker-compose.yml up --force -d --build) 2>&1)
       sleep 10
       docker exec gs-skill-matrix-backend sh -c "npm run test:report" 2>&1
+      docker cp gs-skill-matrix-backend:/usr/src/app/test-reports/junit.xml ./
+      docker cp gs-skill-matrix-backend:/usr/src/app/test-reports/coverage/lcov.info ./lcov.info
+      sed -i 's|SF:/usr/src/app/|SF:|g' lcov.info
 
       echo "docker compose down"
       ERROR_DOWN=$((docker-compose --file ./docker/cicd/docker-compose.yml down) 2>&1)
@@ -40,11 +49,42 @@ steps:
       testResultsFiles: '**/junit.xml'
       failTaskOnFailedTests: true
 
+  - task: SonarCloudPrepare@1
+    displayName: 'sonarcloud: prepare analysis'
+    inputs:
+      SonarCloud: 'dcslgs-spain-sonarcloud'
+      organization: 'dcslgs-spain'
+      scannerMode: 'CLI'
+      configMode: 'manual'
+      cliProjectKey: 'gs-skill-matrix-backend'
+      cliProjectName: $(Build.Repository.Name)
+      cliSources: '.'
+      extraProperties: |
+        sonar.sources=.
+        sonar.exclusions=node_modules/**,test/**,components/logging/*,components/routes/schema/*,*.config.js,system.js,config/*
+        sonar.language=js
+        sonar.projectVersion=$(Build.BuildNumber)
+        sonar.javascript.lcov.reportPaths=lcov.info
+
+  - task: SonarCloudAnalyze@1
+    displayName: 'sonarcloud: run analysis'
+
+  - task: SonarCloudPublish@1
+    displayName: 'sonarcloud: publish analysis'
+
   - task: Docker@2
     displayName: Push Docker image
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
     inputs:
+      containerRegistry: ACR Connection
       repository: $(Build.Repository.Name)
       command: push
       tags: |
         $(Build.BuildId)
         latest
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    inputs:
+      PathtoPublish: .helm

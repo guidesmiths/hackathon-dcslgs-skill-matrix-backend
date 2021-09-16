@@ -1,0 +1,12 @@
+{{- if eq .Values.environment.name "development" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}
+data:
+  NODE_ENV: production
+  SERVICE_ENV: {{ .Values.environment.name }}
+  POSTGRES_USER: dcsladmin
+  POSTGRES_DB: skills
+  POSTGRES_HOST: dcsl-dev-postgres.postgres.database.azure.com
+{{- end }}
