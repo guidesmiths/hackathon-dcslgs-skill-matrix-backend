@@ -16,7 +16,7 @@ steps:
   - task: Docker@2
     displayName: "Build an image"
     inputs:
-      containerRegistry: "ACR Connection"
+      containerRegistry: ACR Connection
       repository: $(Build.Repository.Name)
       command: "build"
       Dockerfile: "**/Dockerfile"
@@ -49,28 +49,28 @@ steps:
       testResultsFiles: '**/junit.xml'
       failTaskOnFailedTests: true
 
-  - task: SonarCloudPrepare@1
-    displayName: 'sonarcloud: prepare analysis'
-    inputs:
-      SonarCloud: 'dcslgs-spain-sonarcloud'
-      organization: 'dcslgs-spain'
-      scannerMode: 'CLI'
-      configMode: 'manual'
-      cliProjectKey: 'gs-skill-matrix-backend'
-      cliProjectName: $(Build.Repository.Name)
-      cliSources: '.'
-      extraProperties: |
-        sonar.sources=.
-        sonar.exclusions=node_modules/**,test/**,components/logging/*,components/routes/schema/*,*.config.js,system.js,config/*
-        sonar.language=js
-        sonar.projectVersion=$(Build.BuildNumber)
-        sonar.javascript.lcov.reportPaths=lcov.info
+  # - task: SonarCloudPrepare@1
+  #   displayName: 'sonarcloud: prepare analysis'
+  #   inputs:
+  #     SonarCloud: 'dcslgs-spain-sonarcloud'
+  #     organization: 'dcslgs-spain'
+  #     scannerMode: 'CLI'
+  #     configMode: 'manual'
+  #     cliProjectKey: 'gs-skill-matrix-backend'
+  #     cliProjectName: $(Build.Repository.Name)
+  #     cliSources: '.'
+  #     extraProperties: |
+  #       sonar.sources=.
+  #       sonar.exclusions=node_modules/**,test/**,components/logging/*,components/routes/schema/*,*.config.js,system.js,config/*
+  #       sonar.language=js
+  #       sonar.projectVersion=$(Build.BuildNumber)
+  #       sonar.javascript.lcov.reportPaths=lcov.info
 
-  - task: SonarCloudAnalyze@1
-    displayName: 'sonarcloud: run analysis'
+  # - task: SonarCloudAnalyze@1
+  #   displayName: 'sonarcloud: run analysis'
 
-  - task: SonarCloudPublish@1
-    displayName: 'sonarcloud: publish analysis'
+  # - task: SonarCloudPublish@1
+  #   displayName: 'sonarcloud: publish analysis'
 
   - task: Docker@2
     displayName: Push Docker image
