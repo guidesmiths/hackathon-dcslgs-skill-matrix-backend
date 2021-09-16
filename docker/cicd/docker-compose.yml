@@ -3,10 +3,25 @@ services:
   db:
     ports:
       - 5432:5432
-    image: postgres:10-alpine
+    image: postgres:12-alpine
     container_name: postgress-db
     restart: always
     environment:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
+    networks:
+      - postgres
+  service:
+    image: dcslgsdevinternal.azurecr.io/dcsl-skillmatrix-api:latest  # Change to the proper container registry
+    container_name: dcsl-skillmatrix-api
+    depends_on:
+      - db
+    environment:
+      - APPINSIGHTS_INSTRUMENTATIONKEY
+      - POSTGRES_HOST=postgres-db
+    command: ['sh', '-c', 'tail -f /dev/null']
+    networks:
+      - postgres
+networks:
+  postgres:
