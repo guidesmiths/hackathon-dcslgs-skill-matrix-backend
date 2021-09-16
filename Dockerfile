@@ -14,7 +14,7 @@ COPY . .
 EXPOSE 4000
 
 # Generate project's documentation
-RUN npm run create-asyncapi-docs
+RUN npm run create-jsdoc-docs
 
 RUN npm run manifest
 

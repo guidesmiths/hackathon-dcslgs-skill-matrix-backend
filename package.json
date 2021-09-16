@@ -18,7 +18,7 @@
     "precommit": "npm run lint",
     "prepush": "npm run test",
     "docker": "docker-compose --file ./docker/cicd/docker-compose.yml pull && docker-compose --file ./docker/cicd/docker-compose.yml up -d --force-recreate --remove-orphans",
-    "create-asyncapi-docs": "npx ag docs/asyncapi.yml @asyncapi/html-template -o docs/generated/asyncapi"
+    "create-jsdoc-docs": "node_modules/jsdoc/jsdoc.js . -r -c docs/jsdoc-config.json -d docs/generated/jsdoc"
   },
   "husky": {
     "hooks": {
@@ -36,12 +36,11 @@
     "jest": "^26.6.3",
     "jest-config": "^26.6.3",
     "jest-junit": "^12.0.0",
+    "jsdoc": "^3.6.7",
     "sinon": "^7.5.0",
     "supertest": "^4.0.2"
   },
   "dependencies": {
-    "@asyncapi/generator": "^1.8.9",
-    "@asyncapi/html-template": "^0.23.7",
     "@hapi/boom": "^9.1.0",
     "bunyan": "^1.8.12",
     "chalk": "^4.0.0",
