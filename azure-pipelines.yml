@@ -12,7 +12,8 @@ steps:
     displayName: Build an image
     inputs:
       repository: $(Build.Repository.Name)
-      Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+      command: "build"
+      Dockerfile: "**/Dockerfile"
       buildContext: "**"
       tags: |
         $(Build.BuildId)
