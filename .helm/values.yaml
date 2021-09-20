@@ -5,12 +5,12 @@
 replicaCount: 1
 
 image:
-  repository: dcslgsdevinternal.azurecr.io/dcsl-skillmatrix-api
+  repository: dcslgsdevinternal.azurecr.io/gs-skill-matrix-backend
   tag: latest
   pullPolicy: Always
 
 nameOverride: ""
-fullnameOverride: "dcsl-skillmatrix-api"
+fullnameOverride: "gs-skill-matrix-backend"
 
 environment:
   name: test

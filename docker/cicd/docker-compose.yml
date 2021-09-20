@@ -13,8 +13,8 @@ services:
     networks:
       - postgres
   service:
-    image: dcslgsdevinternal.azurecr.io/dcsl-skillmatrix-api:latest  # Change to the proper container registry
-    container_name: dcsl-skillmatrix-api
+    image: dcslgsdevinternal.azurecr.io/gs-skill-matrix-backend:latest  # Change to the proper container registry
+    container_name: gs-skill-matrix-backend
     depends_on:
       - db
     environment:
