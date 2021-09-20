@@ -10,7 +10,7 @@ image:
   pullPolicy: Always
 
 nameOverride: ""
-fullnameOverride: "gs-skill-matrix-backend"
+fullnameOverride: "dcsl-skillmatrix-api"
 
 environment:
   name: test
