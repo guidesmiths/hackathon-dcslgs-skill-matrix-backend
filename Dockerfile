@@ -17,7 +17,7 @@ RUN npm install --quiet
 # Bundle app source
 COPY . .
 
-EXPOSE 4000
+EXPOSE 8080
 
 # Generate project's documentation
 RUN npm run create-jsdoc-docs
