@@ -6,7 +6,13 @@ WORKDIR /usr/src/app
 # Install app dependencies
 COPY package*.json ./
 
-RUN npm install
+# In order to run node alpine image avoiding Python error
+RUN apk --no-cache add --virtual builds-deps build-base python3
+
+# Install Git to prevent "Error: spawn git ENOENT" in alpine image
+RUN apk add --no-cache git
+
+RUN npm install --quiet
 
 # Bundle app source
 COPY . .

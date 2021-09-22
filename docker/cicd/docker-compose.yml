@@ -18,7 +18,6 @@ services:
     depends_on:
       - db
     environment:
-      - APPINSIGHTS_INSTRUMENTATIONKEY
       - POSTGRES_HOST=postgres-db
     command: ['sh', '-c', 'tail -f /dev/null']
     networks:
