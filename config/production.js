@@ -1,6 +1,14 @@
 module.exports = {
   server: {
     host: '0.0.0.0',
-    port: 8080,
+    port: 4000,
+  },
+  pg: {
+    connection: {
+      user: 'dcsladmin',
+      database: 'skill-matrix',
+      password: 'u*(\'^P3kFPE7_9=!',
+      host: 'http://dcsl-dev-postgres.postgres.database.azure.com/',
+    },
   },
 };
