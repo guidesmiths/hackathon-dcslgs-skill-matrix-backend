@@ -8,7 +8,7 @@ module.exports = {
       user: 'dcsladmin',
       database: 'skill-matrix',
       password: 'u*(\'^P3kFPE7_9=!',
-      host: 'http://dcsl-dev-postgres.postgres.database.azure.com/',
+      host: 'dcsl-dev-postgres.postgres.database.azure.com',
     },
   },
 };
