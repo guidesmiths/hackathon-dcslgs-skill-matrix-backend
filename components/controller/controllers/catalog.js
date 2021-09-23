@@ -18,12 +18,18 @@ module.exports = () => {
       for await (const skill of skills) {
         debug('Creating a new skill');
         const {
-          name: skillName, type: skillType, role: skillRole, description: skillDescription, levels,
+          name: skillName, type: skillType, roles: skillRoles, description: skillDescription, levels,
         } = skill;
         const newSkill = {
-          name: skillName, type: skillType, role: skillRole, description: skillDescription, ecosystem: ecosystemId,
+          name: skillName, type: skillType, description: skillDescription, ecosystem: ecosystemId,
         };
         const { id: skillId } = await store.catalog.insertSkill(newSkill);
+
+        for await (const role of skillRoles) {
+          debug('Create a new role for the skill');
+          const roleSkill = { skill_id: skillId, role_id: role };
+          await store.catalog.insertRoleSkill(roleSkill);
+        }
 
         for await (const level of levels) {
           debug('Creating a new skill level');
@@ -52,12 +58,37 @@ module.exports = () => {
 
     const insertSkill = async payload => {
       logger.info('Creating a new skill');
-      return store.catalog.insertSkill(payload);
+      const skill = payload;
+      const roles = payload.role;
+      delete skill.role;
+      const { id: skillId } = await store.catalog.insertSkill(skill);
+
+      for await (const role of roles) {
+        debug('Add a new role for the skill');
+        const roleSkill = { skill_id: skillId, role_id: role };
+        await store.catalog.insertRoleSkill(roleSkill);
+      }
+
+      return store.catalog.fetchSkillById(skillId);
     };
 
     const updateSkill = async (id, payload) => {
       logger.info('Update an existing skill');
-      return store.catalog.updateSkill(id, payload);
+      const skill = payload;
+      const newRoles = payload.role;
+      delete skill.role;
+      await store.catalog.updateSkill(id, payload);
+
+      debug('Delete old roles for the skill');
+      await store.catalog.deleteRolesBySkillId(id);
+
+      for await (const role of newRoles) {
+        debug('Add new roles for the skill');
+        const roleSkill = { skill_id: id, role_id: role };
+        await store.catalog.insertRoleSkill(roleSkill);
+      }
+
+      return store.catalog.fetchSkillById(id);
     };
 
     const deleteSkill = async id => {

@@ -7,15 +7,24 @@ VALUES ('Soft'),
        ('Hard');
 
 INSERT INTO skills.skill_role ("name")
-VALUES ('Frontend');
+VALUES ('Frontend'), ('Backend'), ('Fullstack');
 
-INSERT INTO skills.skill_catalog ("name", "type", ecosystem, "role", "description")
-VALUES ('React', 2, 1, 1, ''),
-       ('Next.js', 2, 1, 1, ''),
-       ('Redux', 2, 1, 1, ''),
-       ('Redux-Sagas', 2, 1, 1, ''),
-       ('Gatsby', 2, 1, 1, ''),
-       ('Express', 2, 2, 1, '');
+INSERT INTO skills.skill_catalog ("name", "type", "ecosystem", "description")
+VALUES ('React', 2, 1, ''),
+       ('Next.js', 2, 1, ''),
+       ('Redux', 2, 1, ''),
+       ('Redux-Sagas', 2, 1, ''),
+       ('Gatsby', 2, 1, ''),
+       ('Express', 2, 2, '');
+
+INSERT INTO skills.skill_role_catalog("skill_id", "role_id")
+VALUES (1, 1), (1, 3),
+       (2, 1), (2, 3),
+       (3, 1), (3, 3),
+       (4, 1), (4, 3),
+       (5, 1), (5, 3),
+       (6, 2), (6, 3);
+
 
 INSERT INTO skills.skill_catalog_level ("level", "description", "skill_id")
 VALUES (1, 'I have a basic knowledge of the framework. Understand the framework principles and can implement solutions defined at the documentation or tutorials', 1),

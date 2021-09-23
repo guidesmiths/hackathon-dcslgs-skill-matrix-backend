@@ -34,7 +34,7 @@ describe('Catalog API routes', () => {
         expect(name).toEqual('React');
         expect(skills).toHaveLength(5);
         expect(skills[1].name).toEqual('Next.js');
-        expect(skills[1].role.name).toEqual('Frontend');
+        expect(skills[1].roles[0].name).toEqual('Frontend');
         expect(skills[1].type.name).toEqual('Hard');
         expect(skills[1].levels).toHaveLength(4);
         expect(skills[1].levels[0].levelDescription).toEqual('I understand the framework principles and I can implement solutions defined at the documentation or tutorials');
@@ -51,7 +51,7 @@ describe('Catalog API routes', () => {
           {
             name: 'Cypress',
             type: 1,
-            role: 1,
+            roles: [1, 3],
             description: '',
             levels: [
               { level: 1, description: 'I work effectively modifying existing solutions implemented with it.' },
@@ -70,10 +70,11 @@ describe('Catalog API routes', () => {
         expect(ecosystemName).toEqual('Testingg');
         expect(skills).toHaveLength(1);
         const {
-          name: skillName, type: skillType, description: skillDescription, levels,
+          name: skillName, type: skillType, roles, description: skillDescription, levels,
         } = skills[0];
         expect(skillName).toEqual('Cypress');
         expect(skillType.id).toEqual(1);
+        expect(roles).toHaveLength(2);
         expect(skillDescription).toEqual('');
         expect(levels).toHaveLength(4);
         const {
@@ -91,7 +92,7 @@ describe('Catalog API routes', () => {
           {
             name: 'CSS',
             type: 1,
-            role: 1,
+            roles: [1],
             description: '',
             levels: [
               { level: 1, description: 'I have a basic knowledge of HTML. I know how to make a style rule. I understand the differences between a tag, ID, and class rule declaration. I understand how styles ‘cascade’ downward.' },
@@ -103,7 +104,7 @@ describe('Catalog API routes', () => {
           {
             name: 'SASS',
             type: 1,
-            role: 1,
+            roles: [1, 3],
             description: '',
             levels: [
               { level: 1, description: 'I work effectively modifying existing solutions implemented with it' },
@@ -122,10 +123,11 @@ describe('Catalog API routes', () => {
         expect(ecosystemName).toEqual('Web Client');
         expect(skills).toHaveLength(2);
         const {
-          name: skillName, type: skillType, description: skillDescription, levels,
+          name: skillName, type: skillType, roles, description: skillDescription, levels,
         } = skills[1];
         expect(skillName).toEqual('SASS');
         expect(skillType.id).toEqual(1);
+        expect(roles).toHaveLength(2);
         expect(skillDescription).toEqual('');
         expect(levels).toHaveLength(4);
         const {
@@ -176,17 +178,36 @@ describe('Catalog API routes', () => {
     it('should create a new skill', () => request
       .post('/api/v1/skill')
       .send({
-        name: 'ReactCssTransition', type: 2, ecosystem: 1, role: 1, description: '',
+        name: 'ReactCssTransition', type: 2, ecosystem: 1, role: [1], description: '',
       })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         const {
-          name, type, ecosystem, role, description,
+          name, type, ecosystem, roles, description,
         } = body;
         expect(name).toEqual('ReactCssTransition');
         expect(type).toEqual(2);
         expect(ecosystem).toEqual(1);
-        expect(role).toEqual(1);
+        expect(roles[0]).toEqual(1);
+        expect(description).toEqual('');
+      }));
+
+    it('should create a new skill with 2 roles', () => request
+      .post('/api/v1/skill')
+      .send({
+        name: 'ReactCssTransition', type: 2, ecosystem: 1, role: [1, 3], description: '',
+      })
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        const {
+          name, type, ecosystem, roles, description,
+        } = body;
+        expect(name).toEqual('ReactCssTransition');
+        expect(type).toEqual(2);
+        expect(ecosystem).toEqual(1);
+        expect(roles).toHaveLength(2);
+        expect(roles[0]).toEqual(1);
+        expect(roles[1]).toEqual(3);
         expect(description).toEqual('');
       }));
   });
@@ -195,17 +216,18 @@ describe('Catalog API routes', () => {
     it('should update an existing skill', () => request
       .put('/api/v1/skill/2')
       .send({
-        name: 'NodeJS', type: 2, ecosystem: 1, role: 1, description: 'New description',
+        name: 'NodeJS', type: 2, ecosystem: 1, role: [1], description: 'New description',
       })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         const {
-          name, type, ecosystem, role, description,
+          name, type, ecosystem, roles, description,
         } = body;
         expect(name).toEqual('NodeJS');
         expect(type).toEqual(2);
         expect(ecosystem).toEqual(1);
-        expect(role).toEqual(1);
+        expect(roles).toHaveLength(1);
+        expect(roles[0]).toEqual(1);
         expect(description).toEqual('New description');
       }));
   });

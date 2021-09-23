@@ -3,28 +3,41 @@ const R = require('ramda');
 const groupByProperty = (input, property) => Object.values(R.groupBy(R.prop(property), input));
 const sortByProperty = (input, property) => Object.values(R.sort(R.ascend(R.prop(property)), input));
 
-const getLevels = ({ level, levelDescription }) => (
-  {
-    level,
-    levelDescription,
-  }
-);
+const getLevels = skills => {
+  const levels = [];
+  skills.forEach(skill => {
+    if (!levels.find(level => level.level === skill.level)) {
+      levels.push({ level: skill.level, levelDescription: skill.levelDescription });
+    }
+  });
+  return levels;
+};
+
+const getRoles = skills => {
+  const roles = [];
+  skills.forEach(skill => {
+    if (!roles.find(role => role.id === skill.roleId)) {
+      roles.push({ id: skill.roleId, name: skill.roleName });
+    }
+  });
+  return roles;
+};
 
 const getSkills = skills => {
   const {
     skillId, skillName,
     typeId, typeName,
-    roleId, roleName,
     skillDescription,
   } = skills[0];
+  const roles = getRoles(skills);
   const sortedLevels = sortByProperty(skills, 'level');
-  const levels = sortedLevels.map(getLevels);
+  const levels = getLevels(sortedLevels);
 
   return {
     id: skillId,
     name: skillName,
     type: { id: typeId, name: typeName },
-    role: { id: roleId, name: roleName },
+    roles,
     description: skillDescription,
     levels,
   };
@@ -73,6 +86,21 @@ module.exports = () => {
       return rows;
     },
 
+    fetchSkillById: async id => {
+      const { rows } = await pg.formattedQuery('select-skill-by-id', { id });
+      const roles = [];
+      rows.map(row => roles.push(row.roleId));
+
+      const {
+        skillId, name, type, ecosystem, description,
+      } = rows[0];
+      const skill = {
+        skillId, name, type, ecosystem, roles, description,
+      };
+
+      return skill;
+    },
+
     insertSkill: async payload => {
       const { rows } = await pg.upsert('skills.skill_catalog', payload);
       return rows[0];
@@ -84,6 +112,13 @@ module.exports = () => {
     },
 
     deleteSkill: async id => pg.formattedQuery('delete-by-id', { tableName: 'skill_catalog', id }),
+
+    insertRoleSkill: async payload => {
+      const { rows } = await pg.upsert('skills.skill_role_catalog', payload);
+      return rows[0];
+    },
+
+    deleteRolesBySkillId: async id => pg.formattedQuery(`DELETE FROM skills.skill_role_catalog WHERE skill_id = ${id}`),
 
     insertSkillLevel: async payload => {
       const { rows } = await pg.upsert('skills.skill_catalog_level', payload);
