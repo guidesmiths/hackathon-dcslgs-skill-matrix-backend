@@ -1,5 +1,5 @@
-ALTER TABLE skills.skill_catalog
-  DROP CONSTRAINT "skill_catalog_name_key";
+-- ALTER TABLE skills.skill_catalog
+--   DROP CONSTRAINT "skill_catalog_name_key";
 
 ALTER TABLE skills.skill_catalog
   ALTER COLUMN "name" TYPE TEXT;
