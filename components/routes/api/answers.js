@@ -6,6 +6,7 @@ module.exports = () => {
   }) => {
     /**
      * POST /api/v1/answers
+     * @route POST /api/v1/answers
      * @summary Get user answers filtered by name, skill and level
      * @tags Answers
      * @param {FilterAnswers} request.body - Filter by name, skill id & level
@@ -27,13 +28,14 @@ module.exports = () => {
       });
 
     /**
-       * GET /api/v1/user/{id}/answers
-       * @summary Get answers filtered by user id
-       * @tags Answers
-       * @param {number} id.params.required - User id
-       * @return {AnswersResponse} 200 - Answers response
-       * @example response - 200 - success response example
-       * {"id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","name":"John Doe","ecosystems":[{"id":1,"name":"React","average":3,"skills":[{"id":1,"name":"React","level":4,"sublevel":"minus","interested":true,"comments":""},{"id":2,"name":"Next.js","level":2,"sublevel":"neutral","interested":false,"comments":""},{"id":4,"name":"Redux-Sagas","level":3,"sublevel":"plus","interested":true,"comments":""}]},{"id":2,"name":"NodeJS","average":1,"skills":[{"id":6,"name":"Express","level":1,"sublevel":"plus","interested":true,"comments":""}]}]}
+     * GET /api/v1/user/{id}/answers
+     * @route GET /api/v1/user/{id}/answers
+     * @summary Get answers filtered by user id
+     * @tags Answers
+     * @param {number} id.params.required - User id
+     * @return {AnswersResponse} 200 - Answers response
+     * @example response - 200 - success response example
+     * {"id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","name":"John Doe","ecosystems":[{"id":1,"name":"React","average":3,"skills":[{"id":1,"name":"React","level":4,"sublevel":"minus","interested":true,"comments":""},{"id":2,"name":"Next.js","level":2,"sublevel":"neutral","interested":false,"comments":""},{"id":4,"name":"Redux-Sagas","level":3,"sublevel":"plus","interested":true,"comments":""}]},{"id":2,"name":"NodeJS","average":1,"skills":[{"id":6,"name":"Express","level":1,"sublevel":"plus","interested":true,"comments":""}]}]}
 
      * @security jwtAuth
      */
@@ -51,6 +53,7 @@ module.exports = () => {
 
     /**
      * POST /api/v1/user/{id}/answers
+     * @route POST /api/v1/user/{id}/answers
      * @summary Create, update or delete answers
      * @tags Answers
      * @param {array<AnswerRequest>} request.body.required - Answers data (without user_id)

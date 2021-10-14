@@ -27,6 +27,7 @@ module.exports = () => {
 
     /**
      * POST /api/v1/suggestion
+     * @route POST /api/v1/suggestion
      * @summary Create a new suggestion
      * @tags Suggestions
      * @param {SuggestionRequest} request.body.required - Suggestion info
@@ -49,6 +50,7 @@ module.exports = () => {
 
     /**
      * PUT /api/v1/suggestion/{id}
+     * @route PUT /api/v1/suggestion/{id}
      * @summary Update an existing suggestion
      * @tags Suggestions
      * @param {number} id.required - Suggestion id
@@ -71,13 +73,14 @@ module.exports = () => {
       });
 
     /**
-   * DELETE /api/v1/suggestion/{id}
-   * @summary Delete a suggestion by id
-   * @tags Suggestions
-   * @param {number} id.required - Suggestion id
+     * DELETE /api/v1/suggestion/{id}
+     * @route DELETE /api/v1/suggestion/{id}
+     * @summary Delete a suggestion by id
+     * @tags Suggestions
+     * @param {number} id.required - Suggestion id
 
-   * @security jwtAuth
-   */
+    * @security jwtAuth
+    */
     app.delete('/api/v1/suggestion/:id',
       async (req, res, next) => {
         const { params } = req;

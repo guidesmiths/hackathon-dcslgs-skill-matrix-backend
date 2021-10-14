@@ -3,7 +3,7 @@ const { StatusCodes } = require('http-status-codes');
 
 const initSystem = require('../test-system');
 
-describe('Users API routes', () => {
+describe('Answers API routes', () => {
   let pgAPI;
   let request;
   const sys = initSystem();

@@ -3,7 +3,7 @@ const { StatusCodes } = require('http-status-codes');
 
 const initSystem = require('../test-system');
 
-describe('Catalog API routes', () => {
+describe('Ecosystems API routes', () => {
   let pgAPI;
   let request;
   const sys = initSystem();
@@ -154,130 +154,6 @@ describe('Catalog API routes', () => {
   describe('DELETE /api/v1/ecosystem/:id', () => {
     it('should delete a ecosystem', () => request
       .delete('/api/v1/ecosystem/2')
-      .expect(StatusCodes.OK)
-      .then(({ body }) => {
-        expect(body.rowCount).toEqual(1);
-      }));
-  });
-
-  describe('GET /api/v1/skills', () => {
-    it('should return OK (200) with all the skills', () => request
-      .get('/api/v1/skills')
-      .expect(StatusCodes.OK)
-      .then(({ body }) => {
-        expect(body).toHaveLength(6);
-        const {
-          id, name,
-        } = body[0];
-        expect(id).toEqual(1);
-        expect(name).toEqual('React');
-      }));
-  });
-
-  describe('POST /api/v1/skill', () => {
-    it('should create a new skill', () => request
-      .post('/api/v1/skill')
-      .send({
-        name: 'ReactCssTransition', type: 2, ecosystem: 1, role: [1], description: '',
-      })
-      .expect(StatusCodes.OK)
-      .then(({ body }) => {
-        const {
-          name, type, ecosystem, roles, description,
-        } = body;
-        expect(name).toEqual('ReactCssTransition');
-        expect(type).toEqual(2);
-        expect(ecosystem).toEqual(1);
-        expect(roles[0]).toEqual(1);
-        expect(description).toEqual('');
-      }));
-
-    it('should create a new skill with 2 roles', () => request
-      .post('/api/v1/skill')
-      .send({
-        name: 'ReactCssTransition', type: 2, ecosystem: 1, role: [1, 3], description: '',
-      })
-      .expect(StatusCodes.OK)
-      .then(({ body }) => {
-        const {
-          name, type, ecosystem, roles, description,
-        } = body;
-        expect(name).toEqual('ReactCssTransition');
-        expect(type).toEqual(2);
-        expect(ecosystem).toEqual(1);
-        expect(roles).toHaveLength(2);
-        expect(roles[0]).toEqual(1);
-        expect(roles[1]).toEqual(3);
-        expect(description).toEqual('');
-      }));
-  });
-
-  describe('PUT /api/v1/skill/:id', () => {
-    it('should update an existing skill', () => request
-      .put('/api/v1/skill/2')
-      .send({
-        name: 'NodeJS', type: 2, ecosystem: 1, role: [1], description: 'New description',
-      })
-      .expect(StatusCodes.OK)
-      .then(({ body }) => {
-        const {
-          name, type, ecosystem, roles, description,
-        } = body;
-        expect(name).toEqual('NodeJS');
-        expect(type).toEqual(2);
-        expect(ecosystem).toEqual(1);
-        expect(roles).toHaveLength(1);
-        expect(roles[0]).toEqual(1);
-        expect(description).toEqual('New description');
-      }));
-  });
-
-  describe('DELETE /api/v1/skill/:id', () => {
-    it('should delete a skill', () => request
-      .delete('/api/v1/skill/5')
-      .expect(StatusCodes.OK)
-      .then(({ body }) => {
-        expect(body.rowCount).toEqual(1);
-      }));
-  });
-
-  describe('POST /api/v1/skill/level', () => {
-    it('should create a new skill level', () => request
-      .post('/api/v1/skill/level')
-      .send({
-        level: 1, description: 'I have a basic knowledge of the framework. I understand the framework principles and I can implement solutions defined at the documentation or tutorials', skill_id: 5,
-      })
-      .expect(StatusCodes.OK)
-      .then(({ body }) => {
-        const {
-          level, description, skill_id: skillId,
-        } = body;
-        expect(level).toEqual(1);
-        expect(description).toEqual('I have a basic knowledge of the framework. I understand the framework principles and I can implement solutions defined at the documentation or tutorials');
-        expect(skillId).toEqual(5);
-      }));
-  });
-
-  describe('PUT /api/v1/skill/level/:id', () => {
-    it('should update an existing skill level', () => request
-      .put('/api/v1/skill/level/5')
-      .send({
-        level: 1, description: 'I understand the framework principles and I can implement solutions defined at the documentation or tutorials.', skill_id: 5,
-      })
-      .expect(StatusCodes.OK)
-      .then(({ body }) => {
-        const {
-          level, description, skill_id: skillId,
-        } = body;
-        expect(level).toEqual(1);
-        expect(description).toEqual('I understand the framework principles and I can implement solutions defined at the documentation or tutorials.');
-        expect(skillId).toEqual(5);
-      }));
-  });
-
-  describe('DELETE /api/v1/skill/level/:id', () => {
-    it('should delete a skill level', () => request
-      .delete('/api/v1/skill/level/16')
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         expect(body.rowCount).toEqual(1);

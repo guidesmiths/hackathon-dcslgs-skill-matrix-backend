@@ -3,7 +3,11 @@ const System = require('systemic');
 const controllers = require('require-all')(join(__dirname, 'controllers'));
 
 module.exports = new System({ name: 'controller' })
-  .add('controller.catalog', controllers.catalog())
+  .add('controller.ecosystems', controllers.ecosystems())
+  .dependsOn('logger', 'store')
+  .add('controller.skills', controllers.skills())
+  .dependsOn('logger', 'store')
+  .add('controller.skillLevels', controllers.skillLevels())
   .dependsOn('logger', 'store')
   .add('controller.users', controllers.users())
   .dependsOn('logger', 'store')
@@ -14,8 +18,14 @@ module.exports = new System({ name: 'controller' })
   .add('controller')
   .dependsOn(
     {
-      component: 'controller.catalog',
-      destination: 'catalog',
+      component: 'controller.ecosystems',
+      destination: 'ecosystems',
+    }, {
+      component: 'controller.skills',
+      destination: 'skills',
+    }, {
+      component: 'controller.skillLevels',
+      destination: 'skillLevels',
     }, {
       component: 'controller.users',
       destination: 'users',
@@ -26,5 +36,4 @@ module.exports = new System({ name: 'controller' })
       component: 'controller.suggestions',
       destination: 'suggestions',
     },
-
   );
