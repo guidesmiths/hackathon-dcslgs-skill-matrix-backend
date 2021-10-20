@@ -75,30 +75,7 @@ describe('Answers API routes', () => {
         expect(skills[0].interested).toEqual(true);
         expect(skills[0].comments).toEqual('');
       }));
-    it('should return the users without filters', () => request
-      .post('/api/v1/answers')
-      .send([])
-      .expect(StatusCodes.OK)
-      .then(({ body }) => {
-        expect(body).toHaveLength(7);
-        const {
-          id, email, name, ecosystems,
-        } = body[1];
-        expect(name).toEqual('Jane Doe');
-        expect(id).toEqual('asldka12312sdkasnd');
-        expect(email).toEqual('janedoe@guidesmiths.com');
-        expect(ecosystems).toHaveLength(2);
-        const {
-          skills, average,
-        } = ecosystems[0];
-        expect(average).toEqual(3);
-        expect(skills[0].id).toEqual(1);
-        expect(skills[0].name).toEqual('React');
-        expect(skills[0].level).toEqual(3);
-        expect(skills[0].sublevel).toEqual('neutral');
-        expect(skills[0].interested).toEqual(true);
-        expect(skills[0].comments).toEqual('');
-      }));
+
     it('should return the users filtered by one skill', () => request
       .post('/api/v1/answers')
       .send({ name: '', skills: [{ skill: 4, level: 2 }] })
@@ -181,31 +158,7 @@ describe('Answers API routes', () => {
       .then(({ body }) => {
         expect(body).toHaveLength(0);
       }));
-    it('should return users filtered only by name', () => request
-      .post('/api/v1/answers')
-      .send({ name: 'j' })
-      .expect(StatusCodes.OK)
-      .then(({ body }) => {
-        expect(body).toHaveLength(3);
-        const {
-          id, email, name, ecosystems,
-        } = body[2];
-        expect(name).toEqual('John Doe');
-        expect(id).toEqual('asldkan21ansdkasnd');
-        expect(email).toEqual('johndoe@guidesmiths.com');
-        expect(ecosystems).toHaveLength(2);
-        const {
-          skills, average,
-        } = ecosystems[0];
-        expect(average).toEqual(3);
-        expect(skills).toHaveLength(3);
-        expect(skills[0].id).toEqual(1);
-        expect(skills[0].name).toEqual('React');
-        expect(skills[0].level).toEqual(4);
-        expect(skills[0].sublevel).toEqual('minus');
-        expect(skills[0].interested).toEqual(true);
-        expect(skills[0].comments).toEqual('');
-      }));
+
     it('should return the users filtered with name and skill, without level', () => request
       .post('/api/v1/answers')
       .send({ name: 'e', skills: [{ skill: 4 }] })
@@ -231,51 +184,54 @@ describe('Answers API routes', () => {
         expect(skills[0].interested).toEqual(true);
         expect(skills[0].comments).toEqual('');
       }));
-    it('refactor', () => request
+
+    it('should return all the users in the first load (without filters)', () => request
       .post('/api/v1/answers')
-      .send({ name: 'doe' })
+      .send({
+        name: '',
+        skills: [],
+      })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(2);
-        const {
-          name, id, email, ecosystems,
-        } = body[1];
-        expect(name).toEqual('John Doe');
-        expect(id).toEqual('asldkan21ansdkasnd');
-        expect(email).toEqual('johndoe@guidesmiths.com');
-        expect(ecosystems).toHaveLength(2);
-        expect(ecosystems[0].id).toEqual(1);
-        expect(ecosystems[0].name).toEqual('React');
-        expect(ecosystems[0].average).toEqual(3);
-        expect(ecosystems[0].skills).toHaveLength(3);
-        expect(ecosystems[0].skills[0].id).toEqual(1);
-        expect(ecosystems[0].skills[0].name).toEqual('React');
-        expect(ecosystems[0].skills[0].level).toEqual(4);
-        expect(ecosystems[0].skills[0].sublevel).toEqual('minus');
-        expect(ecosystems[0].skills[0].interested).toEqual(true);
-        expect(ecosystems[0].skills[0].comments).toEqual('');
-        expect(ecosystems[0].skills[1].id).toEqual(2);
-        expect(ecosystems[0].skills[1].name).toEqual('Next.js');
-        expect(ecosystems[0].skills[1].level).toEqual(2);
-        expect(ecosystems[0].skills[1].sublevel).toEqual('neutral');
-        expect(ecosystems[0].skills[1].interested).toEqual(false);
-        expect(ecosystems[0].skills[1].comments).toEqual('');
-        expect(ecosystems[0].skills[2].id).toEqual(4);
-        expect(ecosystems[0].skills[2].name).toEqual('Redux-Sagas');
-        expect(ecosystems[0].skills[2].level).toEqual(3);
-        expect(ecosystems[0].skills[2].sublevel).toEqual('plus');
-        expect(ecosystems[0].skills[2].interested).toEqual(true);
-        expect(ecosystems[0].skills[2].comments).toEqual('');
-        expect(ecosystems[1].id).toEqual(2);
-        expect(ecosystems[1].name).toEqual('NodeJS');
-        expect(ecosystems[1].skills).toHaveLength(1);
-        expect(ecosystems[1].average).toEqual(1.33);
-        expect(ecosystems[1].skills[0].id).toEqual(6);
-        expect(ecosystems[1].skills[0].name).toEqual('Express');
-        expect(ecosystems[1].skills[0].level).toEqual(1);
-        expect(ecosystems[1].skills[0].sublevel).toEqual('plus');
-        expect(ecosystems[1].skills[0].interested).toEqual(true);
-        expect(ecosystems[1].skills[0].comments).toEqual('');
+        expect(body).toHaveLength(7);
+      }));
+
+    it('should return the filtered users with one filter and one empty', () => request
+      .post('/api/v1/answers')
+      .send({
+        name: '',
+        skills: [
+          {
+            skill: 1,
+            level: 1,
+          },
+          {},
+        ],
+      })
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        expect(body).toHaveLength(5);
+      }));
+
+    it('should return the filtered users with two filter and one empty', () => request
+      .post('/api/v1/answers')
+      .send({
+        name: '',
+        skills: [
+          {
+            skill: 1,
+            level: 1,
+          },
+          {
+            skill: 2,
+            level: 1,
+          },
+          {},
+        ],
+      })
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        expect(body).toHaveLength(4);
       }));
   });
 

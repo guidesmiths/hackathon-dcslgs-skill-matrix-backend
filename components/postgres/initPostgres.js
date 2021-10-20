@@ -3,16 +3,30 @@ const initHandyPg = require('handy-postgres');
 const { buildUpsertQuery } = require('./utils/queryBuilder');
 
 const getFiltersSubquery = ({ skills }) => {
-  let text = `us.user_id in (
-    select u.user_id from skills."user" u
-    left join skills.user_skill us on us.user_id = u.user_id
-    where`;
-  skills.forEach((skillLevel, index) => {
-    text += ` (us.skill_id = ${skillLevel.skill} and us.skill_value >= ${skillLevel.level || 0}) ${index < skills.length - 1 ? 'or' : ''}`;
-  });
-  text += `group by u.user_id
-    having count(*) = ${skills.length}
-    ) and`;
+  let skillsLength = 0;
+  let text = '';
+
+  if (skills[0].skill) {
+    text += `us.user_id in (
+      select u.user_id from skills."user" u
+      left join skills.user_skill us on us.user_id = u.user_id
+      where`;
+
+    skills.forEach(skillLevel => {
+      if (skillLevel.skill) {
+        if (skillsLength > 0) { text += 'or'; }
+        text += ` (us.skill_id = ${skillLevel.skill} and us.skill_value >= ${skillLevel.level || 0}) `;
+        skillsLength += 1;
+      }
+    });
+
+    if (skillsLength > 0) {
+      text += `group by u.user_id
+      having count(*) = ${skillsLength}
+      ) and`;
+    }
+  }
+
   return text;
 };
 
@@ -64,7 +78,7 @@ module.exports = ({ configPath }) => {
         left join skills.user_skill us on us.user_id = u.user_id
         left join skills.skill_catalog sc on sc.id = us.skill_id
         left join skills.skill_ecosystem se on se.id = sc.ecosystem
-        where ${filters.skills ? getFiltersSubquery(filters) : ''}
+        where ${filters.skills.length > 0 ? getFiltersSubquery(filters) : ''}
         lower(u."name") like '%${filters.name || ''}%'
         order by u.user_id, us.skill_id
       `),
