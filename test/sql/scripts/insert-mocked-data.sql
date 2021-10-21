@@ -42,7 +42,8 @@ VALUES (1, 'I have a basic knowledge of the framework. Understand the framework 
        (1, 'I can add new sagas into a working project', 4),
        (2, 'I can configure from the scratch a new project', 4),
        (3, 'I can write both sync and async sagas processes', 4),
-       (4, 'I can use Sagas to manage the state of all the components such ui (modals/toast) navigation (navigate between screens) and app state', 4);
+       (4, 'I can use Sagas to manage the state of all the components such ui (modals/toast) navigation (navigate between screens) and app state', 4),
+       (1, 'I know http verbs (at least POST, GET), REST basics, URL routing and how to handle basics http error codes and responses', 6);
 
 INSERT INTO skills.user (user_id, email, "name", "role")
 VALUES  ('asldkan21ansdkasnd', 'johndoe@guidesmiths.com', 'John Doe', 'user'),

@@ -46,6 +46,7 @@ describe('Answers API routes', () => {
         expect(skills[0].id).toEqual(1);
         expect(skills[0].name).toEqual('React');
         expect(skills[0].level).toEqual(4);
+        expect(skills[0].levelDescription).toEqual('I can define complex architectures and I can provide optimised solutions');
         expect(skills[0].sublevel).toEqual('minus');
         expect(skills[0].interested).toEqual(true);
         expect(skills[0].comments).toEqual('');
@@ -71,11 +72,11 @@ describe('Answers API routes', () => {
         expect(skills[0].id).toEqual(1);
         expect(skills[0].name).toEqual('React');
         expect(skills[0].level).toEqual(4);
+        expect(skills[0].levelDescription).toEqual('I can define complex architectures and I can provide optimised solutions');
         expect(skills[0].sublevel).toEqual('minus');
         expect(skills[0].interested).toEqual(true);
         expect(skills[0].comments).toEqual('');
       }));
-
     it('should return the users filtered by one skill', () => request
       .post('/api/v1/answers')
       .send({ name: '', skills: [{ skill: 4, level: 2 }] })
@@ -97,6 +98,7 @@ describe('Answers API routes', () => {
         expect(skills[0].id).toEqual(1);
         expect(skills[0].name).toEqual('React');
         expect(skills[0].level).toEqual(4);
+        expect(skills[0].levelDescription).toEqual('I can define complex architectures and I can provide optimised solutions');
         expect(skills[0].sublevel).toEqual('minus');
         expect(skills[0].interested).toEqual(true);
         expect(skills[0].comments).toEqual('');
@@ -122,6 +124,7 @@ describe('Answers API routes', () => {
         expect(skills[0].id).toEqual(1);
         expect(skills[0].name).toEqual('React');
         expect(skills[0].level).toEqual(4);
+        expect(skills[0].levelDescription).toEqual('I can define complex architectures and I can provide optimised solutions');
         expect(skills[0].sublevel).toEqual('minus');
         expect(skills[0].interested).toEqual(true);
         expect(skills[0].comments).toEqual('');
@@ -147,6 +150,7 @@ describe('Answers API routes', () => {
         expect(skills[0].id).toEqual(1);
         expect(skills[0].name).toEqual('React');
         expect(skills[0].level).toEqual(4);
+        expect(skills[0].levelDescription).toEqual('I can define complex architectures and I can provide optimised solutions');
         expect(skills[0].sublevel).toEqual('minus');
         expect(skills[0].interested).toEqual(true);
         expect(skills[0].comments).toEqual('');
@@ -158,7 +162,6 @@ describe('Answers API routes', () => {
       .then(({ body }) => {
         expect(body).toHaveLength(0);
       }));
-
     it('should return the users filtered with name and skill, without level', () => request
       .post('/api/v1/answers')
       .send({ name: 'e', skills: [{ skill: 4 }] })
@@ -180,11 +183,11 @@ describe('Answers API routes', () => {
         expect(skills[0].id).toEqual(1);
         expect(skills[0].name).toEqual('React');
         expect(skills[0].level).toEqual(4);
+        expect(skills[0].levelDescription).toEqual('I can define complex architectures and I can provide optimised solutions');
         expect(skills[0].sublevel).toEqual('minus');
         expect(skills[0].interested).toEqual(true);
         expect(skills[0].comments).toEqual('');
       }));
-
     it('should return all the users in the first load (without filters)', () => request
       .post('/api/v1/answers')
       .send({
@@ -195,7 +198,6 @@ describe('Answers API routes', () => {
       .then(({ body }) => {
         expect(body).toHaveLength(7);
       }));
-
     it('should return the filtered users with one filter and one empty', () => request
       .post('/api/v1/answers')
       .send({
@@ -212,7 +214,6 @@ describe('Answers API routes', () => {
       .then(({ body }) => {
         expect(body).toHaveLength(5);
       }));
-
     it('should return the filtered users with two filter and one empty', () => request
       .post('/api/v1/answers')
       .send({
