@@ -79,8 +79,8 @@ module.exports = ({ configPath }) => {
         left join skills.skill_catalog sc on sc.id = us.skill_id
         left join skills.skill_ecosystem se on se.id = sc.ecosystem
         left join skills.skill_catalog_level scl on scl.skill_id = sc.id
-        where ${filters.skills.length > 0 ? getFiltersSubquery(filters) : ''}
-        lower(u."name") like '%${filters.name || ''}%' and scl.level = us.skill_value
+        where ${filters.skills ? (filters.skills.length > 0 ? getFiltersSubquery(filters) : '') : ''}
+        lower(u."name") like '%${filters.name ? filters.name.toLowerCase() : ''}%' and scl.level = us.skill_value
         order by u.user_id, us.skill_id
       `),
     };
