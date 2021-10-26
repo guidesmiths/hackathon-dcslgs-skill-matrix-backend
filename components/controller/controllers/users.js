@@ -7,8 +7,18 @@ module.exports = () => {
       debug('Fetching all users');
       return store.users.fetchUsers();
     };
+    const fetchUserInfo = async id => {
+      logger.info('Fetching user by id');
+      debug('Fetching users by id');
+      return store.users.fetchUserInfo(id);
+    };
+    const insertUser = async payload => {
+      logger.info('Creating user');
+      debug('User creation');
+      return store.users.insertUser(payload);
+    };
     return {
-      fetchUsers,
+      fetchUsers, fetchUserInfo, insertUser,
     };
   };
   return { start };

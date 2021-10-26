@@ -12,9 +12,6 @@ describe('Users API routes', () => {
     const { app, pg } = await sys.start();
     pgAPI = pg;
     request = supertest(app);
-  });
-
-  beforeEach(async () => {
     await pgAPI.query('truncate-all');
     await pgAPI.query('insert-mocked-data');
   });
@@ -35,6 +32,40 @@ describe('Users API routes', () => {
         } = body[0];
         expect(email).toEqual('johndoe@guidesmiths.com');
         expect(name).toEqual('John Doe');
+        expect(role).toEqual('user');
+      }));
+  });
+
+  describe('POST /api/v1/user', () => {
+    it('should return OK (200)', () => request
+      .post('/api/v1/user')
+      .expect(StatusCodes.OK)
+      .then(() => {
+        request
+          .get('/api/v1/users')
+          .expect(StatusCodes.OK)
+          .then(({ body }) => {
+            expect(body).toHaveLength(8);
+            const {
+              email, name, role,
+            } = body[7];
+            expect(name).toEqual('Jorge Adame');
+            expect(email).toEqual('Jorge.Adame@dcsl.com');
+            expect(role).toEqual('user');
+          });
+      }));
+  });
+
+  describe('GET /api/v1/user/me', () => {
+    it('should return OK (200) with the user', () => request
+      .get('/api/v1/user/me')
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        const {
+          email, name, role,
+        } = body;
+        expect(email).toEqual('Jorge.Adame@dcsl.com');
+        expect(name).toEqual('Jorge Adame');
         expect(role).toEqual('user');
       }));
   });

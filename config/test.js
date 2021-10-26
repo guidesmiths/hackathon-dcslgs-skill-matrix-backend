@@ -7,4 +7,15 @@ module.exports = {
       sql: ['sql/queries', 'test/sql/queries', 'test/sql/scripts'],
     },
   },
+  // Testing user information
+  routes: {
+    admin: {
+      userTest: {
+        user_id: 'p1234567890',
+        email: 'Jorge.Adame@dcsl.com',
+        name: 'Jorge Adame',
+        role: 'user',
+      },
+    },
+  },
 };

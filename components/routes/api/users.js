@@ -23,6 +23,49 @@ module.exports = () => {
           next(tagError(error));
         }
       });
+
+    /**
+     * POST /api/v1/user
+     * @route POST /api/v1/user
+     * @summary Create user
+     * @tags Users
+     * @param {User} request.body.required - User info
+     * @return {User} 200 - Suggestion response
+     * [{"user_id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","img_url":null,"name":"John Doe","domain":null,"role":"user"}]
+     * @security jwtAuth
+     */
+    app.post('/api/v1/user',
+      async (req, res, next) => {
+        try {
+          const { user: payload } = req;
+          const user = await controller.users.insertUser(payload);
+          res.send(user);
+        } catch (error) {
+          next(tagError(error));
+        }
+      });
+
+    /**
+     * GET /api/v1/user/me
+     * @route GET /api/v1/user/me
+     * @summary Get user by id
+     * @tags Users
+     * @return {User} 200 - Successful operation
+     * @example response - 200 - success response example
+     * [{"user_id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","img_url":null,"name":"John Doe","domain":null,"role":"user"}]
+     * @security jwtAuth
+     */
+    app.get('/api/v1/user/me',
+      async (req, res, next) => {
+        try {
+          const user = await controller.users.fetchUserInfo(req.user.user_id);
+          res.send(user);
+          // Possibly can add an insert if user doesn't exist. Pending to approve
+        } catch (error) {
+          next(tagError(error));
+        }
+      });
+
     app.use(handleHttpError(logger));
     return Promise.resolve();
   };

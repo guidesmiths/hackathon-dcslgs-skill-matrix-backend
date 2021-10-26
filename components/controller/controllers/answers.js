@@ -66,7 +66,7 @@ module.exports = () => {
       debug('Fetching answers by user');
       const answersByUser = await store.answers.fetchAnswersByUser(id);
       if (answersByUser.length === 0) {
-        const userData = await store.users.fetchUserById(id);
+        const userData = await store.users.fetchUserInfo(id);
         const ecosystems = await store.ecosystems.fetchEcosystems();
         return {
           id: userData.user_id,

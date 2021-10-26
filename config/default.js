@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
   routes: {
     admin: {
@@ -32,6 +34,7 @@ module.exports = {
           srcFolder: 'jsdoc',
         },
       ],
+      publicKey: process.env.PUBLIC_KEY,
     },
   },
   server: {

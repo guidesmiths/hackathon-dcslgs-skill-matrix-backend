@@ -3,10 +3,13 @@ const express = require('express');
 const helmet = require('helmet');
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 const { init: initializeExpressValidator } = require('express-oas-validator');
+const { validateToken } = require('../verification/token-verification');
 
 module.exports = () => {
   const start = async ({ manifest = {}, app, config }) => {
-    const { generatedDocs, swaggerOptions } = config;
+    const {
+      generatedDocs, swaggerOptions, publicKey, userTest,
+    } = config;
     app.use(express.urlencoded());
     app.use(express.json());
     app.use(helmet());
@@ -26,7 +29,7 @@ module.exports = () => {
         ),
       );
     });
-
+    app.use(validateToken(publicKey, userTest));
     return Promise.resolve();
   };
 

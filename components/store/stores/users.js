@@ -4,11 +4,15 @@ module.exports = () => {
       const { rows } = await pg.query('select-users');
       return rows;
     },
-
-    fetchUserById: async id => {
-      const { rows } = await pg.query(`SELECT user_id, email, img_url, "name", "domain", "role" FROM skills."user" WHERE user_id='${id}'`);
+    fetchUserInfo: async id => {
+      const { rows } = await pg.formattedQuery('select-user-by-id', { id });
       return rows[0];
     },
+    insertUser: async payload => {
+      const { rows } = await pg.upsert('skills.user', payload, 'user_pkey');
+      return rows[0];
+    },
+
   });
   return { start };
 };
