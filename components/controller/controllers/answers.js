@@ -45,7 +45,7 @@ const getAnswerByUser = answerUser => {
 
   return {
     id: userId,
-    email,
+    email: email.toLowerCase(),
     name: userName,
     ecosystems,
   };
@@ -70,7 +70,7 @@ module.exports = () => {
         const ecosystems = await store.ecosystems.fetchEcosystems();
         return {
           id: userData.user_id,
-          email: userData.email,
+          email: userData.email.toLowerCase(),
           name: userData.name,
           ecosystems,
         };
