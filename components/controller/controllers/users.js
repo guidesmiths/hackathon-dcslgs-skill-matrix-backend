@@ -17,8 +17,13 @@ module.exports = () => {
       debug('User creation');
       return store.users.insertUser(payload);
     };
+    const changeUserRole = async (id, newRole) => {
+      logger.info('Changing user role');
+      debug('User role change');
+      return store.users.changeUserRole(id, newRole);
+    };
     return {
-      fetchUsers, fetchUserInfo, insertUser,
+      fetchUsers, fetchUserInfo, insertUser, changeUserRole,
     };
   };
   return { start };

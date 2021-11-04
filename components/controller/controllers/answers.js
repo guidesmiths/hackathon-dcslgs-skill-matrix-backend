@@ -39,7 +39,9 @@ const getEcosystem = ecosystem => {
 };
 
 const getAnswerByUser = answerUser => {
-  const { userId, email, userName } = answerUser[0];
+  const {
+    userId, email, userName, userRole,
+  } = answerUser[0];
   const groupedByEcosystem = groupByProperty(answerUser, 'ecosystemId');
   const ecosystems = groupedByEcosystem.map(getEcosystem);
 
@@ -48,6 +50,7 @@ const getAnswerByUser = answerUser => {
     email: email.toLowerCase(),
     name: userName,
     ecosystems,
+    userRole,
   };
 };
 
@@ -72,6 +75,7 @@ module.exports = () => {
           id: userData.user_id,
           email: userData.email.toLowerCase(),
           name: userData.name,
+          userRole: userData.role,
           ecosystems,
         };
       }

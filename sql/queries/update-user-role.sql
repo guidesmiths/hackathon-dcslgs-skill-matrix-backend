@@ -1,0 +1,1 @@
+UPDATE skills.user SET "role" = %L:newRole where user_id = %L:id returning *;
