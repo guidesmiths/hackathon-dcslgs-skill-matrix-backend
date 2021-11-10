@@ -1,8 +1,6 @@
-const { tagError, CustomErrorTypes, errorFactory } = require('error-handler-module');
 const jwt = require('jsonwebtoken');
-// const { unauthorizedError } = require('../utils/errorHandler');
+const { unauthorizedError, tagError } = require('../utils/errorHandler');
 
-const unauth = errorFactory(CustomErrorTypes.UNAUTHORIZED);
 const validateToken = (publicKey, userTest) => (req, res, next) => {
   try {
     if (process.env.NODE_ENV === 'test') {
@@ -11,8 +9,8 @@ const validateToken = (publicKey, userTest) => (req, res, next) => {
     }
     const token = req.headers.authorization;
 
-    if (!token) { throw unauth('No authentication header'); }
-    if (!token.startsWith('Bearer ')) { throw unauth('Invalid authentication header'); }
+    if (!token) { throw unauthorizedError('No authentication header'); }
+    if (!token.startsWith('Bearer ')) { throw unauthorizedError('Invalid authentication header'); }
 
     const split = token.split(' ');
 
@@ -28,7 +26,7 @@ const validateToken = (publicKey, userTest) => (req, res, next) => {
   } catch (error) {
     let parsedError = error;
     if (error.message.includes('jwt expired')) {
-      parsedError = unauth('jwt expired');
+      parsedError = unauthorizedError('jwt expired');
     }
     return next(tagError(parsedError));
   }

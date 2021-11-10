@@ -70,9 +70,13 @@ describe('Users API routes', () => {
       }));
   });
 
-  describe('PUT /api/v1/users/:id/role/user', () => {
+  describe('PUT /api/v1/user/role', () => {
     it('should return OK (200)', () => request
-      .put('/api/v1/users/asldkan21ansdkasnd/role/admin')
+      .put('/api/v1/user/role')
+      .send({
+        id: 'asldkan21ansdkasnd',
+        role: 'admin',
+      })
       .expect(StatusCodes.OK)
       .then(() => {
         request

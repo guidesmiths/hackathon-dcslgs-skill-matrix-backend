@@ -8,3 +8,10 @@
  * @property {string} domain - The user domain
  * @property {string} role - The user role
  */
+
+/**
+* Change user parameters: id & role
+* @typedef {object} ChangerUserRolePayload
+* @property {string} id
+* @property {string} role
+*/

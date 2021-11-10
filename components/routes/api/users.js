@@ -73,21 +73,18 @@ module.exports = () => {
       });
 
     /**
-     * PUT /api/v1/users/:id/role/:newRole
-     * @route PUT /api/v1/users/:id/role/:newRole
+     * PUT /api/v1/user/role
+     * @route PUT /api/v1/user/role
      * @summary Change user role
      * @tags Users
-     * @return {User} 200 - Successful operation
-     * @example response - 200 - success response example
-     * [{"user_id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","img_url":null,"name":"John Doe","domain":null,"role":"user"}]
+     * @param {ChangerUserRolePayload} request.body.required
      * @security jwtAuth
      */
-    app.put('/api/v1/users/:id/role/:newRole',
+    app.put('/api/v1/user/role',
       async (req, res, next) => {
         try {
-          const { params } = req;
-          const { id, newRole } = params;
-          const user = await controller.users.changeUserRole(id, newRole);
+          const { body: payload } = req;
+          const user = await controller.users.changeUserRole(payload);
           res.send(user);
         } catch (error) {
           next(tagError(error));
