@@ -1,4 +1,5 @@
 const { handleHttpError, tagError } = require('error-handler-module');
+const { badRequestError, wrongInputError, notFoundError } = require('../../utils/errorHandler');
 const userMigration = require('../../../migration/index');
 const { signToken } = require('../../verification/sign-token');
 const { validateToken } = require('../../verification/token-verification');
@@ -23,7 +24,7 @@ module.exports = () => {
           const users = await controller.users.fetchUsers();
           res.send(users);
         } catch (error) {
-          next(tagError(error));
+          next(tagError(notFoundError('Impossible to find results for your request')));
         }
       });
 
@@ -50,7 +51,13 @@ module.exports = () => {
           const token = signToken(user);
           res.send(token);
         } catch (error) {
-          next(tagError(error));
+          let parsedError = error;
+          if (error.name.includes('bad_request')) {
+            parsedError = badRequestError('Sorry, the user is missing');
+          } else if (error.name.includes('wrong_input')) {
+            parsedError = wrongInputError('Sorry, the user has not user id');
+          }
+          next(tagError(parsedError));
         }
       });
 
@@ -68,10 +75,17 @@ module.exports = () => {
       async (req, res, next) => {
         try {
           const { user: payload } = req;
+          if (!payload.user_id) {
+            throw badRequestError();
+          }
           const user = await controller.users.fetchUserInfo(payload.user_id);
           res.send(user);
         } catch (error) {
-          next(tagError(error));
+          let parsedError = error;
+          if (error.name.includes('bad_request')) {
+            parsedError = badRequestError('Sorry, the user id can\'t be empty');
+          }
+          next(tagError(parsedError));
         }
       });
 
@@ -87,10 +101,20 @@ module.exports = () => {
       async (req, res, next) => {
         try {
           const { body: payload } = req;
+          if (Object.keys(payload).length !== 2) {
+            throw badRequestError();
+          }
+          if (!('id' in payload && 'role' in payload)) {
+            throw badRequestError();
+          }
           const user = await controller.users.changeUserRole(payload);
           res.send(user);
         } catch (error) {
-          next(tagError(error));
+          let parsedError = error;
+          if (error.name.includes('bad_request')) {
+            parsedError = badRequestError('Sorry, the number of parameters is 2: \'id\' and \'role\'');
+          }
+          next(tagError(parsedError));
         }
       });
 

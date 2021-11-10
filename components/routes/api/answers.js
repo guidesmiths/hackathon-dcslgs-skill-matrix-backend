@@ -1,5 +1,6 @@
 const { handleHttpError, tagError } = require('error-handler-module');
 const { validateToken } = require('../../verification/token-verification');
+const { notFoundError } = require('../../utils/errorHandler');
 
 module.exports = () => {
   const start = async ({
@@ -19,12 +20,19 @@ module.exports = () => {
      */
     app.post('/api/v1/answers', validateToken(),
       async (req, res, next) => {
-        const { body: filters } = req;
         try {
+          if (!('body' in req)) {
+            throw notFoundError();
+          }
+          const { body: filters } = req;
           const answers = await controller.answers.fetchAnswers(filters);
           res.send(answers);
         } catch (error) {
-          next(tagError(error));
+          let parsedError = error;
+          if (error.name === 'not_found') {
+            parsedError = notFoundError('Impossible to find a body');
+          }
+          next(tagError(parsedError));
         }
       });
 
@@ -42,13 +50,20 @@ module.exports = () => {
      */
     app.get('/api/v1/user/:id/answers', validateToken(),
       async (req, res, next) => {
-        const { params } = req;
-        const { id } = params;
         try {
+          const { params } = req;
+          if (!('id' in params)) {
+            throw notFoundError();
+          }
+          const { id } = params;
           const answers = await controller.answers.fetchAnswersByUser(id);
           res.send(answers);
         } catch (error) {
-          next(tagError(error));
+          let parsedError = error;
+          if (error.name === 'not_found') {
+            parsedError = notFoundError('Impossible to find an id parameter');
+          }
+          next(tagError(parsedError));
         }
       });
 
