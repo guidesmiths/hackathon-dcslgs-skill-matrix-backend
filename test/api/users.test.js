@@ -69,4 +69,23 @@ describe('Users API routes', () => {
         expect(role).toEqual('user');
       }));
   });
+
+  describe('PUT /api/v1/users/:id/role/user', () => {
+    it('should return OK (200)', () => request
+      .put('/api/v1/users/asldkan21ansdkasnd/role/admin')
+      .expect(StatusCodes.OK)
+      .then(() => {
+        request
+          .get('/api/v1/users')
+          .expect(StatusCodes.OK)
+          .then(({ body }) => {
+            const {
+              email, name, role,
+            } = body[7];
+            expect(email).toEqual('johndoe@guidesmiths.com');
+            expect(name).toEqual('John Doe');
+            expect(role).toEqual('admin');
+          });
+      }));
+  });
 });

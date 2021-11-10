@@ -1,0 +1,220 @@
+ECOSYSTEM,SKILL,RATING,COMMENTS,I'D LIKE TO LEARN,LEVEL
+,,,,,
+React,React,0,,TRUE,
+React,Next.js,0,,TRUE,
+React,Redux,0,,TRUE,
+React,ReactCssTransition,0,,FALSE,
+React,Redux-Sagas,0,,FALSE,
+React,i18Next,0,,FALSE,
+React,React Native Web,0,,FALSE,
+React,Gatsby,0,,TRUE,
+,,,,,
+NodeJS,Express,3,,FALSE,"I am capable of write handlers for parametrized routes, also I can manipulate middleware, Request and Response objects"
+NodeJS,Systemic,0,,FALSE,
+NodeJS,NPM,2,,FALSE,I understand semver and the deatils about package.json structure
+NodeJS,Webpack,2,,FALSE,I know  how to install and configure a simple webpack.config.js and run a server with webpack-dev-server
+NodeJS,CLI,2,,FALSE,I understand the basics and can read and modify existing code.
+NodeJS,Debugging/Profiling,2,,FALSE,I can handle basic debuging issues in runtime
+NodeJS,Logging,0,,FALSE,
+NodeJS,Build tools (Webpack not included),0,,FALSE,
+NodeJS,Hardware,0,,FALSE,
+NodeJS,Control Flow,0,,FALSE,
+NodeJS,Streams,0,,FALSE,
+NodeJS,Testing,4,,TRUE,I am able to perform TDD in e2e and unit testing environment
+NodeJS,Security,0,,FALSE,
+NodeJS,Process Management,0,,FALSE,
+NodeJS,Electron,0,,FALSE,
+NodeJS,Scraping,0,,TRUE,
+NodeJS,Core,0,,FALSE,
+NodeJS,Events Arch,0,,FALSE,
+,,,,,
+Testing,Cypress,2,,FALSE,"I can develop new solutions that use it. I am able to implement a not so basic text suite with its related fixtures.
+"
+Testing,Chai,3,,FALSE,"I can develop new solutions that use it.
+I can implement different assertion types with different methods (should, expect, assert)"
+Testing,Mocha,0,,FALSE,
+Testing,Sinon,0,,FALSE,
+Testing,Detox,0,,FALSE,
+Testing,Jest,3,,TRUE,"I know about different jest aspects like assertions, snapshots, runner methods (it, test, describe) and I know how to write not complex tests. I know mocks, stubs and spies concepts in jest"
+,,,,,
+Web Client,Web Client,0,,FALSE,
+Web Client,CSS,4,,FALSE,"I have an advanced knowledge of HTML.
+I know all style rules and when they apply to specific tags.
+I know sibling selectors, like > and +.
+I know how to solve style issues caused by browser compatibility.
+I know how to use media queries to build responsive sites and elements.
+I know how to use :before & :after to make style driven elements in the DOM."
+Web Client,HTML,4,,FALSE,"Builds HTML documents semantically
+Knows how the HTML will be read by Google, Facebook, etc. for content"
+Web Client,SASS,0,,FALSE,
+Web Client,D3.js,0,,FALSE,
+Web Client,Three.js,0,,FALSE,
+Web Client,Cesium.js,0,,FALSE,
+Web Client,Angular,0,,FALSE,
+Web Client,Vue,4,,FALSE,"I know about Architecture, patterns and best practices
+I know about Advanced Vue Component Design
+I know about Renderless Component in Vue
+I know about Vue app perfomance optimization"
+Web Client,GreenSock,0,,TRUE,
+Web Client,Storybook,0,,TRUE,
+Web Client,Formik,0,,FALSE,
+,,,,,
+Cloud,Cloud,0,,FALSE,
+Cloud,Azure,0,,FALSE,
+Cloud,AWS,0,,FALSE,
+Cloud,Google,0,,FALSE,
+,,,,,
+DataBase,MongoDB,1,,TRUE,"I'm able to work effectively modifying existing solutions implemented with it. I knows how to connect to an existing instance and run some easy queries (find, update, remove)"
+DataBase,PostgreSQL,0,,FALSE,
+DataBase,MySQL,0,,FALSE,
+DataBase,Redis,0,,FALSE,
+,,,,,
+GIS,Carto,0,,FALSE,
+GIS,OpenLayers,0,,FALSE,
+GIS,GoogleMaps,0,,FALSE,
+GIS,LeafLet,0,,FALSE,
+GIS,OGC Standards,0,,FALSE,
+GIS,ArcGIS,0,,FALSE,
+,,,,,
+Server,Server,0,,FALSE,
+Server,Tomcat,0,,FALSE,
+Server,Apache,0,,FALSE,
+Server,Kubernetes,0,,FALSE,
+Server,Terraforms,0,,FALSE,
+Server,Docker,0,,FALSE,
+Server,Heroku,0,,FALSE,
+,,,,,
+CI/CD,Infrastructure and automation,0,,FALSE,
+CI/CD,Jenkins,1,,FALSE,"I have a basic knowledge of the tool, understand its principles and can use as is defined at the documentation or tutorials."
+CI/CD,Bamboo,0,,FALSE,
+CI/CD,Travis,1,,FALSE,I can prepare some lanes and connect them into our develop branchs. I know how to launch jobs fo each commit done in this branchs.
+CI/CD,Circle,1,,FALSE,"I have a basic knowledge of jobs, and can create it."
+CI/CD,Fastlane,0,,FALSE,
+,,,,,
+Management Tools,Jira,2,,FALSE,I have worked sometimes with this tool and wouldn't be a problem to adapt to use it assiduously
+Management Tools,Confluence,0,,FALSE,
+Management Tools,Monday,0,,FALSE,
+Management Tools,Azure Board,0,,FALSE,
+Management Tools,Trello,2,,FALSE,I have worked sometimes with this tool and wouldn't be a problem to adapt to use it assiduously
+Management Tools,Redmine,0,,FALSE,
+Management Tools,Airtable,0,,FALSE,
+Management Tools,Harvest,0,,FALSE,
+,,,,,
+Repositories,Git,3,,FALSE,"I am an advanced user of this tool, I know most of the tricks and I am able to resolve conflicts that may occur, in addition to helping the juniors with this tool"
+Repositories,SVN,0,,FALSE,
+,,,,,
+Java,Clojure,0,,FALSE,
+Java,Spring,0,,FALSE,
+Java,SpringBoot,0,,FALSE,
+Java,Gradle,0,,FALSE,
+Java,Maven,0,,FALSE,
+,,,,,
+Python,Django,0,,FALSE,
+,,,,,
+Agile,Scrum,2,,FALSE,I usually work on projects that follow this methodology and I have specific training in it
+Agile,Lean and agile practices,2,,FALSE,I usually work on projects that follow this methodology and I have specific training in it
+Agile,Kanban,0,,FALSE,
+Agile,Retrospectives,2,,FALSE,I regularly participate in retrospectives and I am responsible for following up the actions that arise
+,,,,,
+Language,English,2,,TRUE,I have the necessary linguistic skills to work and have effectives conversations with native people even making some mistakes. My level is similar to the B2 certification.
+Language,French,0,,FALSE,
+Language,German,0,,FALSE,
+Language,Italian,0,,FALSE,
+Language,Chinese,0,,FALSE,
+,,,,,
+Bus,RabbitMQ,2,,FALSE,I know the fundamentals of Bus Messages and I have used them in some projects.
+Bus,Kafka,0,,FALSE,
+Bus,Azure Service Bus,0,,FALSE,
+,,,,,
+Cluster,Openshift,0,,FALSE,
+,,,,,
+Big Data,Spark,0,,FALSE,
+Big Data,Hive,0,,FALSE,
+Big Data,Hadoop,0,,FALSE,
+,,,,,
+Virtualization,VirtualBox,0,,FALSE,
+Virtualization,VMware,0,,FALSE,
+Virtualization,Vagrant,0,,FALSE,
+,,,,,
+UX/UI,Sketch,0,,FALSE,
+UX/UI,Photoshop,2,,FALSE,I have worked occasionally with this tool and I know how to use it for everyday tasks.
+UX/UI,Illustrator,0,,FALSE,
+UX/UI,Zeplin,1,,FALSE,I have not worked with this tool but I have worked with similar ones so I could adapt to its use.
+UX/UI,Marvel,0,,FALSE,
+,,,,,
+React Native,React Navigation,0,,FALSE,
+React Native,Native API,0,,FALSE,
+React Native,SVG,0,,FALSE,
+React Native,Animations,0,,FALSE,
+,,,,,
+Other,Scala,0,,FALSE,
+Other,Shell,0,,FALSE,
+Other,StreamingTechnology,0,,FALSE,
+,,,,,
+Generic,Security,0,,FALSE,
+Generic,Software design,0,,FALSE,
+Generic,Good development practices,2,,TRUE,I can write effective automated tests that are valuable and easy to maintain. I understand refactoring and why it's important to do regularly. I can write code conform to the team's development best practices.
+Generic,Technical Ownership,0,,FALSE,
+Generic,Architecture,0,,FALSE,
+Generic,Delivery,0,,FALSE,
+Generic,Code review,2,,FALSE,"I occasionally conduct code reviews to more junior colleagues, finding some errors and giving advice to less experienced colleagues"
+,,,,,
+Management,Project planning,0,,FALSE,
+Management,Project management,0,,FALSE,
+Management,Estimations,0,,FALSE,
+Management,Customers relationships,0,,FALSE,
+Management,Presales,0,,FALSE,
+Management,Leadership,0,,TRUE,
+Management,Problems solving,0,,TRUE,
+Management,Performance evaluation,0,,FALSE,
+Management,Multitasking,0,,FALSE,
+,,,,,
+Javascript,Core Concepts,3,,FALSE,"I am not afraid to use advance tools (prototype, call, this, bind, recursive...)"
+Javascript,Asynchrony,3,,FALSE,"I can migrate old code to new asyncronous schema (callbacks2promises, etc...)"
+Javascript,"ES6, ESx, ESNext ...",3,,FALSE,"I can handle advance topics (proxies, generators, symbol, set/maps, etc...)"
+Javascript,Browser APIs,3,,FALSE,"I have used the less common APIs (vibration, voice, etc...)"
+Javascript,DOM APIs,0,,FALSE,
+Javascript,Old browsers support,0,,FALSE,
+Javascript,Web Sockets,0,,FALSE,
+Javascript,AJAX,0,,FALSE,
+Javascript,Patterns,0,,FALSE,
+Javascript,Regex,0,,FALSE,
+Javascript,Functional,0,,FALSE,
+Javascript,POO,0,,FALSE,
+Javascript,Reactive,0,,FALSE,
+Javascript,Algorithms,0,,FALSE,
+Javascript,Data Structures,0,,FALSE,
+Javascript,Web Workers,0,,FALSE,
+Javascript,"Canvas, 3D...",1,,FALSE,"I know the basics about Canvas and 3d (vectorial, scene, ilumination, etc...)"
+Javascript,Storage,0,,FALSE,
+Javascript,Testing,3,,TRUE,I am able to implement new tests for Unit testing or E2E testing
+Javascript,DevTools,2,,FALSE,"I have a deep knowledge on advance tools (sources, security, audit)"
+,,,,,
+.NET Core,C# core,0,,FALSE,
+.NET Core,C# async,0,,FALSE,
+.NET Core,C# parallel programming,0,,FALSE,
+.NET Core,C# testing,0,,FALSE,
+.NET Core,C# logging,0,,FALSE,
+,,,,,
+GraphQL,Core,0,,FALSE,
+GraphQL,Queries,0,,FALSE,
+GraphQL,Mutations,0,,FALSE,
+GraphQL,Subscriptions,0,,FALSE,
+GraphQL,Apollo Client,0,,FALSE,
+GraphQL,graphqljs,0,,FALSE,
+GraphQL,express-graphql,0,,FALSE,
+GraphQL,GraphQL Yoga,0,,FALSE,
+GraphQL,Apollo Server,0,,FALSE,
+GraphQL,Nexus,0,,FALSE,
+GraphQL,TypeGraphQL,0,,FALSE,
+GraphQL,graphql-gen,0,,FALSE,
+GraphQL,Prisma V2,0,,FALSE,
+,,,,,
+TypeScript,Instalation and configuration,0,,FALSE,
+TypeScript,Primitive Types,0,,FALSE,
+TypeScript,Object Types,0,,FALSE,
+TypeScript,Interfaces,0,,FALSE,
+TypeScript,Type Aliases,0,,FALSE,
+TypeScript,Generics,0,,FALSE,
+TypeScript,Utility Types,0,,FALSE,
+TypeScript,Migrations,0,,FALSE,

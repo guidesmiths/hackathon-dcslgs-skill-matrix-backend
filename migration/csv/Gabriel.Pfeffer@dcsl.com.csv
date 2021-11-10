@@ -1,0 +1,218 @@
+ECOSYSTEM,SKILL,RATING,COMMENTS,I'D LIKE TO LEARN,LEVEL
+,,,,,
+React,React,3,,TRUE,I can analyse working solutions and propose refactors and generalization
+React,Next.js,2,,TRUE,I modify effectively already working solutions to include new features
+React,Redux,2,,FALSE,I can separate concepts and I have a proper usage of actions and reducers
+React,ReactCssTransition,0,,FALSE,
+React,Redux-Sagas,1,,FALSE,I can add new sagas into a working project
+React,i18Next,1,,TRUE,I can add new literals and I know how to use it at code
+React,React Native Web,1,,TRUE,I can write components using react-native syntaxis
+React,Gatsby,3,,TRUE,I can analyse working solutions and I can propose refactors and generalisations
+,,,,,
+NodeJS,Express,3,,FALSE,"I am capable of write handlers for parametrized routes, also I can manipulate middleware, Request and Response objects"
+NodeJS,Systemic,1,,TRUE,I know about a module called systemic and the basics about injection dependency
+NodeJS,NPM,3,,FALSE,I know what is npm link for and how to publish a module in the public registry
+NodeJS,Webpack,2,,TRUE,I know  how to install and configure a simple webpack.config.js and run a server with webpack-dev-server
+NodeJS,CLI,2,,FALSE,I understand the basics and can read and modify existing code.
+NodeJS,Debugging/Profiling,1,,FALSE,"I have a very basic idea of the most common topics (performance,  SIGINT..)"
+NodeJS,Logging,1,,FALSE,I have a very basic idea of the most common topics
+NodeJS,Build tools (Webpack not included),1,,FALSE,"I have a very basic idea of the most common topics (Bundle, streams, core APIs, etc...)"
+NodeJS,Hardware,0,,FALSE,
+NodeJS,Control Flow,1,,FALSE,"I have a very basic idea of the most common topics (Streams, reactivity, Observables, channels)"
+NodeJS,Streams,0,,FALSE,
+NodeJS,Testing,2,,FALSE,I understand the basics and can read and modify existing code.
+NodeJS,Security,0,,TRUE,
+NodeJS,Process Management,0,,FALSE,
+NodeJS,Electron,0,,FALSE,
+NodeJS,Scraping,0,,FALSE,
+NodeJS,Core,0,,FALSE,
+NodeJS,Events Arch,0,,FALSE,
+,,,,,
+Testing,Cypress,2,,FALSE,"I can develop new solutions that use it. I am able to implement a not so basic text suite with its related fixtures.
+"
+Testing,Chai,0,,FALSE,
+Testing,Mocha,0,,FALSE,
+Testing,Sinon,0,,FALSE,
+Testing,Detox,0,,FALSE,
+Testing,Jest,3,,FALSE,"I know about different jest aspects like assertions, snapshots, runner methods (it, test, describe) and I know how to write not complex tests. I know mocks, stubs and spies concepts in jest"
+,,,,,
+Web Client,Web Client,1,,FALSE,"I work effectively within established web client architectures, following current best practices"
+Web Client,CSS,3,,FALSE,"I know most of the style rules.
+I know how to target rules based on HTML attributes.
+I understand the various ways of positioning and when to use them.
+I understand the box model, when to use position, margin, border, padding, height, and width.
+I know how to nest styles within styles."
+Web Client,HTML,3,,FALSE,"I know almost all the HTML tags
+I have the ability to manipulate the DOM
+"
+Web Client,SASS,2,,FALSE,"I develop new solutions that use it.
+I can implement variables, nesting, and imports"
+Web Client,D3.js,0,,FALSE,
+Web Client,Three.js,0,,FALSE,
+Web Client,Cesium.js,0,,FALSE,
+Web Client,Angular,2,,FALSE,I can modify effectively already working solutions to include new features
+Web Client,Vue,0,,FALSE,
+Web Client,GreenSock,0,,FALSE,
+Web Client,Storybook,2,,TRUE,I can use knobs to interact with the component
+Web Client,Formik,2,,TRUE,I can combine basic validations and define dependent fields
+,,,,,
+Cloud,Cloud,0,,TRUE,
+Cloud,Azure,0,,TRUE,
+Cloud,AWS,2,,TRUE,I know the basic entities of aws. I'm able to modify existing resources in a project in aws. I'm able to analyze the functioning of aww (search in logs or analyze metrics) as well as generate its own alerts. I understand how aws storage works.
+Cloud,Google,0,,TRUE,
+,,,,,
+DataBase,MongoDB,2,,FALSE,I know how to install and run a MongoDB instance and how to run complex queries with aggregation pipeline and how to create a basic index
+DataBase,PostgreSQL,2,,TRUE,"I understands differences between procedural and declarative styles for SQL. I understands and I can implement indexing. Also, I understands transactions, and I can use them in a single database"
+DataBase,MySQL,1,,FALSE,I knows the basic syntax. I can select and filter data across multiple tables and I understand inner/outer/cross joins
+DataBase,Redis,0,,TRUE,
+,,,,,
+GIS,Carto,0,,FALSE,
+GIS,OpenLayers,0,,FALSE,
+GIS,GoogleMaps,0,,TRUE,
+GIS,LeafLet,0,,FALSE,
+GIS,OGC Standards,0,,FALSE,
+GIS,ArcGIS,0,,FALSE,
+,,,,,
+Server,Server,0,,FALSE,
+Server,Tomcat,0,,FALSE,
+Server,Apache,0,,FALSE,
+Server,Kubernetes,0,,TRUE,
+Server,Terraforms,0,,TRUE,
+Server,Docker,2,,TRUE,"I'm able to create my own images. I'm able to deploy docker containers with a custom configuration. I'm able to monitoring the containers (on a basic level, e.g. know that they are running).
+"
+Server,Heroku,1,,TRUE,I know how to deploy a simple application and the minimum concepts about Dinos.
+,,,,,
+CI/CD,Infrastructure and automation,1,,TRUE,"I work effectively within established structures, following current best practices."
+CI/CD,Jenkins,0,,FALSE,
+CI/CD,Bamboo,1,,FALSE,"I have a basic knowledge of the tool, understand its principles and can use as is defined at the documentation or tutorials."
+CI/CD,Travis,0,,TRUE,
+CI/CD,Circle,0,,TRUE,
+CI/CD,Fastlane,0,,FALSE,
+,,,,,
+Management Tools,Jira,3,,FALSE,I work with this tool habitually in my day to day and I have a good knowledge of it
+Management Tools,Confluence,0,,FALSE,
+Management Tools,Monday,0,,FALSE,
+Management Tools,Azure Board,0,,FALSE,
+Management Tools,Trello,2,,FALSE,I have worked sometimes with this tool and wouldn't be a problem to adapt to use it assiduously
+Management Tools,Redmine,0,,FALSE,
+Management Tools,Airtable,2,,FALSE,I have worked sometimes with this tool and wouldn't be a problem to adapt to use it assiduously
+Management Tools,Harvest,2,,FALSE,I have worked sometimes with this tool and wouldn't be a problem to adapt to use it assiduously
+,,,,,
+Repositories,Git,3,,FALSE,"I am an advanced user of this tool, I know most of the tricks and I am able to resolve conflicts that may occur, in addition to helping the juniors with this tool"
+Repositories,SVN,0,,FALSE,
+,,,,,
+Java,Clojure,0,,FALSE,
+Java,Spring,0,,FALSE,
+Java,SpringBoot,0,,FALSE,
+Java,Gradle,0,,FALSE,
+Java,Maven,0,,FALSE,
+,,,,,
+Python,Django,0,,TRUE,
+,,,,,
+Agile,Scrum,1,,FALSE,I have participated in some team or project that was managed with this methodology
+Agile,Lean and agile practices,1,,FALSE,I have participated in some team or project that was managed with this methodology
+Agile,Kanban,1,,FALSE,I have participated in some team or project that was managed with this methodology
+Agile,Retrospectives,1,,FALSE,I have participated occasionally in some retrospectives
+,,,,,
+Language,English,4,,FALSE,This is my native language or you are bilingual. My level is similar to the C2 certification.
+Language,French,0,,FALSE,
+Language,German,0,,FALSE,
+Language,Italian,0,,FALSE,
+Language,Chinese,0,,FALSE,
+,,,,,
+Bus,RabbitMQ,0,,FALSE,
+Bus,Kafka,0,,FALSE,
+Bus,Azure Service Bus,0,,TRUE,
+,,,,,
+Cluster,Openshift,0,,FALSE,
+,,,,,
+Big Data,Spark,0,,FALSE,
+Big Data,Hive,0,,FALSE,
+Big Data,Hadoop,0,,FALSE,
+,,,,,
+Virtualization,VirtualBox,0,,FALSE,
+Virtualization,VMware,1,,FALSE,I understand the basic concepts of virtualization. I am able to create basic virtual machines and to install the operative system in them.
+Virtualization,Vagrant,0,,FALSE,
+,,,,,
+UX/UI,Sketch,0,,FALSE,
+UX/UI,Photoshop,2,,FALSE,I have worked occasionally with this tool and I know how to use it for everyday tasks.
+UX/UI,Illustrator,0,,FALSE,
+UX/UI,Zeplin,1,,FALSE,I have not worked with this tool but I have worked with similar ones so I could adapt to its use.
+UX/UI,Marvel,0,,FALSE,
+,,,,,
+React Native,React Navigation,0,,FALSE,
+React Native,Native API,0,,FALSE,
+React Native,SVG,0,,FALSE,
+React Native,Animations,0,,FALSE,
+,,,,,
+Other,Scala,0,,FALSE,
+Other,Shell,0,,FALSE,
+Other,StreamingTechnology,0,,FALSE,
+,,,,,
+Generic,Security,1,,TRUE,I can describe some of the security considerations that could impact on any development and demonstrate awareness of basic security concepts.
+Generic,Software design,1,,TRUE,I seek feedback about software designs from more experienced engineers. I can write highly readable code based on a clear understanding of what makes code clean and readable.
+Generic,Good development practices,1,,FALSE,I am actively focused on learning and understanding the development best practices. I understand the value provided by automated testing. I can work effectively with a project backed by Git.
+Generic,Technical Ownership,1,,FALSE,"I can work towards ensuring that any code or documentation is high quality. I can explain why it is important to have visibility of the performance, logs and system events of an application. I can recognise when there is technical debt and ensure that it is captured according to the team's best practices. I can maintain an awareness of the impact of changes on other parts of the codebase or project and ensure they are mitigated when necessary."
+Generic,Architecture,1,,FALSE,I understand the basics of software architecture and its importance. I can follow a simple architecture when it is explained to me. I have an understanding of inter-service communication and I am aware of the key synchronous and asynchronous integration patterns. I understand the key difference between the main types of general purpose databases and what sort of data are suited to each type.
+Generic,Delivery,1,,FALSE,I can describe the goals of the product and how the current implementation seeks to achieve those goals. I can use my own research to propose a valid technical solution to problems. I work with others to understand and deliver valuable features into production. I can plan the delivery of simple features from a technical point of view.
+Generic,Code review,2,,FALSE,"I occasionally conduct code reviews to more junior colleagues, finding some errors and giving advice to less experienced colleagues"
+,,,,,
+Management,Project planning,1,,FALSE,I can plan the short-term work of a small team when the objectives are clear
+Management,Project management,1,,FALSE,I effectively deliver individual tasks
+Management,Estimations,1,,FALSE,I support estimates for the problems I know best
+Management,Customers relationships,1,,FALSE,"I can talks directly with the client, answering questions and asking them what they need"
+Management,Presales,0,,TRUE,
+Management,Leadership,0,,FALSE,
+Management,Problems solving,1,,FALSE,I usually help to solve problems that arise within the team
+Management,Performance evaluation,0,,FALSE,
+Management,Multitasking,1,,FALSE,I can carry out several tasks in progress at the same time
+,,,,,
+Javascript,Core Concepts,2,,FALSE,I understand the basics and can read and modify existing code.
+Javascript,Asynchrony,2,,FALSE,I understand the basics and can read and modify existing code.
+Javascript,"ES6, ESx, ESNext ...",3,,FALSE,"I can handle advance topics (proxies, generators, symbol, set/maps, etc...)"
+Javascript,Browser APIs,2,,FALSE,I understand the basics and can read and modify existing code.
+Javascript,DOM APIs,0,,FALSE,
+Javascript,Old browsers support,1,,FALSE,I have a very basic idea of the most common issues
+Javascript,Web Sockets,0,,FALSE,
+Javascript,AJAX,2,,FALSE,I understand the basics and can read and modify existing code.
+Javascript,Patterns,1,,FALSE,I have a very basic idea of the most common patterns
+Javascript,Regex,2,,FALSE,I understand the basics and can read and modify existing code.
+Javascript,Functional,2,,FALSE,I understand the basics and can read and modify existing code.
+Javascript,POO,2,,FALSE,I understand the basics and can read and modify existing code.
+Javascript,Reactive,0,,FALSE,
+Javascript,Algorithms,2,,TRUE,I understand the basics and can read and modify existing code.
+Javascript,Data Structures,2,,TRUE,I understand the basics and can read and modify existing code.
+Javascript,Web Workers,0,,FALSE,
+Javascript,"Canvas, 3D...",0,,FALSE,
+Javascript,Storage,0,,FALSE,
+Javascript,Testing,2,,TRUE,I understand the basics and can read and modify existing code.
+Javascript,DevTools,1,,FALSE,"I have a very basic idea of the most common tools (inpect, console...)"
+,,,,,
+.NET Core,C# core,0,,FALSE,
+.NET Core,C# async,0,,FALSE,
+.NET Core,C# parallel programming,0,,FALSE,
+.NET Core,C# testing,0,,FALSE,
+.NET Core,C# logging,0,,FALSE,
+,,,,,
+GraphQL,Core,1,,FALSE,I have a basic knowledge of the tool. Understand the tool principles and can implement solutions defined at the documentation or tutorials
+GraphQL,Queries,3,,FALSE,"I can propose improved queries, refactors and fixing possible errors."
+GraphQL,Mutations,2,,TRUE,I can modify effectively already working mutations to include new features.
+GraphQL,Subscriptions,1,,TRUE,I know the most basic concepts about it.
+GraphQL,Apollo Client,2,,FALSE,I can modify effectively already working solutions to include new features.
+GraphQL,graphqljs,0,,FALSE,
+GraphQL,express-graphql,1,,TRUE,I know the most basic concepts about it and I can implement solutions defined at the documentation or tutorials.
+GraphQL,GraphQL Yoga,0,,FALSE,
+GraphQL,Apollo Server,2,,FALSE,I can modify effectively already working solutions to include new features.
+GraphQL,Nexus,0,,FALSE,
+GraphQL,TypeGraphQL,0,,FALSE,
+GraphQL,graphql-gen,0,,FALSE,
+GraphQL,Prisma V2,0,,FALSE,
+,,,,,
+TypeScript,Instalation and configuration,1,,FALSE,"I have a basic knowledge of how to install and starting up a project, following the documentation or tutorials."
+TypeScript,Primitive Types,1,,FALSE,"I know the most basic primitive types (string, number, boolean, bigint, symbol, void, null, undefined, any, never and unknown)."
+TypeScript,Object Types,1,,FALSE,"I know the most basic primitive types (enum, Function, array, class and object)."
+TypeScript,Interfaces,1,,FALSE,I know the most basic concepts about it.
+TypeScript,Type Aliases,1,,FALSE,I know the most basic concepts about it.
+TypeScript,Generics,1,,FALSE,I know the most basic concepts about it.
+TypeScript,Utility Types,0,,FALSE,
+TypeScript,Migrations,0,,FALSE,

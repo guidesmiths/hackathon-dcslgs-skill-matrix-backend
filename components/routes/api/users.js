@@ -1,4 +1,5 @@
 const { handleHttpError, tagError } = require('error-handler-module');
+const userMigration = require('../../../migration/index');
 
 module.exports = () => {
   const start = async ({
@@ -38,7 +39,12 @@ module.exports = () => {
       async (req, res, next) => {
         try {
           const { user: payload } = req;
-          const user = await controller.users.insertUser(payload);
+          let user;
+          user = await controller.users.fetchUserInfo(payload.user_id);
+          if (!user) {
+            user = await controller.users.insertUser(payload);
+            userMigration(user.email).then(answers => controller.answers.migrateAnswers(user.user_id, answers));
+          }
           res.send(user);
         } catch (error) {
           next(tagError(error));
@@ -58,9 +64,9 @@ module.exports = () => {
     app.get('/api/v1/user/me',
       async (req, res, next) => {
         try {
-          const user = await controller.users.fetchUserInfo(req.user.user_id);
+          const { user: payload } = req;
+          const user = await controller.users.fetchUserInfo(payload.user_id);
           res.send(user);
-          // Possibly can add an insert if user doesn't exist. Pending to approve
         } catch (error) {
           next(tagError(error));
         }

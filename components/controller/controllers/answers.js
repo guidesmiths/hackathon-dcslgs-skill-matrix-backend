@@ -97,10 +97,28 @@ module.exports = () => {
       return fetchAnswersByUser(id);
     };
 
+    const migrateAnswers = async (id, answers) => {
+      logger.info('Preparing answers to insert');
+      const answersPrepared = [];
+      for await (const answer of answers) {
+        const skillId = await store.answers.getSkillId(answer.skill_name, answer.ecosystem_name);
+        const answerToInsert = {
+          skill_id: skillId.id,
+          skill_value: answer.skill_value,
+          skill_subvalue: 'neutral',
+          interested: answer.interested,
+          comments: answer.comments,
+        };
+        answersPrepared.push(answerToInsert);
+      }
+      insertAnswers(id, answersPrepared);
+    };
+
     return {
       fetchAnswers,
       fetchAnswersByUser,
       insertAnswers,
+      migrateAnswers,
     };
   };
   return { start };
