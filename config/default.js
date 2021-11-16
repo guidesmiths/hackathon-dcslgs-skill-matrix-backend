@@ -34,7 +34,6 @@ module.exports = {
           srcFolder: 'jsdoc',
         },
       ],
-      publicKey: process.env.PUBLIC_KEY,
     },
   },
   server: {
