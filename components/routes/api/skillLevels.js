@@ -1,4 +1,5 @@
 const { handleHttpError, tagError } = require('error-handler-module');
+const { validateToken } = require('../../verification/token-verification');
 
 module.exports = () => {
   const start = async ({
@@ -16,7 +17,7 @@ module.exports = () => {
 
      * @security jwtAuth
      */
-    app.post('/api/v1/skill/level',
+    app.post('/api/v1/skill/level', validateToken(),
       async (req, res, next) => {
         const { body: payload } = req;
         try {
@@ -40,7 +41,7 @@ module.exports = () => {
 
      * @security jwtAuth
      */
-    app.put('/api/v1/skill/level/:id',
+    app.put('/api/v1/skill/level/:id', validateToken(),
       async (req, res, next) => {
         const { body: payload, params } = req;
         const { id } = params;

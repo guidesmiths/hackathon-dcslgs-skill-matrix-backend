@@ -1,4 +1,5 @@
 const { handleHttpError, tagError } = require('error-handler-module');
+const { validateToken } = require('../../verification/token-verification');
 
 module.exports = () => {
   const start = async ({
@@ -82,7 +83,7 @@ module.exports = () => {
 
      * @security jwtAuth
      */
-    app.delete('/api/v1/ecosystem/:id',
+    app.delete('/api/v1/ecosystem/:id', validateToken(),
       async (req, res, next) => {
         const { params } = req;
         const { id } = params;

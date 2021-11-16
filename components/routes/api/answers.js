@@ -1,4 +1,5 @@
 const { handleHttpError, tagError } = require('error-handler-module');
+const { validateToken } = require('../../verification/token-verification');
 
 module.exports = () => {
   const start = async ({
@@ -16,7 +17,7 @@ module.exports = () => {
 
      * @security jwtAuth
      */
-    app.post('/api/v1/answers',
+    app.post('/api/v1/answers', validateToken(),
       async (req, res, next) => {
         const { body: filters } = req;
         try {
@@ -39,7 +40,7 @@ module.exports = () => {
 
      * @security jwtAuth
      */
-    app.get('/api/v1/user/:id/answers',
+    app.get('/api/v1/user/:id/answers', validateToken(),
       async (req, res, next) => {
         const { params } = req;
         const { id } = params;
@@ -63,7 +64,7 @@ module.exports = () => {
      *
      * @security jwtAuth
      */
-    app.post('/api/v1/user/:id/answers',
+    app.post('/api/v1/user/:id/answers', validateToken(),
       async (req, res, next) => {
         const { body: payload, params } = req;
         const { id } = params;

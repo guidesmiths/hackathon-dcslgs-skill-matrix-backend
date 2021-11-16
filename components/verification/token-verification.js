@@ -1,10 +1,17 @@
 const jwt = require('jsonwebtoken');
-const { unauthorizedError, tagError } = require('../utils/errorHandler');
+const { tagError } = require('error-handler-module');
+const { unauthorizedError } = require('../utils/errorHandler');
 
-const validateToken = (publicKey, userTest) => (req, res, next) => {
+const validateToken = () => (req, res, next) => {
   try {
     if (process.env.NODE_ENV === 'test') {
-      req.user = userTest;
+      req.user = {
+        user_id: '12345678',
+        email: 'Jorge.Adame@dcsl.com',
+        name: 'Jorge Adame',
+        role: 'user',
+        seniority: 'Intern',
+      };
       return next();
     }
     const token = req.headers.authorization;
@@ -14,13 +21,8 @@ const validateToken = (publicKey, userTest) => (req, res, next) => {
 
     const split = token.split(' ');
 
-    const value = jwt.verify(split[1], publicKey, { algorithms: ['RS256'] });
-    req.user = {
-      user_id: value.sub,
-      email: value.preferred_username,
-      name: value.name,
-      role: 'user',
-    };
+    const value = jwt.verify(split[1], process.env.SECRET, { algorithms: ['HS256'] });
+    req.user = value;
 
     return next();
   } catch (error) {

@@ -1,4 +1,5 @@
 const { handleHttpError, tagError } = require('error-handler-module');
+const { validateToken } = require('../../verification/token-verification');
 
 module.exports = () => {
   const start = async ({
@@ -15,7 +16,7 @@ module.exports = () => {
 
      * @security jwtAuth
      */
-    app.get('/api/v1/suggestions',
+    app.get('/api/v1/suggestions', validateToken(),
       async (req, res, next) => {
         try {
           const suggestion = await controller.suggestions.fetchSuggestions();

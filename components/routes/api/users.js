@@ -1,5 +1,7 @@
 const { handleHttpError, tagError } = require('error-handler-module');
 const userMigration = require('../../../migration/index');
+const { signToken } = require('../../verification/sign-token');
+const { validateToken } = require('../../verification/token-verification');
 
 module.exports = () => {
   const start = async ({
@@ -15,7 +17,7 @@ module.exports = () => {
      * [{"user_id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","img_url":null,"name":"John Doe","domain":null,"role":"user"},{"user_id":"asldka12312sdkasnd","email":"janedoe@guidesmiths.com","img_url":null,"name":"Jane Doe","domain":null,"role":"user"},{"user_id":"asldka12345sdkasnd","email":"jennygo@guidesmiths.com","img_url":null,"name":"Jenny Goijman","domain":null,"role":"user"},{"user_id":"asldka12367sdkasnd","email":"danicolas@guidesmiths.com","img_url":null,"name":"Daniel Colas","domain":null,"role":"user"},{"user_id":"asldka12389sdkasnd","email":"dyusta@guidesmiths.com","img_url":null,"name":"David Yusta","domain":null,"role":"user"},{"user_id":"asldka12387sdkasnd","email":"ssanchez@guidesmiths.com","img_url":null,"name":"Sofia Sanchez","domain":null,"role":"user"},{"user_id":"asldka12311sdkasnd","email":"rachelFern@guidesmiths.com","img_url":null,"name":"Raquel Fernandez","domain":null,"role":"user"}]
      * @security jwtAuth
      */
-    app.get('/api/v1/users',
+    app.get('/api/v1/users', validateToken(),
       async (req, res, next) => {
         try {
           const users = await controller.users.fetchUsers();
@@ -38,14 +40,14 @@ module.exports = () => {
     app.post('/api/v1/user',
       async (req, res, next) => {
         try {
-          const { user: payload } = req;
           let user;
-          user = await controller.users.fetchUserInfo(payload.user_id);
+          user = await controller.users.fetchUserInfo(req.body.user_id);
           if (!user) {
-            user = await controller.users.insertUser(payload);
+            user = await controller.users.insertUser(req.body);
             userMigration(user.email).then(answers => controller.answers.migrateAnswers(user.user_id, answers));
           }
-          res.send(user);
+          const token = signToken(user);
+          res.send(token);
         } catch (error) {
           next(tagError(error));
         }
@@ -61,7 +63,7 @@ module.exports = () => {
      * [{"user_id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","img_url":null,"name":"John Doe","domain":null,"role":"user"}]
      * @security jwtAuth
      */
-    app.get('/api/v1/user/me',
+    app.get('/api/v1/user/me', validateToken(),
       async (req, res, next) => {
         try {
           const { user: payload } = req;

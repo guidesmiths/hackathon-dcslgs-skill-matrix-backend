@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-restricted-syntax */
 const fs = require('fs');
 const csv = require('fast-csv');
