@@ -71,7 +71,7 @@ module.exports = ({ configPath }) => {
       },
 
       fetchAnswers: filters => pgAPI.query(`
-        select u."name" as "userName", u.user_id as "userId", u.email, u."role" as "userRole",
+        select u."name" as "userName", u.user_id as "userId", u.email, u."role" as "userRole", u.country, u.seniority,
         us.skill_id as "skillId", sc."name" as "skillName", us.skill_value as "skillValue", us.skill_subvalue as "skillSubvalue", us.interested, us.comments,
         se.id as "ecosystemId", se."name" as "ecosystemName", scl.description as "levelDescription"
         from skills."user" u
