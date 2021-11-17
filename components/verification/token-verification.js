@@ -6,7 +6,7 @@ const validateToken = () => (req, res, next) => {
   try {
     if (process.env.NODE_ENV === 'test') {
       req.user = {
-        user_id: '12345678',
+        user_id: '12345678910',
         email: 'Jorge.Adame@dcsl.com',
         name: 'Jorge Adame',
         role: 'user',
