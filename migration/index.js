@@ -11,15 +11,17 @@ const csvToDB = async file => new Promise(resolve => {
   csv.parseFile(path + file, { headers: true, ignoreEmpty: true })
     .on('error', error => console.error(error))
     .on('data', row => {
-      const answer = {
-        ecosystem_name: row.ECOSYSTEM,
-        skill_name: row.SKILL,
-        skill_value: row.RATING,
-        interested: row['I\'D LIKE TO LEARN'].toLowerCase(),
-        comments: row.COMMENTS,
-        skill_subvalue: 'neutral',
-      };
-      answers.push(answer);
+      if (row.ECOSYSTEM) {
+        const answer = {
+          ecosystem_name: row.ECOSYSTEM,
+          skill_name: row.SKILL,
+          skill_value: row.RATING,
+          interested: row['I\'D LIKE TO LEARN'].toLowerCase(),
+          comments: row.COMMENTS,
+          skill_subvalue: 'neutral',
+        };
+        answers.push(answer);
+      }
     })
     .on('end', rowCount => {
       console.log(`Parsed ${rowCount} rows`);
