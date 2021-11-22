@@ -12,14 +12,23 @@ module.exports = () => {
     const insertSkill = async payload => {
       logger.info('Creating a new skill');
       const skill = payload;
-      const { roles } = payload;
+      const { roles, levels } = payload;
       delete skill.roles;
+      delete skill.levels;
+      delete skill.id;
+
       const { id: skillId } = await store.skills.insertSkill(skill);
 
       for await (const role of roles) {
         debug('Add a new role for the skill');
         const roleSkill = { skill_id: skillId, role_id: role };
         await store.skills.insertRoleSkill(roleSkill);
+      }
+
+      for await (const currentLevel of levels) {
+        debug('Add a new skill level for the skill');
+        const newLevel = { level: currentLevel.level, description: currentLevel.levelDescription, skill_id: skillId };
+        await store.skillLevels.insertSkillLevel(newLevel);
       }
 
       return store.skills.fetchSkillById(skillId);

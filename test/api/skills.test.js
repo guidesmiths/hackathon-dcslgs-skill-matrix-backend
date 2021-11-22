@@ -38,12 +38,22 @@ describe('Skills API routes', () => {
       }));
   });
 
-  // TODO: Should be mandatory also adding levels?
+  // TODO: add expect levels.toHaveLength(4)
   describe('POST /api/v1/skill', () => {
-    it('should create a new skill', () => request
+    it('should create a new skill with one role', () => request
       .post('/api/v1/skill')
       .send({
-        name: 'ReactCssTransition', type: 2, ecosystem: 1, roles: [1], description: '',
+        name: 'ReactCssTransition',
+        type: 2,
+        ecosystem: 1,
+        roles: [1],
+        description: '',
+        levels: [
+          { level: 1, levelDescription: 'levelDescription 1' },
+          { level: 2, levelDescription: 'levelDescription 2' },
+          { level: 3, levelDescription: 'levelDescription 3' },
+          { level: 4, levelDescription: 'levelDescription 4' },
+        ],
       })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
@@ -60,7 +70,17 @@ describe('Skills API routes', () => {
     it('should create a new skill with 2 roles', () => request
       .post('/api/v1/skill')
       .send({
-        name: 'ReactCssTransition', type: 2, ecosystem: 1, roles: [1, 3], description: '',
+        name: 'ReactCssTransition',
+        type: 2,
+        ecosystem: 1,
+        roles: [1, 3],
+        description: '',
+        levels: [
+          { level: 1, levelDescription: 'levelDescription 1' },
+          { level: 2, levelDescription: 'levelDescription 2' },
+          { level: 3, levelDescription: 'levelDescription 3' },
+          { level: 4, levelDescription: 'levelDescription 4' },
+        ],
       })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
