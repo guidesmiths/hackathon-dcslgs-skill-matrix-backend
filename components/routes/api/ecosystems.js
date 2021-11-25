@@ -85,8 +85,7 @@ module.exports = () => {
      */
     app.delete('/api/v1/ecosystem/:id', validateToken(),
       async (req, res, next) => {
-        const { params } = req;
-        const { id } = params;
+        const { params: { id } } = req;
         try {
           const ecosystem = await controller.ecosystems.deleteEcosystem(id);
           res.send(ecosystem);

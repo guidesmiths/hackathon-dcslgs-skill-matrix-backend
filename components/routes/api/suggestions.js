@@ -84,8 +84,7 @@ module.exports = () => {
     */
     app.delete('/api/v1/suggestion/:id',
       async (req, res, next) => {
-        const { params } = req;
-        const { id } = params;
+        const { params: { id } } = req;
         try {
           const suggestion = await controller.suggestions.deleteSuggestion(id);
           res.send(suggestion);

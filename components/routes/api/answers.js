@@ -42,8 +42,7 @@ module.exports = () => {
      */
     app.get('/api/v1/user/:id/answers', validateToken(),
       async (req, res, next) => {
-        const { params } = req;
-        const { id } = params;
+        const { params: { id } } = req;
         try {
           const answers = await controller.answers.fetchAnswersByUser(id);
           res.send(answers);

@@ -64,8 +64,7 @@ module.exports = () => {
      */
     app.delete('/api/v1/skill/level/:id',
       async (req, res, next) => {
-        const { params } = req;
-        const { id } = params;
+        const { params: { id } } = req;
         try {
           const skillLevel = await controller.skillLevels.deleteSkillLevel(id);
           res.send(skillLevel);
