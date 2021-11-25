@@ -13,11 +13,10 @@ module.exports = () => {
       const {
         skillId, name, type, ecosystem, description,
       } = rows[0];
-      const skill = {
+
+      return {
         skillId, name, type, ecosystem, roles, description,
       };
-
-      return skill;
     },
 
     insertSkill: async payload => {
