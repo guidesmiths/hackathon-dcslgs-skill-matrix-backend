@@ -51,8 +51,8 @@ const getAnswerByUser = answerUser => {
     name: userName,
     ecosystems,
     userRole,
-    country,
-    seniority,
+    country: country || 'UK',
+    seniority: seniority || '',
   };
 };
 
@@ -79,8 +79,8 @@ module.exports = () => {
           name: userData.name,
           userRole: userData.role,
           ecosystems,
-          country: userData.country,
-          seniority: userData.seniority,
+          country: userData.country || 'UK',
+          seniority: userData.seniority || '',
         };
       }
       return getAnswerByUser(answersByUser);
