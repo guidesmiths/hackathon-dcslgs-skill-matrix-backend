@@ -1,4 +1,5 @@
 process.env.SERVICE_ENV = process.env.SERVICE_ENV || 'local';
+// TODO: REMOVE THIS HARDCODED SECRET!
 process.env.SECRET = process.env.SECRET || 'nD3"7UKvLoI$sg+wnxF.3jrs>Nyo_1';
 
 const runner = require('systemic-domain-runner');
