@@ -10,9 +10,9 @@ const getSkill = ({
   {
     id: skillId,
     name: skillName,
-    level: skillValue,
+    level: skillValue || 0,
     levelDescription,
-    sublevel: skillSubvalue,
+    sublevel: skillSubvalue || 'neutral',
     interested,
     comments,
   }
