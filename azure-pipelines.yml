@@ -1,49 +1,34 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
-  - task: Docker@2
-    displayName: Build an image
-    inputs:
-      containerRegistry: "Azure deployment - Dev"
-      repository: $(Build.Repository.Name)
-      command: "build"
-      Dockerfile: "**/Dockerfile"
-      buildContext: "**"
-      tags: |
-        $(Build.BuildId)
-        latest
-  - bash: |
-      ERROR_UP=$((docker-compose --file ./docker/cicd/docker-compose.yml up --force -d --build) 2>&1)
-      sleep 10
-      docker exec gs-skill-matrix-backend sh -c "npm run test:report" 2>&1
-      docker cp gs-skill-matrix-backend:/usr/src/app/test-reports/junit.xml ./
-      docker cp gs-skill-matrix-backend:/usr/src/app/test-reports/coverage/lcov.info ./lcov.info
-      sed -i 's|SF:/usr/src/app/|SF:|g' lcov.info
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
 
-      echo "docker compose down"
-      ERROR_DOWN=$((docker-compose --file ./docker/cicd/docker-compose.yml down) 2>&1)
+- script: |
+    npm install
+  displayName: 'npm install and build'
 
-      echo "ERROR_UP=$ERROR_UP"
-      echo "ERROR_DOWN=$ERROR_DOWN"
-    failOnStderr: true
-    displayName: 'test: execute'
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
-  - task: PublishTestResults@2
-    displayName: 'test: publish report'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**/junit.xml'
-      failTaskOnFailedTests: true
-
-  - task: Docker@2
-    displayName: Push Docker image
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-    inputs:
-      containerRegistry: Azure deployment - Dev
-      repository: $(Build.Repository.Name)
-      command: push
-      tags: |
-        $(Build.BuildId)
-        latest
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'

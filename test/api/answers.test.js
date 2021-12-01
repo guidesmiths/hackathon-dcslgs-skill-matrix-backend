@@ -251,7 +251,7 @@ describe('Answers API routes', () => {
       .then(({ body }) => {
         expect(body.id).toEqual('asldka12312sdkasnd');
         const { skills } = body.ecosystems[0];
-        expect(skills).toHaveLength(3);
+        expect(skills).toHaveLength(5);
         const {
           id: skillId, level, sublevel, interested, comments,
         } = skills[2];
@@ -273,7 +273,7 @@ describe('Answers API routes', () => {
       .then(({ body }) => {
         expect(body.id).toEqual('asldka12312sdkasnd');
         const { skills } = body.ecosystems[0];
-        expect(skills).toHaveLength(1);
+        expect(skills).toHaveLength(5);
         const {
           id: skillId, level, sublevel, interested, comments,
         } = skills[0];
@@ -317,14 +317,14 @@ describe('Answers API routes', () => {
         const {
           skills, average,
         } = ecosystems[0];
-        expect(average).toEqual(3);
-        expect(skills).toHaveLength(3);
-        expect(skills[1].id).toEqual(2);
-        expect(skills[1].name).toEqual('Next.js');
-        expect(skills[1].level).toEqual(2);
-        expect(skills[1].sublevel).toEqual('neutral');
-        expect(skills[1].interested).toEqual(false);
-        expect(skills[1].comments).toEqual('');
+        expect(average).toEqual(1.8);
+        expect(skills).toHaveLength(5);
+        expect(skills[2].id).toEqual(2);
+        expect(skills[2].name).toEqual('Next.js');
+        expect(skills[2].level).toEqual(2);
+        expect(skills[2].sublevel).toEqual('neutral');
+        expect(skills[2].interested).toEqual(false);
+        expect(skills[2].comments).toEqual('');
       }));
   });
 });
