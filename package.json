@@ -17,7 +17,7 @@
     "qa": "npm run lint && npm run test",
     "precommit": "npm run lint",
     "prepush": "npm run test",
-    "docker": "docker-compose --file ./docker/cicd/docker-compose.yml pull && docker-compose --file ./docker/cicd/docker-compose.yml up -d --force-recreate --remove-orphans",
+    "docker": "docker-compose --file ./docker/dev/docker-compose.yml pull && docker-compose --file ./docker/dev/docker-compose.yml up -d --force-recreate --remove-orphans",
     "create-jsdoc-docs": "node_modules/jsdoc/jsdoc.js . -r -c docs/jsdoc-config.json -d docs/generated/jsdoc"
   },
   "husky": {
@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@hapi/boom": "^9.1.0",
+    "body-parser": "^1.19.0",
     "bunyan": "^1.8.12",
     "chalk": "^4.0.0",
     "confabulous": "^1.7.0",

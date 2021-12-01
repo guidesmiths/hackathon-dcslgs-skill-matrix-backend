@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const helmet = require('helmet');
+const bodyParser = require('body-parser');
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 const { init: initializeExpressValidator } = require('express-oas-validator');
 
@@ -9,9 +10,12 @@ module.exports = () => {
     const {
       generatedDocs, swaggerOptions,
     } = config;
-    app.use(express.urlencoded());
-    app.use(express.json());
-    app.use(helmet());
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
+    app.use(helmet({
+      // This is neccesary because of helmet v4
+      contentSecurityPolicy: false,
+    }));
 
     app.get('/__/manifest', (req, res) => res.json(manifest));
 
