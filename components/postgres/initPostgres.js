@@ -34,7 +34,7 @@ module.exports = ({ configPath }) => {
   let handyPg;
 
   const start = async ({ config, logger }) => {
-    if (process.env.NODE_ENV === 'test' && config.connection.host.includes('azure')) {
+    if ((process.env.NODE_ENV === 'test' || process.env.SERVICE_ENV === 'test') && config.connection.host.includes('azure')) {
       throw new Error('Do not run tests with dev credentials');
     }
     handyPg = initHandyPg({ logger, configPath });
