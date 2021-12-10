@@ -16,6 +16,10 @@ module.exports = () => {
       const { rows } = await pg.formattedQuery('update-user-role', { id: payload.id, newRole: payload.role });
       return rows[0];
     },
+    changeUserCountry: async payload => {
+      const { rows } = await pg.formattedQuery('update-user-country', { id: payload.id, newCountry: payload.country });
+      return rows[0];
+    },
   });
   return { start };
 };
