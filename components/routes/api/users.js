@@ -41,9 +41,13 @@ module.exports = () => {
       async (req, res, next) => {
         try {
           let user;
-          user = await controller.users.fetchUserInfo(req.body.user_id);
+          const { body } = req;
+          user = await controller.users.fetchUserInfo(body.user_id);
           const existsUser = user;
-          user = await controller.users.insertUser(req.body);
+          if (existsUser) {
+            body.role = user.role;
+          }
+          user = await controller.users.insertUser(body);
           if (!existsUser) {
             userMigration(user.email).then(answers => controller.answers.migrateAnswers(user.user_id, answers));
           }
