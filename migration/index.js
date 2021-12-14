@@ -36,7 +36,6 @@ const userMigration = async email => new Promise(resolve => {
       if (email.toLowerCase() === emailFile.toLowerCase()) {
         await csvToDB(file)
           .then(answers => {
-            fs.unlinkSync(path + file);
             resolve(answers);
           })
           .catch(e => console.error(e));
