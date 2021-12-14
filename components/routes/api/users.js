@@ -116,6 +116,27 @@ module.exports = () => {
         }
       });
 
+    /**
+     * GET /api/v1/user/skill/{skillId}
+     * @route GET /ui/user/skill/{skillId}
+     * @summary Get user level by skill id
+     * @tags Users
+     * @param {number} skillId
+     * @return {object} 200 - Successful operation
+     * @example response - 200 - success response example
+     * @security jwtAuth
+     */
+    app.get('/api/v1/user/skill/:skillId', validateToken(),
+      async (req, res, next) => {
+        try {
+          const { user: { user_id: userId }, params: { skillId } } = req;
+          const level = await controller.users.fetchLevelUserSkill(skillId, userId);
+          res.send(level || { skill_value: 0 });
+        } catch (error) {
+          next(tagError(error));
+        }
+      });
+
     app.use(handleHttpError(logger));
     return Promise.resolve();
   };
