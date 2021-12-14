@@ -93,6 +93,24 @@ module.exports = () => {
           next(tagError(error));
         }
       });
+    /**
+     * PATCH /api/v1/user/country
+     * @route PATCH /api/v1/user/country
+     * @summary Change user country
+     * @tags Users
+     * @param {ChangerUserCountryPayload} request.body.required
+     * @security jwtAuth
+     */
+    app.patch('/api/v1/user/country',
+      async (req, res, next) => {
+        try {
+          const { body: payload } = req;
+          const user = await controller.users.changeUserCountry(payload);
+          res.send(user);
+        } catch (error) {
+          next(tagError(error));
+        }
+      });
 
     app.use(handleHttpError(logger));
     return Promise.resolve();

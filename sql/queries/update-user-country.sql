@@ -1,0 +1,1 @@
+UPDATE skills.user SET "country" = %L:newCountry where user_id = %L:id returning *;

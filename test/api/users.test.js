@@ -100,4 +100,26 @@ describe('Users API routes', () => {
           });
       }));
   });
+  describe('PATCH /api/v1/user/country', () => {
+    it('should return OK (200)', () => request
+      .patch('/api/v1/user/country')
+      .send({
+        id: 'asldkan21ansdkasnd',
+        country: 'UK',
+      })
+      .expect(StatusCodes.OK)
+      .then(() => {
+        request
+          .get('/api/v1/users')
+          .expect(StatusCodes.OK)
+          .then(({ body }) => {
+            const {
+              email, name, country,
+            } = body[7];
+            expect(email).toEqual('johndoe@guidesmiths.com');
+            expect(name).toEqual('John Doe');
+            expect(country).toEqual('UK');
+          });
+      }));
+  });
 });

@@ -22,8 +22,13 @@ module.exports = () => {
       debug('User role change');
       return store.users.changeUserRole(payload);
     };
+    const changeUserCountry = async payload => {
+      logger.info('Changing user country');
+      debug('User country change');
+      return store.users.changeUserCountry(payload);
+    };
     return {
-      fetchUsers, fetchUserInfo, insertUser, changeUserRole,
+      fetchUsers, fetchUserInfo, insertUser, changeUserRole, changeUserCountry,
     };
   };
   return { start };
