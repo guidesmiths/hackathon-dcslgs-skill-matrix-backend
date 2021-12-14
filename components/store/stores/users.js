@@ -20,6 +20,10 @@ module.exports = () => {
       const { rows } = await pg.formattedQuery('update-user-country', { id: payload.id, newCountry: payload.country });
       return rows[0];
     },
+    fetchLevelUserSkill: async (id, userId) => {
+      const { rows } = await pg.formattedQuery('select-level-user-skill', { id, userId });
+      return rows[0];
+    },
   });
   return { start };
 };
