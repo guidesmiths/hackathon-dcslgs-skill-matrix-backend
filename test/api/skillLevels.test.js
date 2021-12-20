@@ -24,7 +24,7 @@ describe('Skill levels API routes', () => {
     await sys.stop();
   });
 
-  describe('POST /api/v1/skill/level', () => {
+  describe.skip('POST /api/v1/skill/level', () => {
     it('should create a new skill level', () => request
       .post('/api/v1/skill/level')
       .send({
@@ -41,7 +41,7 @@ describe('Skill levels API routes', () => {
       }));
   });
 
-  describe('PUT /api/v1/skill/level/:id', () => {
+  describe.skip('PUT /api/v1/skill/level/:id', () => {
     it('should update an existing skill level', () => request
       .put('/api/v1/skill/level/5')
       .send({
@@ -58,7 +58,7 @@ describe('Skill levels API routes', () => {
       }));
   });
 
-  describe('DELETE /api/v1/skill/level/:id', () => {
+  describe.skip('DELETE /api/v1/skill/level/:id', () => {
     it('should delete a skill level', () => request
       .delete('/api/v1/skill/level/16')
       .expect(StatusCodes.OK)

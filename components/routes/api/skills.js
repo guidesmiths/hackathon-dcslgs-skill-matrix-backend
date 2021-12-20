@@ -43,7 +43,7 @@ module.exports = () => {
       async (req, res, next) => {
         const { body: payload } = req;
         try {
-          const skill = await controller.skills.insertSkill(payload);
+          const skill = await controller.skills.upsertSkill(payload);
           res.send(skill);
         } catch (error) {
           next(tagError(error));

@@ -7,20 +7,18 @@ module.exports = () => {
 
     fetchSkillById: async id => {
       const { rows } = await pg.formattedQuery('select-skill-by-id', { id });
-      const roles = [];
-      rows.map(row => roles.push(row.roleId));
+      const roles = rows.map(row => row.roleId);
 
       const {
         skillId, name, type, ecosystem, description,
       } = rows[0];
-      const skill = {
+
+      return {
         skillId, name, type, ecosystem, roles, description,
       };
-
-      return skill;
     },
 
-    insertSkill: async payload => {
+    upsertSkill: async payload => {
       const { rows } = await pg.upsert('skills.skill_catalog', payload);
       return rows[0];
     },

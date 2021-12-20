@@ -21,58 +21,58 @@ module.exports = () => {
       async (req, res, next) => {
         const { body: payload } = req;
         try {
-          const skillLevel = await controller.skillLevels.insertSkillLevel(payload);
+          const skillLevel = await controller.skillLevels.upsertSkillLevel(payload);
           res.send(skillLevel);
         } catch (error) {
           next(tagError(error));
         }
       });
 
-    /**
-     * PUT /api/v1/skill/level/{id}
-     * @route PUT /api/v1/skill/level/{id}
-     * @summary Update an existing level
-     * @tags Skill level
-     * @param {number} id.required - Skill level id
-     * @param {LevelRequest} request.body.required - Skill info
-     * @return {object} 200 - Skill response
-     * @example response - 200 - success response example
-     * {"id":5,"level":1,"description":"I understand the framework principles and I can implement solutions defined at the documentation or tutorials.","skill_id":5,"created_on":"2021-08-20T20:54:24.735Z","updated_on":"2021-08-20T20:54:24.735Z"}
+    // /**
+    //  * PUT /api/v1/skill/level/{id}
+    //  * @route PUT /api/v1/skill/level/{id}
+    //  * @summary Update an existing level
+    //  * @tags Skill level
+    //  * @param {number} id.required - Skill level id
+    //  * @param {LevelRequest} request.body.required - Skill info
+    //  * @return {object} 200 - Skill response
+    //  * @example response - 200 - success response example
+    //  * {"id":5,"level":1,"description":"I understand the framework principles and I can implement solutions defined at the documentation or tutorials.","skill_id":5,"created_on":"2021-08-20T20:54:24.735Z","updated_on":"2021-08-20T20:54:24.735Z"}
 
-     * @security jwtAuth
-     */
-    app.put('/api/v1/skill/level/:id', validateToken(),
-      async (req, res, next) => {
-        const { body: payload, params } = req;
-        const { id } = params;
-        try {
-          const skillLevel = await controller.skillLevels.updateSkillLevel(id, payload);
-          res.send(skillLevel);
-        } catch (error) {
-          next(tagError(error));
-        }
-      });
+    //  * @security jwtAuth
+    //  */
+    // app.put('/api/v1/skill/level/:id', validateToken(),
+    //   async (req, res, next) => {
+    //     const { body: payload, params } = req;
+    //     const { id } = params;
+    //     try {
+    //       const skillLevel = await controller.skillLevels.updateSkillLevel(id, payload);
+    //       res.send(skillLevel);
+    //     } catch (error) {
+    //       next(tagError(error));
+    //     }
+    //   });
 
-    /**
-     * DELETE /api/v1/skill/level/{id}
-     * @route DELETE /api/v1/skill/level/{id}
-     * @summary Delete a skill level by id
-     * @tags Skill level
-     * @param {number} id.required - Skill level id
+    // /**
+    //  * DELETE /api/v1/skill/level/{id}
+    //  * @route DELETE /api/v1/skill/level/{id}
+    //  * @summary Delete a skill level by id
+    //  * @tags Skill level
+    //  * @param {number} id.required - Skill level id
 
-     * @security jwtAuth
-     */
-    app.delete('/api/v1/skill/level/:id',
-      async (req, res, next) => {
-        const { params } = req;
-        const { id } = params;
-        try {
-          const skillLevel = await controller.skillLevels.deleteSkillLevel(id);
-          res.send(skillLevel);
-        } catch (error) {
-          next(tagError(error));
-        }
-      });
+    //  * @security jwtAuth
+    //  */
+    // app.delete('/api/v1/skill/level/:id',
+    //   async (req, res, next) => {
+    //     const { params } = req;
+    //     const { id } = params;
+    //     try {
+    //       const skillLevel = await controller.skillLevels.deleteSkillLevel(id);
+    //       res.send(skillLevel);
+    //     } catch (error) {
+    //       next(tagError(error));
+    //     }
+    //   });
 
     app.use(handleHttpError(logger));
     return Promise.resolve();

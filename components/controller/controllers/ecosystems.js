@@ -9,41 +9,42 @@ module.exports = () => {
       return store.ecosystems.fetchEcosystems();
     };
 
-    const insertEcosystem = async payload => {
+    const upsertEcosystem = async payload => {
       logger.info('Creating a new ecosystem');
       debug('Creating a new ecosystem');
 
-      const { name: ecosystemName, skills } = payload;
-      const { id: ecosystemId } = await store.ecosystems.insertEcosystem({ name: ecosystemName });
-
+      const { id: ecoId, name: ecoName, skills } = payload;
+      const { id: ecosystemId } = await store.ecosystems.upsertEcosystem({ id: ecoId, name: ecoName });
       for await (const skill of skills) {
         debug('Creating a new skill');
+        skill.type = skill.type.id || skill.type;
         const {
-          name: skillName, type: skillType, roles: skillRoles, description: skillDescription, levels,
+          id: skillId, name: skillName, type: skillType, description: skillDescription, levels, // roles: skillRoles,
         } = skill;
-        const newSkill = {
-          name: skillName, type: skillType, description: skillDescription, ecosystem: ecosystemId,
-        };
-        const { id: skillId } = await store.skills.insertSkill(newSkill);
 
-        for await (const role of skillRoles) {
-          debug('Create a new role for the skill');
-          const roleSkill = { skill_id: skillId, role_id: role };
-          await store.skills.insertRoleSkill(roleSkill);
+        const newSkill = {
+          name: skillName, type: skillType.id || skillType, description: skillDescription, ecosystem: ecosystemId,
+        };
+
+        if (skillId !== 0) {
+          newSkill.id = skillId;
         }
 
-        for await (const level of levels) {
+        const { id: newSkillId } = await store.skills.upsertSkill(newSkill);
+
+        // for await (const role of skillRoles) {
+        //   debug('Create a new role for the skill');
+        //   const roleSkill = { skill_id: newSkillId, role_id: role.id || role };
+        //   await store.skills.insertRoleSkill(roleSkill);
+        // }
+
+        for await (const { level, levelDescription } of levels) {
           debug('Creating a new skill level');
-          level.skill_id = skillId;
-          await store.skillLevels.insertSkillLevel(level);
+          const newLevel = { level, description: levelDescription, skill_id: newSkillId };
+          await store.skillLevels.upsertSkillLevel(newLevel);
         }
       }
       return store.ecosystems.fetchEcosystemById(ecosystemId);
-    };
-
-    const updateEcosystem = async (id, payload) => {
-      logger.info('Update an existing ecosystem');
-      return store.ecosystems.updateEcosystem(id, payload);
     };
 
     const deleteEcosystem = async id => {
@@ -53,8 +54,7 @@ module.exports = () => {
 
     return {
       fetchEcosystems,
-      insertEcosystem,
-      updateEcosystem,
+      upsertEcosystem,
       deleteEcosystem,
     };
   };
