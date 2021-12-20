@@ -38,21 +38,22 @@ const getEcosystem = ecosystem => {
   };
 };
 
-const getAnswerByUser = answerUser => {
+const getAnswerByUser = (answerUser, user) => {
   const {
     userId, email, userName, userRole, country, seniority,
   } = answerUser[0];
+
   const groupedByEcosystem = groupByProperty(answerUser, 'ecosystemId');
   const ecosystems = groupedByEcosystem.map(getEcosystem);
 
   return {
-    id: userId,
-    email,
-    name: userName,
+    id: userId || user.user_id,
+    email: email || user.email,
+    name: userName || user.name,
     ecosystems,
-    userRole,
-    country,
-    seniority,
+    userRole: userRole || user.role,
+    country: country || user.country,
+    seniority: seniority || user.seniority,
   };
 };
 
@@ -70,8 +71,8 @@ module.exports = () => {
       logger.info('Fetching answers by user');
       debug('Fetching answers by user');
       const answersByUser = await store.answers.fetchAnswersByUser(id);
+      const userData = await store.users.fetchUserInfo(id);
       if (answersByUser.length === 0) {
-        const userData = await store.users.fetchUserInfo(id);
         const ecosystems = await store.ecosystems.fetchEcosystems();
         return {
           id: userData.user_id,
@@ -83,7 +84,7 @@ module.exports = () => {
           seniority: userData.seniority,
         };
       }
-      return getAnswerByUser(answersByUser);
+      return getAnswerByUser(answersByUser, userData);
     };
 
     const insertAnswers = async (id, answers) => {
