@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-disabled-tests */
 const supertest = require('supertest');
 const { StatusCodes } = require('http-status-codes');
 
