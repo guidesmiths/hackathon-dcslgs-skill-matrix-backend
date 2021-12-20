@@ -44,16 +44,16 @@ steps:
     npm run lint
   displayName: 'npm run lint'
 
-# - script: |
-#     npm run test:report
-#   displayName: 'npm test'
+- script: |
+    npm run test:report
+  displayName: 'npm test'
 
-# - task: PublishTestResults@2
-#   displayName: 'test: publish report'
-#   inputs:
-#     testResultsFormat: 'JUnit'
-#     testResultsFiles: '**/junit.xml'
-#     failTaskOnFailedTests: true
+- task: PublishTestResults@2
+  displayName: 'test: publish report'
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/junit.xml'
+    failTaskOnFailedTests: true
 
 - task: ArchiveFiles@2
   # run only in master branch
