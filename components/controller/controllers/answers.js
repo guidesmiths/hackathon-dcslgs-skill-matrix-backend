@@ -89,8 +89,8 @@ module.exports = () => {
     const insertAnswers = async (id, answers) => {
       logger.info('Creating new answers from an user');
       for await (const answer of answers) {
-        const { skill_value: skillValue, skill_id: skillId } = answer;
-        if (skillValue === 0) {
+        const { skill_value: skillValue, skill_id: skillId, interested: isInterested } = answer;
+        if (skillValue === 0 && !isInterested) {
           debug('Deleting an answer');
           await store.answers.deleteAnswer(id, skillId);
         } else {

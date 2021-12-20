@@ -5,7 +5,7 @@ st.id as "typeId", st."name" as "typeName",
 sc.description as "skillDescription",
 scl."level", scl.description as "levelDescription"
 from skills.skill_catalog sc
-left join skills.skill_ecosystem se on se.id = sc.ecosystem
+right join skills.skill_ecosystem se on se.id = sc.ecosystem
 left join skills.skill_role_catalog src ON src.skill_id = sc.id
 left join skills.skill_role sr on src.role_id = sr.id
 left join skills.skill_type st on st.id = sc."type"

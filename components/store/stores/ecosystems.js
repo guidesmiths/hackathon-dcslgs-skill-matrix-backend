@@ -69,13 +69,8 @@ module.exports = () => {
       return groupedByEcosystem.map(getSkillsByEcosystems).find(ecosystem => ecosystem.id === id);
     },
 
-    insertEcosystem: async payload => {
+    upsertEcosystem: async payload => {
       const { rows } = await pg.upsert('skills.skill_ecosystem', payload);
-      return rows[0];
-    },
-
-    updateEcosystem: async (id, payload) => {
-      const { rows } = await pg.upsert('skills.skill_ecosystem', { id, ...payload });
       return rows[0];
     },
 

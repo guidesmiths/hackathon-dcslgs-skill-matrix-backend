@@ -9,7 +9,7 @@ module.exports = () => {
       return store.skills.fetchSkills();
     };
 
-    const insertSkill = async payload => {
+    const upsertSkill = async payload => {
       logger.info('Creating a new skill');
       const skill = payload;
       const { roles, levels } = payload;
@@ -17,7 +17,7 @@ module.exports = () => {
       delete skill.levels;
       delete skill.id;
 
-      const { id: skillId } = await store.skills.insertSkill(skill);
+      const { id: skillId } = await store.skills.upsertSkill(skill);
 
       for await (const role of roles) {
         debug('Add a new role for the skill');
@@ -25,10 +25,10 @@ module.exports = () => {
         await store.skills.insertRoleSkill(roleSkill);
       }
 
-      for await (const currentLevel of levels) {
+      for await (const { level, levelDescription } of levels) {
         debug('Add a new skill level for the skill');
-        const newLevel = { level: currentLevel.level, description: currentLevel.levelDescription, skill_id: skillId };
-        await store.skillLevels.insertSkillLevel(newLevel);
+        const newLevel = { level, description: levelDescription, skill_id: skillId };
+        await store.skillLevels.upsertSkillLevel(newLevel);
       }
 
       return store.skills.fetchSkillById(skillId);
@@ -60,7 +60,7 @@ module.exports = () => {
 
     return {
       fetchSkills,
-      insertSkill,
+      upsertSkill,
       updateSkill,
       deleteSkill,
     };

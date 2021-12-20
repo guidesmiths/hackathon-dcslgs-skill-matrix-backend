@@ -42,32 +42,7 @@ module.exports = () => {
       async (req, res, next) => {
         const { body: payload } = req;
         try {
-          const ecosystem = await controller.ecosystems.insertEcosystem(payload);
-          res.send(ecosystem);
-        } catch (error) {
-          next(tagError(error));
-        }
-      });
-
-    /**
-     * PUT /api/v1/ecosystem/{id}
-     * @route PUT /api/v1/ecosystem/{id}
-     * @summary Update an existing ecosystem name
-     * @tags Ecosystem
-     * @param {number} id.required - Ecosystem id
-     * @param {string} request.body.required - Ecosystem name
-     * @return {EcosystemSimpleResponse} 200 - Ecosystem response
-     * @example response - 200 - success response example
-     * {"id":2,"name":"Node.js","created_on":"2021-08-20T21:06:00.439Z","updated_on":"2021-08-20T21:06:00.439Z"}
-
-    * @security jwtAuth
-    */
-    app.put('/api/v1/ecosystem/:id',
-      async (req, res, next) => {
-        const { body: payload, params } = req;
-        const { id } = params;
-        try {
-          const ecosystem = await controller.ecosystems.updateEcosystem(id, payload);
+          const ecosystem = await controller.ecosystems.upsertEcosystem(payload);
           res.send(ecosystem);
         } catch (error) {
           next(tagError(error));
