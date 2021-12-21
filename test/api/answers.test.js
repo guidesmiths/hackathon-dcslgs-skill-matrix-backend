@@ -319,7 +319,7 @@ describe('Answers API routes', () => {
         } = ecosystems[0];
         expect(average).toEqual(1.8);
         expect(skills).toHaveLength(5);
-        const orderedSkills = skills.sort((a, b) => a.id > b.id);
+        const orderedSkills = skills.sort((a, b) => a.id - b.id);
         expect(orderedSkills[1].id).toEqual(2);
         expect(orderedSkills[1].name).toEqual('Next.js');
         expect(orderedSkills[1].level).toEqual(2);
