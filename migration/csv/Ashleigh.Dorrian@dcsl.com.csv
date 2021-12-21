@@ -187,15 +187,15 @@ Javascript,Storage,1,,TRUE,I made a simple examples using the browser API
 Javascript,Testing,2,,FALSE,I understand the basics and can read and modify existing code.
 Javascript,DevTools,2,,FALSE,"I have a deep knowledge on advance tools (sources, security, audit)"
 ,,,,,
-.NET Core,C# core,2,,FALSE,"I make appropriate use of class indexers and properties.
+.NET,C# core,2,,FALSE,"I make appropriate use of class indexers and properties.
 I use delegates, lambda functions, closures, anonymous methods to create concise expressive code.
 I use dynamic/anonymous types to manage runtime determined entities.
 I understand the use of IEnumerable, yield and related concepts.
 I am familiar with the syntax used to access LINQ capabilities."
-.NET Core,C# async,2,,FALSE,I understand async concepts well enough to understand and modify existing code.
-.NET Core,C# parallel programming,2,,FALSE,I understand parallel programming concepts well enough to understand and modify existing code.
-.NET Core,C# testing,3,,FALSE,"I can write any kind of test relevant to the task in hand, and have experience of using a testing framework such as MSTest, NUnit, xUnit, etc."
-.NET Core,C# logging,3,,FALSE,"I have used a logging framework such as NLog, Serilog, log4net, etc.
+.NET,C# async,2,,FALSE,I understand async concepts well enough to understand and modify existing code.
+.NET,C# parallel programming,2,,FALSE,I understand parallel programming concepts well enough to understand and modify existing code.
+.NET,C# testing,3,,FALSE,"I can write any kind of test relevant to the task in hand, and have experience of using a testing framework such as MSTest, NUnit, xUnit, etc."
+.NET,C# logging,3,,FALSE,"I have used a logging framework such as NLog, Serilog, log4net, etc.
 I use structured logging to log messages containing extensive contextual and diagnostic data."
 ,,,,,
 GraphQL,Core,0,,FALSE,

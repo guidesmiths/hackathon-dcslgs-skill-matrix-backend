@@ -187,15 +187,15 @@ Javascript,Storage,2,,FALSE,I understand the basics and can read and modify exis
 Javascript,Testing,1,,FALSE,"I know the basics about Testing (concepts, e2e, unit...)"
 Javascript,DevTools,1,,FALSE,"I have a very basic idea of the most common tools (inpect, console...)"
 ,,,,,
-.NET Core,C# core,1,,FALSE,"I am familiar with the basic structure of C# programs and the use of namespaces and types.
+.NET,C# core,1,,FALSE,"I am familiar with the basic structure of C# programs and the use of namespaces and types.
 I understand the difference between reference types and value types, nullable and non-nullable types.
 I understand basic Object Orientated Programming (OOP) principles (classes, inheritance, polymorphism, interfaces).
 I know when to use the different generic collection types (List, Dictionary, Set, etc.) and their advantages/disadvantages. 
 I can use try/catch blocks for managing generic exceptions."
-.NET Core,C# async,2,,FALSE,I understand async concepts well enough to understand and modify existing code.
-.NET Core,C# parallel programming,0,,FALSE,
-.NET Core,C# testing,0,,FALSE,
-.NET Core,C# logging,0,,FALSE,
+.NET,C# async,2,,FALSE,I understand async concepts well enough to understand and modify existing code.
+.NET,C# parallel programming,0,,FALSE,
+.NET,C# testing,0,,FALSE,
+.NET,C# logging,0,,FALSE,
 ,,,,,
 GraphQL,Core,2,,FALSE,I can modify effectively already working solutions to include new features.
 GraphQL,Queries,2,,FALSE,I can modify effectively already working queries to include new features.

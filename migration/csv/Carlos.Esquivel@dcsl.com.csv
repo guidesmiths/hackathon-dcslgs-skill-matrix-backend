@@ -193,19 +193,19 @@ Javascript,Storage,2,,FALSE,I understand the basics and can read and modify exis
 Javascript,Testing,2,,FALSE,I understand the basics and can read and modify existing code.
 Javascript,DevTools,3,,FALSE,"I am able to use less common features and generate value from them (fake geolocation, performance analysis, etc...)"
 ,,,,,
-.NET Core,C# core,4,,FALSE,"I am familiar with the bulk of the core C# .NET core api.
+.NET,C# core,4,,FALSE,"I am familiar with the bulk of the core C# .NET core api.
 I can use unsafe code, pointers where required for optimisation and for interfacing with unmanaged code.
 I can build and manage expression trees.
 I can employ type introspection to write dynamic code."
-.NET Core,C# async,4,,FALSE,"I am familiar with all aspects of the Task Based Asynchronous model.
+.NET,C# async,4,,FALSE,"I am familiar with all aspects of the Task Based Asynchronous model.
 I can instruct others in optimal implementations of async code and best practices."
-.NET Core,C# parallel programming,4,,FALSE,"I am well versed in all concurrent/parallel programming concepts and can create safe and effective parallel implementations for any requirement.
+.NET,C# parallel programming,4,,FALSE,"I am well versed in all concurrent/parallel programming concepts and can create safe and effective parallel implementations for any requirement.
 I understand all aspects of using threads (deadlocks, race conditions, levels of sync, thread pools, etc.) and employ threading best practices.
 I am comfortable using PLINQ for parallelised data tasks.
 I can use the Dataflow library to improve solution robustness.
 "
-.NET Core,C# testing,3,,FALSE,"I can write any kind of test relevant to the task in hand, and have experience of using a testing framework such as MSTest, NUnit, xUnit, etc."
-.NET Core,C# logging,3,,FALSE,"I have used a logging framework such as NLog, Serilog, log4net, etc.
+.NET,C# testing,3,,FALSE,"I can write any kind of test relevant to the task in hand, and have experience of using a testing framework such as MSTest, NUnit, xUnit, etc."
+.NET,C# logging,3,,FALSE,"I have used a logging framework such as NLog, Serilog, log4net, etc.
 I use structured logging to log messages containing extensive contextual and diagnostic data."
 ,,,,,
 GraphQL,Core,0,,TRUE,

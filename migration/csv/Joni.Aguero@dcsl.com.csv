@@ -197,11 +197,11 @@ Javascript,Storage,2,,TRUE,I understand the basics and can read and modify exist
 Javascript,Testing,2,,TRUE,I understand the basics and can read and modify existing code.
 Javascript,DevTools,2,,TRUE,"I have a deep knowledge on advance tools (sources, security, audit)"
 ,,,,,
-.NET Core,C# core,0,,FALSE,
-.NET Core,C# async,0,,FALSE,
-.NET Core,C# parallel programming,0,,FALSE,
-.NET Core,C# testing,0,,FALSE,
-.NET Core,C# logging,0,,FALSE,
+.NET,C# core,0,,FALSE,
+.NET,C# async,0,,FALSE,
+.NET,C# parallel programming,0,,FALSE,
+.NET,C# testing,0,,FALSE,
+.NET,C# logging,0,,FALSE,
 ,,,,,
 GraphQL,Core,1,,TRUE,I have a basic knowledge of the tool. Understand the tool principles and can implement solutions defined at the documentation or tutorials
 GraphQL,Queries,1,,TRUE,I know the most basic concepts about it.
