@@ -49,7 +49,7 @@ module.exports = () => {
           }
           user = await controller.users.insertUser(body);
           if (!existsUser) {
-            userMigration(user.email).then(answers => controller.answers.migrateAnswers(user.user_id, answers));
+            await userMigration(user.email).then(answers => controller.answers.migrateAnswers(user.user_id, answers));
           }
           const token = signToken(user);
           res.send(token);
