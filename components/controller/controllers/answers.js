@@ -118,7 +118,6 @@ module.exports = () => {
           answersPrepared.push(answerToInsert);
         }
       }
-      console.log(answersPrepared);
       insertAnswers(id, answersPrepared);
     };
 
