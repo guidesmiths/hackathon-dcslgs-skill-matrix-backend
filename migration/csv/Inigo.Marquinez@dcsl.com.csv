@@ -192,11 +192,11 @@ Javascript,Storage,2,,TRUE,I understand the basics and can read and modify exist
 Javascript,Testing,3,,TRUE,I am able to implement new tests for Unit testing or E2E testing
 Javascript,DevTools,1,,TRUE,"I have a very basic idea of the most common tools (inpect, console...)"
 ,,,,,
-.NET Core,C# core,0,,TRUE,
-.NET Core,C# async,0,,FALSE,
-.NET Core,C# parallel programming,0,,FALSE,
-.NET Core,C# testing,0,,FALSE,
-.NET Core,C# logging,0,,FALSE,
+.NET,C# core,0,,TRUE,
+.NET,C# async,0,,FALSE,
+.NET,C# parallel programming,0,,FALSE,
+.NET,C# testing,0,,FALSE,
+.NET,C# logging,0,,FALSE,
 ,,,,,
 GraphQL,Core,0,,TRUE,
 GraphQL,Queries,0,,FALSE,

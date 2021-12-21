@@ -193,11 +193,11 @@ Javascript,Storage,2,,FALSE,I understand the basics and can read and modify exis
 Javascript,Testing,4,,FALSE,I am able to perform TDD in e2e and unit testing environment
 Javascript,DevTools,4,,TRUE,I have a deep knowledge on the Dev Tools protocol and I can build complex bots using Puppeteer
 ,,,,,
-.NET Core,C# core,0,,FALSE,
-.NET Core,C# async,0,,FALSE,
-.NET Core,C# parallel programming,0,,FALSE,
-.NET Core,C# testing,0,,FALSE,
-.NET Core,C# logging,0,,FALSE,
+.NET,C# core,0,,FALSE,
+.NET,C# async,0,,FALSE,
+.NET,C# parallel programming,0,,FALSE,
+.NET,C# testing,0,,FALSE,
+.NET,C# logging,0,,FALSE,
 ,,,,,
 GraphQL,Core,1,,FALSE,
 GraphQL,Queries,1,,FALSE,
