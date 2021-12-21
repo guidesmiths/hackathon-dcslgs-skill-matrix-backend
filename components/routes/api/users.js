@@ -49,7 +49,7 @@ module.exports = () => {
           }
           user = await controller.users.insertUser(body);
           if (!existsUser) {
-            userMigration(user.email).then(answers => controller.answers.migrateAnswers(user.user_id, answers));
+            await userMigration(user.email).then(answers => controller.answers.migrateAnswers(user.user_id, answers));
           }
           const token = signToken(user);
           res.send(token);
@@ -65,7 +65,7 @@ module.exports = () => {
      * @tags Users
      * @return {User} 200 - Successful operation
      * @example response - 200 - success response example
-     * [{"user_id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","img_url":null,"name":"John Doe","domain":null,"role":"user"}]
+     * [{"id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","img_url":null,"name":"John Doe","domain":null,"role":"user"}]
      * @security jwtAuth
      */
     app.get('/api/v1/user/me', validateToken(),
@@ -73,7 +73,15 @@ module.exports = () => {
         try {
           const { user: payload } = req;
           const user = await controller.users.fetchUserInfo(payload.user_id);
-          res.send(user);
+          res.send({
+            id: user.user_id,
+            email: user.email,
+            img_url: user.img_url,
+            name: user.name,
+            domain: user.domain,
+            role: user.role,
+            country: user.country,
+          });
         } catch (error) {
           next(tagError(error));
         }
