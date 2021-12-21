@@ -107,15 +107,18 @@ module.exports = () => {
       const answersPrepared = [];
       for await (const answer of answers) {
         const skillId = await store.answers.getSkillId(answer.skill_name, answer.ecosystem_name);
-        const answerToInsert = {
-          skill_id: skillId.id,
-          skill_value: answer.skill_value,
-          skill_subvalue: 'neutral',
-          interested: answer.interested,
-          comments: answer.comments,
-        };
-        answersPrepared.push(answerToInsert);
+        if (skillId) {
+          const answerToInsert = {
+            skill_id: skillId.id,
+            skill_value: answer.skill_value,
+            skill_subvalue: 'neutral',
+            interested: answer.interested,
+            comments: answer.comments,
+          };
+          answersPrepared.push(answerToInsert);
+        }
       }
+      console.log(answersPrepared);
       insertAnswers(id, answersPrepared);
     };
 
