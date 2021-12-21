@@ -6,6 +6,7 @@ module.exports = () => {
     },
 
     fetchAnswersByUser: async userId => {
+      console.log('id', userId);
       const { rows } = await pg.query('select-answers-by-user', userId);
       return rows;
     },

@@ -47,7 +47,7 @@ const getAnswerByUser = (answerUser, user) => {
   const ecosystems = groupedByEcosystem.map(getEcosystem);
 
   return {
-    id: userId || user.user_id,
+    id: userId || user.id,
     email: email || user.email,
     name: userName || user.name,
     ecosystems,
@@ -70,12 +70,12 @@ module.exports = () => {
     const fetchAnswersByUser = async id => {
       logger.info('Fetching answers by user');
       debug('Fetching answers by user');
-      const answersByUser = await store.answers.fetchAnswersByUser(id);
       const userData = await store.users.fetchUserInfo(id);
+      const answersByUser = await store.answers.fetchAnswersByUser(userData.id);
       if (answersByUser.length === 0) {
         const ecosystems = await store.ecosystems.fetchEcosystems();
         return {
-          id: userData.user_id,
+          id: userData.id,
           email: userData.email,
           name: userData.name,
           userRole: userData.role,
@@ -118,7 +118,6 @@ module.exports = () => {
           answersPrepared.push(answerToInsert);
         }
       }
-      console.log(answersPrepared);
       insertAnswers(id, answersPrepared);
     };
 
