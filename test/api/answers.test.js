@@ -236,6 +236,26 @@ describe('Answers API routes', () => {
       }));
   });
 
+  describe('GET /api/v1/user/:userId/ecosystem/:ecoId/answers', () => {
+    it('should get the answers by user id & ecosystem id', () => request
+      .get('/api/v1/user/asldkan21ansdkasnd/ecosystem/1/answers')
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        const {
+          id, name, email, ecosystems,
+        } = body;
+        expect(id).toEqual('asldkan21ansdkasnd');
+        expect(email).toEqual('johndoe@guidesmiths.com');
+        expect(name).toEqual('John Doe');
+        expect(ecosystems).toHaveLength(1);
+        const {
+          skills, average,
+        } = ecosystems[0];
+        expect(average).toEqual(1.8);
+        expect(skills).toHaveLength(5);
+      }));
+  });
+
   describe('POST /api/v1/user/:id/answers', () => {
     it('should create new answers', () => request
       .post('/api/v1/user/asldka12312sdkasnd/answers')
@@ -299,33 +319,6 @@ describe('Answers API routes', () => {
         expect(body.id).toEqual('asldka12312sdkasnd');
         const { skills } = body.ecosystems[0];
         expect(skills).not.toHaveLength(3);
-      }));
-  });
-
-  describe('GET /api/v1/user/:id/answers', () => {
-    it('should get the answers by id', () => request
-      .get('/api/v1/user/asldkan21ansdkasnd/answers')
-      .expect(StatusCodes.OK)
-      .then(({ body }) => {
-        const {
-          name, id, email, ecosystems,
-        } = body;
-        expect(name).toEqual('John Doe');
-        expect(id).toEqual('asldkan21ansdkasnd');
-        expect(email).toEqual('johndoe@guidesmiths.com');
-        expect(ecosystems).toHaveLength(2);
-        const {
-          skills, average,
-        } = ecosystems[0];
-        expect(average).toEqual(1.8);
-        expect(skills).toHaveLength(5);
-        const orderedSkills = skills.sort((a, b) => a.id - b.id);
-        expect(orderedSkills[1].id).toEqual(2);
-        expect(orderedSkills[1].name).toEqual('Next.js');
-        expect(orderedSkills[1].level).toEqual(2);
-        expect(orderedSkills[1].sublevel).toEqual('neutral');
-        expect(orderedSkills[1].interested).toEqual(false);
-        expect(orderedSkills[1].comments).toEqual('');
       }));
   });
 });

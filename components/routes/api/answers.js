@@ -13,13 +13,15 @@ module.exports = () => {
      * @param {FilterAnswers} request.body - Filter by name, skill id & level
      * @return {array<AnswersResponse>} 200 - Successful operation
      * @example response - 200 - success response example
-     * [{"id":"asldka12311sdkasnd","email":"rachelFern@guidesmiths.com","name":"Raquel Fernandez","ecosystems":[{"id":1,"name":"React","average":3,"skills":[{"id":1,"name":"React","level":4,"sublevel":"plus","interested":false,"comments":""},{"id":2,"name":"Next.js","level":2,"sublevel":"neutral","interested":false,"comments":""}]}]},{"id":"asldka12312sdkasnd","email":"janedoe@guidesmiths.com","name":"Jane Doe","ecosystems":[{"id":1,"name":"React","average":3,"skills":[{"id":1,"name":"React","level":3,"sublevel":"neutral","interested":true,"comments":""}]},{"id":2,"name":"NodeJS","average":1,"skills":[{"id":6,"name":"Express","level":1,"sublevel":"neutral","interested":false,"comments":""}]}]},{"id":"asldka12345sdkasnd","email":"jennygo@guidesmiths.com","name":"Jenny Goijman","ecosystems":[{"id":1,"name":"React","average":1.75,"skills":[{"id":1,"name":"React","level":1,"sublevel":"neutral","interested":false,"comments":""},{"id":2,"name":"Next.js","level":1,"sublevel":"neutral","interested":false,"comments":""},{"id":3,"name":"Redux","level":3,"sublevel":"neutral","interested":false,"comments":""},{"id":4,"name":"Redux-Sagas","level":2,"sublevel":"minus","interested":false,"comments":""}]}]},{"id":"asldka12367sdkasnd","email":"danicolas@guidesmiths.com","name":"Daniel Colas","ecosystems":[{"id":1,"name":"React","average":2,"skills":[{"id":1,"name":"React","level":2,"sublevel":"neutral","interested":true,"comments":""},{"id":2,"name":"Next.js","level":1,"sublevel":"plus","interested":true,"comments":""},{"id":4,"name":"Redux-Sagas","level":3,"sublevel":"neutral","interested":true,"comments":""}]}]},{"id":"asldka12387sdkasnd","email":"ssanchez@guidesmiths.com","name":"Sofia Sanchez","ecosystems":[{"id":1,"name":"React","average":2.5,"skills":[{"id":2,"name":"Next.js","level":3,"sublevel":"minus","interested":true,"comments":""},{"id":4,"name":"Redux-Sagas","level":2,"sublevel":"neutral","interested":true,"comments":""}]}]},{"id":"asldka12389sdkasnd","email":"dyusta@guidesmiths.com","name":"David Yusta","ecosystems":[{"id":1,"name":"React","average":4,"skills":[{"id":2,"name":"Next.js","level":4,"sublevel":"plus","interested":false,"comments":""},{"id":3,"name":"Redux","level":4,"sublevel":"minus","interested":true,"comments":""}]}]},{"id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","name":"John Doe","ecosystems":[{"id":1,"name":"React","average":3,"skills":[{"id":1,"name":"React","level":4,"sublevel":"minus","interested":true,"comments":""},{"id":2,"name":"Next.js","level":2,"sublevel":"neutral","interested":false,"comments":""},{"id":4,"name":"Redux-Sagas","level":3,"sublevel":"plus","interested":true,"comments":""}]},{"id":2,"name":"NodeJS","average":1,"skills":[{"id":6,"name":"Express","level":1,"sublevel":"plus","interested":true,"comments":""}]}]}]
+     * [{"id":"asldka12311sdkasnd","email":"rachelFern@guidesmiths.com","name":"Raquel Fernandez","ecosystems":[{"id":1,"name":"React","average":3.165,"skills":[{"id":1,"name":"React","level":4,"levelDescription":"I can define complex architectures and I can provide optimised solutions","sublevel":"plus","interested":false,"comments":""},{"id":2,"name":"Next.js","level":2,"levelDescription":"I modify effectively already working solutions to include new features","sublevel":"neutral","interested":false,"comments":""}]}],"userRole":"user"},{"id":"asldka12312sdkasnd","email":"janedoe@guidesmiths.com","name":"Jane Doe","ecosystems":[{"id":1,"name":"React","average":3,"skills":[{"id":1,"name":"React","level":3,"levelDescription":"I can analyse working solutions and propose refactors and generalization","sublevel":"neutral","interested":true,"comments":""}]},{"id":2,"name":"NodeJS","average":1,"skills":[{"id":6,"name":"Express","level":1,"levelDescription":"I know http verbs (at least POST, GET), REST basics, URL routing and how to handle basics http error codes and responses","sublevel":"neutral","interested":false,"comments":""}]}],"userRole":"user"},{"id":"asldka12367sdkasnd","email":"danicolas@guidesmiths.com","name":"Daniel Colas","ecosystems":[{"id":1,"name":"React","average":2.11,"skills":[{"id":1,"name":"React","level":2,"levelDescription":"I can modify effectively already working solutions to include new features","sublevel":"neutral","interested":true,"comments":""},{"id":2,"name":"Next.js","level":1,"levelDescription":"I understand the framework principles and I can implement solutions defined at the documentation or tutorials","sublevel":"plus","interested":true,"comments":""},{"id":4,"name":"Redux-Sagas","level":3,"levelDescription":"I can write both sync and async sagas processes","sublevel":"neutral","interested":true,"comments":""}]}],"userRole":"user"},{"id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","name":"John Doe","ecosystems":[{"id":1,"name":"React","average":3,"skills":[{"id":1,"name":"React","level":4,"levelDescription":"I can define complex architectures and I can provide optimised solutions","sublevel":"minus","interested":true,"comments":""},{"id":2,"name":"Next.js","level":2,"levelDescription":"I modify effectively already working solutions to include new features","sublevel":"neutral","interested":false,"comments":""},{"id":4,"name":"Redux-Sagas","level":3,"levelDescription":"I can write both sync and async sagas processes","sublevel":"plus","interested":true,"comments":""}]},{"id":2,"name":"NodeJS","average":1.33,"skills":[{"id":6,"name":"Express","level":1,"levelDescription":"I know http verbs (at least POST, GET), REST basics, URL routing and how to handle basics http error codes and responses","sublevel":"plus","interested":true,"comments":""}]}],"userRole":"user"}]
 
      * @security jwtAuth
      */
     app.post('/api/v1/answers', validateToken(),
       async (req, res, next) => {
         const { body: filters } = req;
+
+        // TODO: this endpoint doesn't include userRole, country or seniority in the response. Should it?
         try {
           const answers = await controller.answers.fetchAnswers(filters);
           res.send(answers);
@@ -29,23 +31,24 @@ module.exports = () => {
       });
 
     /**
-     * GET /api/v1/user/{id}/answers
-     * @route GET /api/v1/user/{id}/answers
-     * @summary Get answers filtered by user id
+     * GET /api/v1/user/{userId}/ecosystem/{ecoId}/answers
+     * @route GET /api/v1/user/{userId}/ecosystem/{ecoId}/answers
+     * @summary Get answers filtered by user id & ecosystem id
      * @tags Answers
-     * @param {number} id.params.required - User id
+     * @param {number} userId.params.required - User id
+     * @param {number} ecoId.params.required - Ecosystem id
      * @return {AnswersResponse} 200 - Answers response
      * @example response - 200 - success response example
-     * {"id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","name":"John Doe","ecosystems":[{"id":1,"name":"React","average":3,"skills":[{"id":1,"name":"React","level":4,"sublevel":"minus","interested":true,"comments":""},{"id":2,"name":"Next.js","level":2,"sublevel":"neutral","interested":false,"comments":""},{"id":4,"name":"Redux-Sagas","level":3,"sublevel":"plus","interested":true,"comments":""}]},{"id":2,"name":"NodeJS","average":1,"skills":[{"id":6,"name":"Express","level":1,"sublevel":"plus","interested":true,"comments":""}]}]}
+     * {"id":"asldkan21ansdkasnd","email":"johndoe@guidesmiths.com","name":"John Doe","ecosystems":[{"id":1,"name":"React","average":1.8,"skills":[{"id":1,"name":"React","level":4,"sublevel":"minus","interested":true,"comments":""},{"id":4,"name":"Redux-Sagas","level":3,"sublevel":"plus","interested":true,"comments":""},{"id":2,"name":"Next.js","level":2,"sublevel":"neutral","interested":false,"comments":""},{"id":5,"name":"Gatsby","level":0,"sublevel":"neutral","interested":null,"comments":null},{"id":3,"name":"Redux","level":0,"sublevel":"neutral","interested":null,"comments":null}]}],"userRole":"user","country":null,"seniority":null}
 
      * @security jwtAuth
      */
-    app.get('/api/v1/user/:id/answers', validateToken(),
+    app.get('/api/v1/user/:userId/ecosystem/:ecoId/answers', validateToken(),
       async (req, res, next) => {
-        const { params } = req;
-        const { id } = params;
+        const { params: { userId, ecoId } } = req;
+
         try {
-          const answers = await controller.answers.fetchAnswersByUser(id);
+          const answers = await controller.answers.fetchAnswersByUserAndEcosystem(userId, ecoId);
           res.send(answers);
         } catch (error) {
           next(tagError(error));
@@ -60,14 +63,15 @@ module.exports = () => {
      * @param {array<AnswerRequest>} request.body.required - Answers data (without user_id)
      * @return {AnswersResponse} 200 - Answers response
      * @example response - 200 - success response example
-     * {"id":"asldka12312sdkasnd","email":"janedoe@guidesmiths.com","name":"Jane Doe","ecosystems":[{"id":1,"name":"React","average":3,"skills":[{"id":1,"name":"React","level":3,"sublevel":"neutral","interested":true,"comments":""},{"id":2,"name":"Next.js","level":2,"sublevel":"plus","interested":true,"comments":"This is my second comment"},{"id":3,"name":"Redux","level":4,"sublevel":"minus","interested":true,"comments":"This is my comment"}]},{"id":2,"name":"NodeJS","average":1,"skills":[{"id":6,"name":"Express","level":1,"sublevel":"neutral","interested":false,"comments":""}]}]}
+     * {"id":"asldka12312sdkasnd","email":"janedoe@guidesmiths.com","name":"Jane Doe","ecosystems":[{"id":1,"name":"React","average":1.8,"skills":[{"id":1,"name":"React","level":3,"sublevel":"neutral","interested":true,"comments":""},{"id":2,"name":"Next.js","level":2,"sublevel":"plus","interested":true,"comments":"This is my second comment"},{"id":3,"name":"Redux","level":4,"sublevel":"minus","interested":true,"comments":"This is my comment"},{"id":5,"name":"Gatsby","level":0,"sublevel":"neutral","interested":null,"comments":null},{"id":4,"name":"Redux-Sagas","level":0,"sublevel":"neutral","interested":null,"comments":null}]}],"userRole":"user","country":null,"seniority":null}
      *
      * @security jwtAuth
      */
     app.post('/api/v1/user/:id/answers', validateToken(),
       async (req, res, next) => {
-        const { body: payload, params } = req;
-        const { id } = params;
+        const { body: payload, params: { id } } = req;
+
+        // TODO: this endpoint doesn't include userRole, country or seniority in the response. Should it?
         try {
           const answer = await controller.answers.insertAnswers(id, payload);
           res.send(answer);

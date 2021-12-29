@@ -43,6 +43,7 @@ const getAnswerByUser = (answerUser, user) => {
     userId, email, userName, userRole, country, seniority,
   } = answerUser[0];
 
+  // const ecosystems = [answerUser].map(getEcosystem);
   const groupedByEcosystem = groupByProperty(answerUser, 'ecosystemId');
   const ecosystems = groupedByEcosystem.map(getEcosystem);
 
@@ -62,18 +63,22 @@ module.exports = () => {
     const fetchAnswers = async filters => {
       logger.info('Fetching all answers');
       debug('Fetching all answers');
+
       const answers = await store.answers.fetchAnswers(filters);
       const groupedByUser = groupByProperty(answers, 'userId');
+
       return groupedByUser.map(getAnswerByUser);
     };
 
-    const fetchAnswersByUser = async id => {
+    const fetchAnswersByUserAndEcosystem = async (userId, ecoId) => {
       logger.info('Fetching answers by user');
       debug('Fetching answers by user');
-      const answersByUser = await store.answers.fetchAnswersByUser(id);
-      const userData = await store.users.fetchUserInfo(id);
+
+      const answersByUser = await store.answers.fetchAnswersByUserAndEcosystem(userId, ecoId);
+      const userData = await store.users.fetchUserInfo(userId);
+
       if (answersByUser.length === 0) {
-        const ecosystems = await store.ecosystems.fetchEcosystems();
+        const ecosystems = await store.ecosystems.fetchSkillsByEcosystemId(ecoId);
         return {
           id: userData.user_id,
           email: userData.email,
@@ -84,27 +89,41 @@ module.exports = () => {
           seniority: userData.seniority,
         };
       }
+
       return getAnswerByUser(answersByUser, userData);
     };
 
-    const insertAnswers = async (id, answers) => {
+    const insertAnswers = async (userId, answers, isMigration = false) => {
       logger.info('Creating new answers from an user');
+
+      let ecosystemId;
+      if (isMigration) {
+        const ecosystems = await store.ecosystems.fetchEcosystems();
+        ecosystemId = ecosystems[0].id;
+      } else {
+        const { id } = await store.ecosystems.fetchEcosystemBySkillId(answers[0].skill_id);
+        ecosystemId = id;
+      }
+
       for await (const answer of answers) {
         const { skill_value: skillValue, skill_id: skillId, interested: isInterested } = answer;
         if (skillValue === 0 && !isInterested) {
           debug('Deleting an answer');
-          await store.answers.deleteAnswer(id, skillId);
+          await store.answers.deleteAnswer(userId, skillId);
         } else {
           debug('Creating a new answer');
-          await store.answers.insertAnswer({ user_id: id, ...answer });
+          await store.answers.insertAnswer({ user_id: userId, ...answer });
         }
       }
-      return fetchAnswersByUser(id);
+
+      return fetchAnswersByUserAndEcosystem(userId, ecosystemId);
     };
 
     const migrateAnswers = async (id, answers) => {
       logger.info('Preparing answers to insert');
+
       const answersPrepared = [];
+
       for await (const answer of answers) {
         const skillId = await store.answers.getSkillId(answer.skill_name, answer.ecosystem_name);
         if (skillId) {
@@ -118,12 +137,13 @@ module.exports = () => {
           answersPrepared.push(answerToInsert);
         }
       }
-      insertAnswers(id, answersPrepared);
+
+      insertAnswers(id, answersPrepared, true);
     };
 
     return {
       fetchAnswers,
-      fetchAnswersByUser,
+      fetchAnswersByUserAndEcosystem,
       insertAnswers,
       migrateAnswers,
     };

@@ -5,8 +5,8 @@ module.exports = () => {
       return rows;
     },
 
-    fetchAnswersByUser: async userId => {
-      const { rows } = await pg.query('select-answers-by-user', userId);
+    fetchAnswersByUserAndEcosystem: async (userId, ecoId) => {
+      const { rows } = await pg.formattedQuery('select-answers-by-user-and-ecosystem', { user_id: userId, eco_id: ecoId });
       return rows;
     },
 

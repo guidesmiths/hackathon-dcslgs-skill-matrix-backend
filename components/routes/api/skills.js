@@ -42,6 +42,7 @@ module.exports = () => {
     app.post('/api/v1/skill', validateToken(),
       async (req, res, next) => {
         const { body: payload } = req;
+
         try {
           const skill = await controller.skills.upsertSkill(payload);
           res.send(skill);
@@ -66,8 +67,8 @@ module.exports = () => {
 
     app.put('/api/v1/skill/:id', validateToken(),
       async (req, res, next) => {
-        const { body: payload, params } = req;
-        const { id } = params;
+        const { body: payload, params: { id } } = req;
+
         try {
           const skill = await controller.skills.updateSkill(id, payload);
           res.send(skill);
@@ -87,8 +88,8 @@ module.exports = () => {
     */
     app.delete('/api/v1/skill/:id', validateToken(),
       async (req, res, next) => {
-        const { params } = req;
-        const { id } = params;
+        const { params: { id } } = req;
+
         try {
           const skill = await controller.skills.deleteSkill(id);
           res.send(skill);

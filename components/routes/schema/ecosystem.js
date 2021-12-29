@@ -19,7 +19,7 @@
  * @typedef {object} EcosystemResponse
  * @property {number} id - The ecosystem id
  * @property {string} name - The ecosystem name
- * @property {array<EcosystemSkillResponse>} skills - The ecosystem's skills
+ // * @property {array<EcosystemSkillResponse>} skills - The ecosystem's skills
 * */
 
 /**

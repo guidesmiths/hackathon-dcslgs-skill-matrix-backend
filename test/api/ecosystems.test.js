@@ -31,6 +31,17 @@ describe('Ecosystems API routes', () => {
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         expect(body).toHaveLength(2);
+        const { name } = body[1];
+        expect(name).toEqual('React');
+      }));
+  });
+
+  describe('GET /api/v1/ecosystem/:id', () => {
+    it('should return OK (200) with the skills by ecosystem', () => request
+      .get('/api/v1/ecosystem/1')
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        expect(body).toHaveLength(1);
         const { name, skills } = body[0];
         expect(name).toEqual('React');
         expect(skills).toHaveLength(5);
@@ -67,7 +78,7 @@ describe('Ecosystems API routes', () => {
       .then(({ body }) => {
         const {
           name: ecosystemName, skills,
-        } = body;
+        } = body[0];
         expect(ecosystemName).toEqual('Testingg');
         expect(skills).toHaveLength(1);
         const {
@@ -120,7 +131,7 @@ describe('Ecosystems API routes', () => {
       .then(({ body }) => {
         const {
           name: ecosystemName, skills,
-        } = body;
+        } = body[0];
         expect(ecosystemName).toEqual('Web Client');
         expect(skills).toHaveLength(2);
         const {

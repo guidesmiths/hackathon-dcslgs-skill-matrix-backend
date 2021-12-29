@@ -58,15 +58,18 @@ const getSkillsByEcosystems = ecosystem => {
 module.exports = () => {
   const start = async ({ pg }) => ({
     fetchEcosystems: async () => {
-      const { rows } = await pg.query('select-skills-by-ecosystems');
-      const groupedByEcosystem = groupByProperty(rows, 'ecosystemId');
-      return groupedByEcosystem.map(getSkillsByEcosystems);
+      const { rows } = await pg.query('select-ecosystems-list');
+      return rows;
     },
 
-    fetchEcosystemById: async id => {
-      const { rows } = await pg.query('select-skills-by-ecosystems');
-      const groupedByEcosystem = groupByProperty(rows, 'ecosystemId');
-      return groupedByEcosystem.map(getSkillsByEcosystems).find(ecosystem => ecosystem.id === id);
+    fetchSkillsByEcosystemId: async id => {
+      const { rows } = await pg.query('select-skills-by-ecosystems', id);
+      return [rows].map(getSkillsByEcosystems);
+    },
+
+    fetchEcosystemBySkillId: async skillId => {
+      const { rows } = await pg.query('select-ecosystem-by-skill', skillId);
+      return rows[0];
     },
 
     upsertEcosystem: async payload => {

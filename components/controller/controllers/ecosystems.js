@@ -4,9 +4,17 @@ const debug = require('debug')('skill-matrix:controller:ecosystems');
 module.exports = () => {
   const start = async ({ store, logger }) => {
     const fetchEcosystems = async () => {
+      logger.info('Fetching ecosystems list');
+      debug('Fetching ecosystems list');
+
+      return store.ecosystems.fetchEcosystems();
+    };
+
+    const fetchSkillsByEcosystemId = async id => {
       logger.info('Fetching skills by ecosystems');
       debug('Fetching skills by ecosystems');
-      return store.ecosystems.fetchEcosystems();
+
+      return store.ecosystems.fetchSkillsByEcosystemId(id);
     };
 
     const upsertEcosystem = async payload => {
@@ -15,6 +23,7 @@ module.exports = () => {
 
       const { id: ecoId, name: ecoName, skills } = payload;
       const { id: ecosystemId } = await store.ecosystems.upsertEcosystem({ id: ecoId, name: ecoName });
+
       for await (const skill of skills) {
         debug('Creating a new skill');
         skill.type = skill.type.id || skill.type;
@@ -44,7 +53,8 @@ module.exports = () => {
           await store.skillLevels.upsertSkillLevel(newLevel);
         }
       }
-      return store.ecosystems.fetchEcosystemById(ecosystemId);
+
+      return store.ecosystems.fetchSkillsByEcosystemId(ecosystemId);
     };
 
     const deleteEcosystem = async id => {
@@ -54,6 +64,7 @@ module.exports = () => {
 
     return {
       fetchEcosystems,
+      fetchSkillsByEcosystemId,
       upsertEcosystem,
       deleteEcosystem,
     };
