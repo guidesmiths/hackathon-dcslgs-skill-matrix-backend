@@ -17,10 +17,6 @@ module.exports = () => {
 
     deleteAnswer: async (userId, skillId) => pg.formattedQuery('delete-answer-by-skill-and-user', { user_id: userId, skill_id: skillId }),
 
-    getSkillId: async (skillName, ecosystemName) => {
-      const { rows } = await pg.formattedQuery('select-skill-id', { skill_name: skillName, ecosystem_name: ecosystemName });
-      return rows[0];
-    },
   });
   return { start };
 };

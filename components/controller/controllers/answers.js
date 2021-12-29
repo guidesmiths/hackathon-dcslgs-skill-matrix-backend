@@ -105,16 +105,18 @@ module.exports = () => {
         ecosystemId = id;
       }
 
-      for await (const answer of answers) {
+      const promises = answers.map(answer => {
         const { skill_value: skillValue, skill_id: skillId, interested: isInterested } = answer;
         if (skillValue === 0 && !isInterested) {
           debug('Deleting an answer');
-          await store.answers.deleteAnswer(userId, skillId);
-        } else {
-          debug('Creating a new answer');
-          await store.answers.insertAnswer({ user_id: userId, ...answer });
+          return store.answers.deleteAnswer(userId, skillId);
         }
-      }
+
+        debug('Creating a new answer');
+        return store.answers.insertAnswer({ user_id: userId, ...answer });
+      });
+
+      await Promise.allSettled(promises);
 
       return fetchAnswersByUserAndEcosystem(userId, ecosystemId);
     };
@@ -122,21 +124,22 @@ module.exports = () => {
     const migrateAnswers = async (id, answers) => {
       logger.info('Preparing answers to insert');
 
-      const answersPrepared = [];
+      const skills = await store.skills.fetchSkillsWithEcosystem();
 
-      for await (const answer of answers) {
-        const skillId = await store.answers.getSkillId(answer.skill_name, answer.ecosystem_name);
-        if (skillId) {
-          const answerToInsert = {
-            skill_id: skillId.id,
-            skill_value: answer.skill_value,
+      const answersPrepared = answers.map(answer => {
+        const skillFound = skills.find(skill => skill.skillName.match(answer.skill_name) && skill.ecosystemName.match(answer.ecosystem_name));
+
+        if (skillFound) {
+          return {
+            skill_id: skillFound.skillId,
+            skill_value: +answer.skill_value,
             skill_subvalue: 'neutral',
             interested: answer.interested,
             comments: answer.comments,
           };
-          answersPrepared.push(answerToInsert);
         }
-      }
+        return null;
+      }).filter(answerPrepared => answerPrepared);
 
       insertAnswers(id, answersPrepared, true);
     };

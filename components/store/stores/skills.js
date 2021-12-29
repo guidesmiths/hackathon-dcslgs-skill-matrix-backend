@@ -5,6 +5,11 @@ module.exports = () => {
       return rows;
     },
 
+    fetchSkillsWithEcosystem: async () => {
+      const { rows } = await pg.query('select-skills-with-ecosystem');
+      return rows;
+    },
+
     fetchSkillById: async id => {
       const { rows } = await pg.formattedQuery('select-skill-by-id', { id });
       const roles = rows.map(row => row.roleId);
