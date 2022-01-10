@@ -1,7 +1,12 @@
 module.exports = () => {
   const start = async ({ pg }) => ({
-    fetchAnswers: async filters => {
-      const { rows } = await pg.fetchAnswers(filters);
+    fetchUsersFiltered: async filters => {
+      const { rows } = await pg.fetchUsersFiltered(filters);
+      return rows;
+    },
+
+    fetchAnswersByUser: async id => {
+      const { rows } = await pg.fetchAnswersByUser(id);
       return rows;
     },
 

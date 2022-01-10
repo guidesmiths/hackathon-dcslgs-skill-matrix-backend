@@ -140,7 +140,7 @@ module.exports = () => {
       async (req, res, next) => {
         try {
           const { user: { user_id: userId }, params: { skillId } } = req;
-          const level = await controller.users.fetchLevelUserSkill(skillId, userId);
+          const level = await controller.users.fetchLevelUserBySkill(skillId, userId);
           res.send(level || { skill_value: 0 });
         } catch (error) {
           next(tagError(error));

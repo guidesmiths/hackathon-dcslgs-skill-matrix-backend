@@ -27,13 +27,13 @@ module.exports = () => {
       debug('User country change');
       return store.users.changeUserCountry(payload);
     };
-    const fetchLevelUserSkill = async (id, userId) => {
+    const fetchLevelUserBySkill = async (id, userId) => {
       logger.info('Fetch user level at skill');
       debug('Fetch user level at skill');
-      return store.users.fetchLevelUserSkill(id, userId);
+      return store.users.fetchLevelUserBySkill(id, userId);
     };
     return {
-      fetchUsers, fetchUserInfo, insertUser, changeUserRole, changeUserCountry, fetchLevelUserSkill,
+      fetchUsers, fetchUserInfo, insertUser, changeUserRole, changeUserCountry, fetchLevelUserBySkill,
     };
   };
   return { start };

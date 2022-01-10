@@ -43,7 +43,6 @@ const getAnswerByUser = (answerUser, user) => {
     userId, email, userName, userRole, country, seniority,
   } = answerUser[0];
 
-  // const ecosystems = [answerUser].map(getEcosystem);
   const groupedByEcosystem = groupByProperty(answerUser, 'ecosystemId');
   const ecosystems = groupedByEcosystem.map(getEcosystem);
 
@@ -60,11 +59,19 @@ const getAnswerByUser = (answerUser, user) => {
 
 module.exports = () => {
   const start = async ({ store, logger }) => {
-    const fetchAnswers = async filters => {
-      logger.info('Fetching all answers');
-      debug('Fetching all answers');
+    const fetchUsersFiltered = async filters => {
+      logger.info('Fetching users filtered');
+      debug('Fetching users filtered');
 
-      const answers = await store.answers.fetchAnswers(filters);
+      return store.answers.fetchUsersFiltered(filters);
+    };
+
+    const fetchAnswersByUser = async id => {
+      logger.info('Fetching answers by user');
+      debug('Fetching answers by user');
+
+      const answers = await store.answers.fetchAnswersByUser(id);
+
       const groupedByUser = groupByProperty(answers, 'userId');
 
       return groupedByUser.map(getAnswerByUser);
@@ -145,7 +152,8 @@ module.exports = () => {
     };
 
     return {
-      fetchAnswers,
+      fetchUsersFiltered,
+      fetchAnswersByUser,
       fetchAnswersByUserAndEcosystem,
       insertAnswers,
       migrateAnswers,
