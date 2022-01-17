@@ -46,7 +46,7 @@ const getSkills = skills => {
 const getSkillsByEcosystems = ecosystem => {
   const { ecosystemId, ecosystemName } = ecosystem[0];
   const groupedBySkill = groupByProperty(ecosystem, 'skillId');
-  const skills = groupedBySkill.map(getSkills);
+  const skills = groupedBySkill.map(getSkills).sort((a, b) => a.name.localeCompare(b.name));
 
   return {
     id: ecosystemId,
