@@ -1,7 +1,7 @@
 module.exports = () => {
   const start = async ({ pg }) => ({
-    fetchUsersFiltered: async filters => {
-      const { rows } = await pg.fetchUsersFiltered(filters);
+    fetchUsersFiltered: async (filters, page, totalItems) => {
+      const { rows } = await pg.fetchUsersFiltered(filters, page, totalItems);
       return rows;
     },
 

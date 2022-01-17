@@ -26,130 +26,130 @@ describe('Answers API routes', () => {
 
   describe('POST /api/v1/usersFiltered', () => {
     it('should return the users with one filter', () => request
-      .post('/api/v1/usersFiltered')
+      .post('/api/v1/usersFiltered?page=0')
       .send({ skills: [{ skill: 1, level: 2 }] })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(4);
+        expect(body.users).toHaveLength(4);
         const {
           id, email, name,
-        } = body[1];
+        } = body.users[1];
         expect(name).toEqual('John Doe');
         expect(id).toEqual('asldkan21ansdkasnd');
         expect(email).toEqual('johndoe@guidesmiths.com');
       }));
     it('should return the users with two filters', () => request
-      .post('/api/v1/usersFiltered')
+      .post('/api/v1/usersFiltered?page=0')
       .send({ skills: [{ skill: 1, level: 2 }, { skill: 2, level: 2 }] })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(2);
+        expect(body.users).toHaveLength(2);
         const {
           id, email, name,
-        } = body[1];
+        } = body.users[1];
         expect(name).toEqual('John Doe');
         expect(id).toEqual('asldkan21ansdkasnd');
         expect(email).toEqual('johndoe@guidesmiths.com');
       }));
     it('should return the users filtered by one skill and level', () => request
-      .post('/api/v1/usersFiltered')
+      .post('/api/v1/usersFiltered?page=0')
       .send({ name: '', skills: [{ skill: 4, level: 2 }] })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(4);
+        expect(body.users).toHaveLength(4);
         const {
           id, email, name,
-        } = body[1];
+        } = body.users[1];
         expect(name).toEqual('John Doe');
         expect(id).toEqual('asldkan21ansdkasnd');
         expect(email).toEqual('johndoe@guidesmiths.com');
       }));
     it('should return the users filtered by one skill and name', () => request
-      .post('/api/v1/usersFiltered')
+      .post('/api/v1/usersFiltered?page=0')
       .send({ name: 'j', skills: [{ skill: 4, level: 2 }] })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(2);
+        expect(body.users).toHaveLength(2);
         const {
           id, email, name,
-        } = body[0];
+        } = body.users[0];
         expect(name).toEqual('John Doe');
         expect(id).toEqual('asldkan21ansdkasnd');
         expect(email).toEqual('johndoe@guidesmiths.com');
       }));
     it('should return the users filtered by two skills and one letter for name', () => request
-      .post('/api/v1/usersFiltered')
+      .post('/api/v1/usersFiltered?page=0')
       .send({ name: 'j', skills: [{ skill: 4, level: 2 }, { skill: 1, level: 2 }] })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(1);
+        expect(body.users).toHaveLength(1);
         const {
           id, email, name,
-        } = body[0];
+        } = body.users[0];
         expect(name).toEqual('John Doe');
         expect(id).toEqual('asldkan21ansdkasnd');
         expect(email).toEqual('johndoe@guidesmiths.com');
       }));
     it('should return no users filtered by two skills and two letters for name', () => request
-      .post('/api/v1/usersFiltered')
+      .post('/api/v1/usersFiltered?page=0')
       .send({ name: 'ja', skills: [{ skill: 4, level: 2 }, { skill: 1, level: 2 }] })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(0);
+        expect(body.users).toHaveLength(0);
       }));
     it('should return the users filtered with name and skill, without level', () => request
-      .post('/api/v1/usersFiltered')
+      .post('/api/v1/usersFiltered?page=0')
       .send({ name: 'e', skills: [{ skill: 4 }] })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(4);
+        expect(body.users).toHaveLength(4);
         const {
           id, email, name,
-        } = body[1];
+        } = body.users[1];
         expect(name).toEqual('John Doe');
         expect(id).toEqual('asldkan21ansdkasnd');
         expect(email).toEqual('johndoe@guidesmiths.com');
       }));
     it('should return all the users in the first load (without filters)', () => request
-      .post('/api/v1/usersFiltered')
+      .post('/api/v1/usersFiltered?page=0')
       .send({ name: '', skills: [] })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(7);
+        expect(body.users).toHaveLength(7);
       }));
     it('should return the filtered users with one filter and one empty', () => request
-      .post('/api/v1/usersFiltered')
+      .post('/api/v1/usersFiltered?page=0')
       .send({ name: '', skills: [{ skill: 1, level: 1 }, {}] })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(5);
+        expect(body.users).toHaveLength(5);
       }));
     it('should return the filtered users with two filter and one empty', () => request
-      .post('/api/v1/usersFiltered')
+      .post('/api/v1/usersFiltered?page=0')
       .send({ name: '', skills: [{ skill: 1, level: 1 }, { skill: 2, level: 1 }, {}] })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(4);
+        expect(body.users).toHaveLength(4);
       }));
     it('should return the filtered users sorted A-Z', () => request
-      .post('/api/v1/usersFiltered')
+      .post('/api/v1/usersFiltered?page=0')
       .send({ name: '', skills: [{ skill: 1, level: 1 }] })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(5);
+        expect(body.users).toHaveLength(5);
         const {
           id, email, name,
-        } = body[0];
+        } = body.users[0];
         expect(name).toEqual('Raquel Fernandez');
         expect(id).toEqual('asldka12311sdkasnd');
         expect(email).toEqual('rachelFern@guidesmiths.com');
       }));
     it('should return the filtered users without filters', () => request
-      .post('/api/v1/usersFiltered')
+      .post('/api/v1/usersFiltered?page=0')
       .send({ name: '', skills: [{}] })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body).toHaveLength(7);
+        expect(body.users).toHaveLength(7);
       }));
   });
 
