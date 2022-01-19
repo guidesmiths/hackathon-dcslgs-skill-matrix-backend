@@ -94,7 +94,7 @@ module.exports = () => {
      * @route PUT /api/v1/user/role
      * @summary Change user role
      * @tags Users
-     * @param {ChangerUserRolePayload} request.body.required
+     * @param {ChangeUserRolePayload} request.body.required
      * @security jwtAuth
      */
     app.put('/api/v1/user/role',
@@ -112,7 +112,7 @@ module.exports = () => {
      * @route PATCH /api/v1/user/country
      * @summary Change user country
      * @tags Users
-     * @param {ChangerUserCountryPayload} request.body.required
+     * @param {ChangeUserCountryPayload} request.body.required
      * @security jwtAuth
      */
     app.patch('/api/v1/user/country',

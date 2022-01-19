@@ -7,13 +7,18 @@
  * @property {string} name - The user name
  * @property {string} domain - The user domain
  * @property {string} role - The user role
- * @property {string} country - The user role
+ * @property {string} country - The user country
  */
 
 /**
 * Change user parameters: id & role
-* @typedef {object} ChangerUserRolePayload
-* @typedef {object} ChangerUserCountryPayload
-* @property {string} id
-* @property {string} role
+* @typedef {object} ChangeUserRolePayload
+* @property {string} id - The user id
+* @property {string} role - The user role
+*/
+
+/**
+* Change user country
+* @typedef {object} ChangeUserCountryPayload
+* @property {string} country - The user country
 */
