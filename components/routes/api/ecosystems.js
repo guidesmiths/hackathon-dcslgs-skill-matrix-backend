@@ -95,6 +95,26 @@ module.exports = () => {
         }
       });
 
+    /**
+     * GET /api/v1/ecosystem
+     * @route GET /api/v1/ecosystem
+     * @summary Filter ecosystems by name
+     * @tags Ecosystem
+     * @param {string} name.required - Ecosystem name
+
+     * @security jwtAuth
+  */
+    app.get('/api/v1/ecosystem', validateToken(),
+      async (req, res, next) => {
+        const { query: { name } } = req;
+        try {
+          const ecosystems = await controller.ecosystems.fetchEcosystemsFiltered(name);
+          res.send(ecosystems);
+        } catch (error) {
+          next(tagError(error));
+        }
+      });
+
     app.use(handleHttpError(logger));
     return Promise.resolve();
   };

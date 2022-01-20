@@ -62,9 +62,17 @@ module.exports = () => {
       return store.ecosystems.deleteEcosystem(id);
     };
 
+    const fetchEcosystemsFiltered = async name => {
+      logger.info('Fetching ecosystems filtered');
+      debug('Fetching ecosystems filtered');
+      const ecosystems = await store.ecosystems.fetchEcosystemsFiltered(name);
+      return ecosystems;
+    };
+
     return {
       fetchEcosystems,
       fetchSkillsByEcosystemId,
+      fetchEcosystemsFiltered,
       upsertEcosystem,
       deleteEcosystem,
     };

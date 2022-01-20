@@ -79,6 +79,10 @@ module.exports = () => {
 
     deleteEcosystem: async id => pg.formattedQuery('delete-by-id', { tableName: 'skill_ecosystem', id }),
 
+    fetchEcosystemsFiltered: async name => {
+      const { rows } = await pg.query('filter-ecosystems-by-name', name);
+      return rows;
+    },
   });
   return { start };
 };
