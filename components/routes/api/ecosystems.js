@@ -101,7 +101,7 @@ module.exports = () => {
      * @summary Filter ecosystems by name
      * @tags Ecosystem
      * @param {string} name.required - Ecosystem name
-
+     * @return {array<EcosystemResponse>} 200 - Successful operation
      * @security jwtAuth
   */
     app.get('/api/v1/ecosystem', validateToken(),
