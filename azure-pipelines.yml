@@ -70,7 +70,7 @@ steps:
       sonar.exclusions=node_modules/**,test/**,docs/**,components/logging/*,components/routes/schema/*,*.config.js,system.js,config/*
       sonar.language=js
       sonar.projectVersion=$(Build.BuildNumber)
-      sonar.javascript.lcov.reportPaths=lcov.info
+      sonar.javascript.lcov.reportPaths=/test-reports/coverage/lcov.info
 
 - task: SonarCloudAnalyze@1
   displayName: 'sonarcloud: run analysis'
