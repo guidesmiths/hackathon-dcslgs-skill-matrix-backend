@@ -58,7 +58,6 @@ steps:
 - task: SonarCloudPrepare@1
   displayName: "sonarcloud: prepare analysis"
   inputs:
-    SonarCloud: 'dcslgs-spain-sonarcloud'
     organization: 'dcslgs-spain'
     scannerMode: 'CLI'
     configMode: 'manual'
