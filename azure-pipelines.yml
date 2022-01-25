@@ -55,6 +55,29 @@ steps:
     testResultsFiles: '**/junit.xml'
     failTaskOnFailedTests: true
 
+  - task: SonarCloudPrepare@1
+    displayName: "sonarcloud: prepare analysis"
+    inputs:
+      SonarCloud: 'dcslgs-spain-sonarcloud'
+      organization: 'dcslgs-spain'
+      scannerMode: 'CLI'
+      configMode: 'manual'
+      cliProjectKey: 'skill-matrix-backend'
+      cliProjectName: $(Build.Repository.Name)
+      cliSources: "."
+      extraProperties: |
+        sonar.sources=.
+        sonar.exclusions=node_modules/**,test/**,docs/**,components/logging/*,components/routes/schema/*,*.config.js,system.js,config/*
+        sonar.language=js
+        sonar.projectVersion=$(Build.BuildNumber)
+        sonar.javascript.lcov.reportPaths=lcov.info
+
+  - task: SonarCloudAnalyze@1
+    displayName: 'sonarcloud: run analysis'
+
+  - task: SonarCloudPublish@1
+    displayName: 'sonarcloud: publish analysis'
+
 - task: ArchiveFiles@2
   # run only in master branch
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
