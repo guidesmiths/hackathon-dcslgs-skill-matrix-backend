@@ -42,6 +42,7 @@ const userMigration = async email => new Promise(resolve => {
         break;
       }
     }
+    resolve(null);
   });
 });
 
