@@ -45,7 +45,6 @@ module.exports = () => {
       async (req, res, next) => {
         const { params: { id } } = req;
 
-        // TODO: this endpoint doesn't include userRole, country or seniority in the response. Should it?
         try {
           const answers = await controller.answers.fetchAnswersByUser(id);
           res.send(answers);
@@ -95,7 +94,6 @@ module.exports = () => {
       async (req, res, next) => {
         const { body: payload, params: { id } } = req;
 
-        // TODO: this endpoint doesn't include userRole, country or seniority in the response. Should it?
         try {
           const answer = await controller.answers.insertAnswers(id, payload);
           res.send(answer);
