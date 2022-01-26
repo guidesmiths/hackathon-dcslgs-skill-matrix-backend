@@ -93,10 +93,10 @@ module.exports = ({ configPath }) => {
           from skills."user" u
           left join skills.user_skill us on us.user_id = u.user_id
           left join skills.skill_catalog sc on sc.id = us.skill_id
-          where ${filters.skills ? (filters.skills.length > 0 ? getFiltersSubquery(filters) : '') : ''}
-          lower(u."name") like '%${filters.name ? filters.name.toLowerCase() : ''}%'
-          ${filters.skills.length && filters.skills[0].skill ? `and us.skill_id = ${filters.skills[0].skill}` : ''}
-          group by u.user_id ${filters.skills.length && filters.skills[0].skill ? ', us.skill_value order by us.skill_value desc' : ''}
+          where ${filters.skills?.length > 0 ? getFiltersSubquery(filters) : ''}
+          lower(u."name") like '%${filters.name?.toLowerCase() || ''}%'
+          ${filters.skills?.[0]?.skill ? `and us.skill_id = ${filters.skills[0].skill}` : ''}
+          group by u.user_id ${filters.skills?.[0]?.skill ? ', us.skill_value order by us.skill_value desc' : ''}
           ${!totalItems ? `LIMIT ${usersPerPage} OFFSET ${page * usersPerPage};` : ''}
         `);
       },

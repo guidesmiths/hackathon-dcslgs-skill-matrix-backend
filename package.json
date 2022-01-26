@@ -18,6 +18,7 @@
     "precommit": "npm run lint",
     "prepush": "npm run test",
     "docker": "docker-compose --file ./docker/dev/docker-compose.yml pull && docker-compose --file ./docker/dev/docker-compose.yml up -d --force-recreate --remove-orphans",
+    "docker-prod": "docker-compose --file ./docker/prod/docker-compose.yml pull && docker-compose --file ./docker/prod/docker-compose.yml up -d --force-recreate --remove-orphans",
     "create-jsdoc-docs": "node_modules/jsdoc/jsdoc.js . -r -c docs/jsdoc-config.json -d docs/generated/jsdoc"
   },
   "husky": {
@@ -27,7 +28,7 @@
     }
   },
   "devDependencies": {
-    "eslint": "^6.7.1",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^24.1.5",
