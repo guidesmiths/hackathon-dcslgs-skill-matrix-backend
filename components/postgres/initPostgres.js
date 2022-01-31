@@ -85,8 +85,9 @@ module.exports = ({ configPath }) => {
         where u.user_id = '${id}' and us.skill_value = scl.level
       `),
 
-      fetchUsersFiltered: (filters, page, totalItems = false) => {
+      fetchUsersFiltered: (filters, query, totalItems = false) => {
         const usersPerPage = 10;
+        const { page, name } = query;
 
         return pgAPI.query(`
           select u."name", u.user_id as "id", u.email, u."role", u.country, u.seniority, count(*) OVER() AS full_count
@@ -94,10 +95,10 @@ module.exports = ({ configPath }) => {
           left join skills.user_skill us on us.user_id = u.user_id
           left join skills.skill_catalog sc on sc.id = us.skill_id
           where ${filters.skills?.length > 0 ? getFiltersSubquery(filters) : ''}
-          lower(u."name") like '%${filters.name?.toLowerCase() || ''}%'
+          lower(u."name") like '%${name?.toLowerCase() || ''}%'
           ${filters.skills?.[0]?.skill ? `and us.skill_id = ${filters.skills[0].skill}` : ''}
           group by u.user_id ${filters.skills?.[0]?.skill ? ', us.skill_value order by us.skill_value desc' : ''}
-          ${!totalItems ? `LIMIT ${usersPerPage} OFFSET ${page * usersPerPage};` : ''}
+          ${!totalItems ? `LIMIT ${usersPerPage} OFFSET ${(page - 1) * usersPerPage};` : ''}
         `);
       },
 

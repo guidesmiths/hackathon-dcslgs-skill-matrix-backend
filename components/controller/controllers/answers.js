@@ -59,15 +59,15 @@ const getAnswerByUser = (answerUser, user) => {
 
 module.exports = () => {
   const start = async ({ store, logger }) => {
-    const fetchUsersFiltered = async (filters, page) => {
+    const fetchUsersFiltered = async (filters, query) => {
       logger.info('Fetching users filtered');
       debug('Fetching users filtered');
-      const users = await store.answers.fetchUsersFiltered(filters, page);
-      const total = await store.answers.fetchUsersFiltered(filters, page, true);
+      const users = await store.answers.fetchUsersFiltered(filters, query);
+      const total = await store.answers.fetchUsersFiltered(filters, query, true);
 
       return {
         users,
-        currentPages: +page + 1,
+        currentPages: +query.page + 1,
         numberOfPages: Math.ceil(total.length / 10),
         totalItems: total.length,
       };

@@ -19,10 +19,10 @@ module.exports = () => {
      */
     app.post('/api/v1/usersFiltered', validateToken(),
       async (req, res, next) => {
-        const { query: { page }, body: filters } = req;
+        const { query, body: filters } = req;
 
         try {
-          const answers = await controller.answers.fetchUsersFiltered(filters, page);
+          const answers = await controller.answers.fetchUsersFiltered(filters, query);
           res.send(answers);
         } catch (error) {
           next(tagError(error));
