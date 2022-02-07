@@ -39,13 +39,7 @@ describe('Users API routes', () => {
   describe('POST /api/v1/user', () => {
     it('should return OK (200)', () => request
       .post('/api/v1/user').send(
-        {
-          user_id: '12345678910',
-          email: 'Jorge.Adame@dcsl.com',
-          name: 'Jorge Adame',
-          role: 'user',
-          seniority: 'Intern',
-        },
+        {},
       )
       .expect(StatusCodes.OK)
       .then(() => {

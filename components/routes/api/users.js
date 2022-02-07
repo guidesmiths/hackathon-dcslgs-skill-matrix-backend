@@ -2,6 +2,7 @@ const { handleHttpError, tagError } = require('error-handler-module');
 const userMigration = require('../../../migration/index');
 const { signToken } = require('../../verification/sign-token');
 const { validateToken } = require('../../verification/token-verification');
+const { callMsGraph } = require('../../verification/authConfig');
 
 module.exports = () => {
   const start = async ({
@@ -40,25 +41,63 @@ module.exports = () => {
     app.post('/api/v1/user',
       async (req, res, next) => {
         try {
-          let user;
           const { body } = req;
-          user = await controller.users.fetchUserInfo(body.user_id);
-          const existsUser = user;
-          if (existsUser) {
-            body.role = user.role;
+          // Avoid MS login in testing environment
+          if (process.env.NODE_ENV === 'test') {
+            const user = {
+              user_id: '12345678910',
+              email: 'Jorge.Adame@dcsl.com',
+              name: 'Jorge Adame',
+              role: 'user',
+              seniority: 'Intern',
+            };
+            res.send(await controller.users.insertUser(user));
+          } else {
+            const response = await callMsGraph(Object.values(body)[0]);
+            const {
+              id,
+              mail: email,
+              displayName: name,
+              jobTitle: seniority,
+              country,
+            } = response;
+
+            const user = {
+              user_id: id,
+              email: email.toLowerCase(),
+              name,
+              seniority,
+              country: country?.trim(),
+            };
+            // First we check if the user already exists
+            let existingUser;
+            existingUser = await controller.users.fetchUserInfo(id);
+            const existsUser = existingUser;
+            // If exists, the role won't change
+            if (existsUser) {
+              user.role = existingUser.role;
+            } else {
+              // Otherwise, we need to check if the user is an admin
+              const isAdmin = await controller.users.checkIsAdmin(user.email);
+              if (isAdmin) {
+                user.role = 'admin';
+              }
+            }
+            // The user is upserted
+            existingUser = await controller.users.insertUser(user);
+            if (!existsUser) {
+              await userMigration(user.email)
+                .then(answers => {
+                  if (answers) {
+                    controller.answers.migrateAnswers(id, answers);
+                  }
+                })
+                .catch(error => next(tagError(error)));
+            }
+            // Finally we sign the token
+            const signedToken = signToken({ user_id: id, role: user.role || 'user' });
+            res.send(signedToken);
           }
-          user = await controller.users.insertUser(body);
-          if (!existsUser) {
-            await userMigration(user.email)
-              .then(answers => {
-                if (answers) {
-                  controller.answers.migrateAnswers(user.user_id, answers);
-                }
-              })
-              .catch(error => next(tagError(error)));
-          }
-          const token = signToken(user);
-          res.send(token);
         } catch (error) {
           next(tagError(error));
         }

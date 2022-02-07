@@ -1,4 +1,5 @@
 process.env.SERVICE_ENV = process.env.SERVICE_ENV || 'local';
+process.env.SECRET = process.env.SECRET || 'nD3"7UKvLoI$sg+wnxF.3jrs>Nyo_1';
 
 const runner = require('systemic-domain-runner');
 const bunyan = require('bunyan');

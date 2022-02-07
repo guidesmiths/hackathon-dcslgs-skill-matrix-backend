@@ -24,6 +24,10 @@ module.exports = () => {
       const { rows } = await pg.formattedQuery('select-level-user-skill', { id, userId });
       return rows[0];
     },
+    checkIsAdmin: async payload => {
+      const { rows } = await pg.formattedQuery('check-admin', { email: payload });
+      return rows[0];
+    },
   });
   return { start };
 };
