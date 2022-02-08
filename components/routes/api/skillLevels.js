@@ -17,7 +17,8 @@ module.exports = () => {
 
      * @security jwtAuth
      */
-    app.post('/api/v1/skill/level', validateToken(),
+    app.post('/api/v1/skill/level',
+      validateToken(['user', 'admin']),
       async (req, res, next) => {
         const { body: payload } = req;
         try {

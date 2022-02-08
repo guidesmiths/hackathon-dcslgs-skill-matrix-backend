@@ -16,7 +16,8 @@ module.exports = () => {
 
      * @security jwtAuth
      */
-    app.get('/api/v1/suggestions', validateToken(),
+    app.get('/api/v1/suggestions',
+      validateToken(['admin']),
       async (req, res, next) => {
         try {
           const suggestion = await controller.suggestions.fetchSuggestions();
@@ -39,6 +40,7 @@ module.exports = () => {
      * @security jwtAuth
      */
     app.post('/api/v1/suggestion',
+      validateToken(['user', 'admin']),
       async (req, res, next) => {
         const { body: payload } = req;
         try {
@@ -62,6 +64,7 @@ module.exports = () => {
      * @security jwtAuth
      */
     app.put('/api/v1/suggestion/:id',
+      validateToken(['user', 'admin']),
       async (req, res, next) => {
         const { body: payload, params } = req;
         const { id } = params;
@@ -83,6 +86,7 @@ module.exports = () => {
     * @security jwtAuth
     */
     app.delete('/api/v1/suggestion/:id',
+      validateToken(['admin']),
       async (req, res, next) => {
         const { params } = req;
         const { id } = params;

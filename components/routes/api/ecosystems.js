@@ -17,6 +17,7 @@ module.exports = () => {
      * @security jwtAuth
      */
     app.get('/api/v1/ecosystems',
+      validateToken(['user', 'admin']),
       async (_, res, next) => {
         try {
           const ecosystems = await controller.ecosystems.fetchEcosystems();
@@ -39,6 +40,7 @@ module.exports = () => {
      * @security jwtAuth
      */
     app.get('/api/v1/ecosystem/:id',
+      validateToken(['user', 'admin']),
       async (req, res, next) => {
         const { params: { id } } = req;
 
@@ -63,6 +65,7 @@ module.exports = () => {
     * @security jwtAuth
     */
     app.post('/api/v1/ecosystem',
+      validateToken(['admin']),
       async (req, res, next) => {
         const { body: payload } = req;
 
@@ -83,7 +86,8 @@ module.exports = () => {
 
      * @security jwtAuth
      */
-    app.delete('/api/v1/ecosystem/:id', validateToken(),
+    app.delete('/api/v1/ecosystem/:id',
+      validateToken(['admin']),
       async (req, res, next) => {
         const { params: { id } } = req;
 

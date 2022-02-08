@@ -2,14 +2,14 @@ const jwt = require('jsonwebtoken');
 const { tagError } = require('error-handler-module');
 const { unauthorizedError } = require('../utils/errorHandler');
 
-const validateToken = () => (req, res, next) => {
+const validateToken = adminList => (req, res, next) => {
   try {
     if (process.env.NODE_ENV === 'test') {
       req.user = {
         user_id: '12345678910',
         email: 'Jorge.Adame@dcsl.com',
         name: 'Jorge Adame',
-        role: 'user',
+        role: 'admin',
         seniority: 'Intern',
       };
       return next();
@@ -21,8 +21,14 @@ const validateToken = () => (req, res, next) => {
 
     const split = token.split(' ');
 
+    if (token === 'null') { throw unauthorizedError('No token available'); }
+
     const value = jwt.verify(split[1], process.env.SECRET, { algorithms: ['HS256'] });
     req.user = value;
+
+    if (!adminList.includes(value.role)) {
+      throw unauthorizedError('No permissions for this operation');
+    }
 
     return next();
   } catch (error) {

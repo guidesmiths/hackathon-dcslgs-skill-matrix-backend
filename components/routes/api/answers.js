@@ -17,7 +17,8 @@ module.exports = () => {
 
      * @security jwtAuth
      */
-    app.post('/api/v1/usersFiltered', validateToken(),
+    app.post('/api/v1/usersFiltered',
+      validateToken(['user', 'admin']),
       async (req, res, next) => {
         const { query, body: filters } = req;
 
@@ -41,7 +42,8 @@ module.exports = () => {
 
      * @security jwtAuth
      */
-    app.post('/api/v1/answersByUser/:id', validateToken(),
+    app.post('/api/v1/answersByUser/:id',
+      validateToken(['user', 'admin']),
       async (req, res, next) => {
         const { params: { id } } = req;
 
@@ -66,7 +68,8 @@ module.exports = () => {
 
      * @security jwtAuth
      */
-    app.get('/api/v1/user/:userId/ecosystem/:ecoId/answers', validateToken(),
+    app.get('/api/v1/user/:userId/ecosystem/:ecoId/answers',
+      validateToken(['user', 'admin']),
       async (req, res, next) => {
         const { params: { userId, ecoId } } = req;
 
@@ -90,7 +93,8 @@ module.exports = () => {
      *
      * @security jwtAuth
      */
-    app.post('/api/v1/user/:id/answers', validateToken(),
+    app.post('/api/v1/user/:id/answers',
+      validateToken(['user', 'admin']),
       async (req, res, next) => {
         const { body: payload, params: { id } } = req;
 

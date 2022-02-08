@@ -17,6 +17,7 @@ module.exports = () => {
      * @security jwtAuth
      */
     app.get('/api/v1/skills',
+      validateToken(['user', 'admin']),
       async (req, res, next) => {
         try {
           const skills = await controller.skills.fetchSkills();
@@ -39,7 +40,8 @@ module.exports = () => {
      * @security jwtAuth
      */
 
-    app.post('/api/v1/skill', validateToken(),
+    app.post('/api/v1/skill',
+      validateToken(['admin']),
       async (req, res, next) => {
         const { body: payload } = req;
 
@@ -65,7 +67,8 @@ module.exports = () => {
     * @security jwtAuth
     */
 
-    app.put('/api/v1/skill/:id', validateToken(),
+    app.put('/api/v1/skill/:id',
+      validateToken(['admin']),
       async (req, res, next) => {
         const { body: payload, params: { id } } = req;
 
@@ -86,7 +89,8 @@ module.exports = () => {
 
     * @security jwtAuth
     */
-    app.delete('/api/v1/skill/:id', validateToken(),
+    app.delete('/api/v1/skill/:id',
+      validateToken(['admin']),
       async (req, res, next) => {
         const { params: { id } } = req;
 
