@@ -82,8 +82,8 @@ module.exports = ({ configPath }) => {
         left join skills.skill_catalog sc on sc.id = us.skill_id
         left join skills.skill_ecosystem se on se.id = sc.ecosystem
         left join skills.skill_catalog_level scl on scl.skill_id = sc.id
-        where u.user_id = '${id}' and us.skill_value = scl.level
-      `),
+        where u.user_id = $1 and us.skill_value = scl.level
+      `, [id]),
 
       fetchUsersFiltered: (filters, query, totalItems = false) => {
         const usersPerPage = 10;
@@ -95,11 +95,11 @@ module.exports = ({ configPath }) => {
           left join skills.user_skill us on us.user_id = u.user_id
           left join skills.skill_catalog sc on sc.id = us.skill_id
           where ${filters.skills?.length > 0 ? getFiltersSubquery(filters) : ''}
-          lower(u."name") like '%${name?.toLowerCase() || ''}%'
+          lower(u."name") like $1
           ${filters.skills?.[0]?.skill ? `and us.skill_id = ${filters.skills[0].skill}` : ''}
           group by u.user_id ${filters.skills?.[0]?.skill ? ', us.skill_value order by us.skill_value desc' : ''}
-          ${!totalItems ? `LIMIT ${usersPerPage} OFFSET ${(page - 1) * usersPerPage};` : ''}
-        `);
+          ${!totalItems ? `LIMIT ${usersPerPage} OFFSET ${(page - 1) * usersPerPage}` : ''};
+        `, `%${name?.toLowerCase() || ''}%`);
       },
 
     };

@@ -40,7 +40,7 @@ module.exports = () => {
       return rows[0];
     },
 
-    deleteRolesBySkillId: async id => pg.formattedQuery(`DELETE FROM skills.skill_role_catalog WHERE skill_id = ${id}`),
+    deleteRolesBySkillId: async id => pg.formattedQuery('DELETE FROM skills.skill_role_catalog WHERE skill_id = $1', id),
 
   });
   return { start };
