@@ -1,2 +1,2 @@
--- ALTER TABLE skills.user_skill
--- ADD COLUMN interested BOOLEAN;
+ALTER TABLE skills.user_skill
+ADD COLUMN interested BOOLEAN;
