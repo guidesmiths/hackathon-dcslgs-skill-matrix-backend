@@ -1,2 +1,2 @@
--- ALTER TABLE skills.user
--- ADD COLUMN seniority TEXT;
+ALTER TABLE skills.user
+ADD COLUMN seniority TEXT;
