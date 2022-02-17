@@ -51,6 +51,6 @@
 /**
  * Filter parameters: Skill&Level
  * @typedef {object} SkillAndLevel
- * @property {string} skill - The skill id
- * @property {string} level - The level value
+ * @property {string} skill.required - The skill id
+ * @property {string} level.required - The level value
 */
