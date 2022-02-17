@@ -47,9 +47,9 @@ describe('Answers API routes', () => {
         const {
           id, email, name,
         } = body.users[1];
-        expect(name).toEqual('John Doe');
-        expect(id).toEqual('asldkan21ansdkasnd');
-        expect(email).toEqual('johndoe@guidesmiths.com');
+        expect(name).toEqual('Raquel Fernandez');
+        expect(id).toEqual('asldka12311sdkasnd');
+        expect(email).toEqual('rachelFern@guidesmiths.com');
       }));
     it('should return the users filtered by one skill and name', () => request
       .post('/api/v1/usersFiltered?page=1&name=j')
@@ -89,13 +89,13 @@ describe('Answers API routes', () => {
       .send({ skills: [{ skill: 4 }] })
       .expect(StatusCodes.OK)
       .then(({ body }) => {
-        expect(body.users).toHaveLength(4);
+        expect(body.users).toHaveLength(6);
         const {
           id, email, name,
         } = body.users[1];
-        expect(name).toEqual('John Doe');
-        expect(id).toEqual('asldkan21ansdkasnd');
-        expect(email).toEqual('johndoe@guidesmiths.com');
+        expect(name).toEqual('Raquel Fernandez');
+        expect(id).toEqual('asldka12311sdkasnd');
+        expect(email).toEqual('rachelFern@guidesmiths.com');
       }));
     it('should return all the users in the first load (without filters)', () => request
       .post('/api/v1/usersFiltered?page=1')
