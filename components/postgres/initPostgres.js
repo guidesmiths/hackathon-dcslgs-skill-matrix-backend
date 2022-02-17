@@ -58,7 +58,7 @@ module.exports = ({ configPath }) => {
           ) as data
           where data.rn = $2
           and lower(data."name") like lower($1)
-          limit ${page * usersPerPage} offset ${(page - 1) * usersPerPage};
+          limit ${usersPerPage} offset ${(page - 1) * usersPerPage};
         `, [filterName, amountOfFilters || 1, ...queryArgs]);
 
         return { total, users };
