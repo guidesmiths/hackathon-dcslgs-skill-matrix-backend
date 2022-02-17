@@ -62,14 +62,13 @@ module.exports = () => {
     const fetchUsersFiltered = async (filters, query) => {
       logger.info('Fetching users filtered');
       debug('Fetching users filtered');
-      const users = await store.answers.fetchUsersFiltered(filters, query);
-      const total = await store.answers.fetchUsersFiltered(filters, query, true);
+      const { users, total } = await store.answers.fetchUsersFiltered(filters, query);
 
       return {
         users,
         currentPages: +query.page + 1,
-        numberOfPages: Math.ceil(total.length / 10),
-        totalItems: total.length,
+        numberOfPages: Math.ceil(total / 10),
+        totalItems: total,
       };
     };
 
@@ -119,19 +118,17 @@ module.exports = () => {
         ecosystemId = id;
       }
 
-      const promises = answers.map(answer => {
+      const promises = answers.map(async answer => {
         const { skill_value: skillValue, skill_id: skillId, interested: isInterested } = answer;
         if (skillValue === 0 && !isInterested) {
           debug('Deleting an answer');
           return store.answers.deleteAnswer(userId, skillId);
         }
-
         debug('Creating a new answer');
         return store.answers.insertAnswer({ user_id: userId, ...answer });
       });
 
-      await Promise.allSettled(promises);
-
+      await Promise.all(promises);
       return fetchAnswersByUserAndEcosystem(userId, ecosystemId);
     };
 
