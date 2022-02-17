@@ -63,12 +63,12 @@ module.exports = () => {
     },
 
     fetchSkillsByEcosystemId: async id => {
-      const { rows } = await pg.query('select-skills-by-ecosystems', id);
+      const { rows } = await pg.query('select-skills-by-ecosystems', [id]);
       return [rows].map(getSkillsByEcosystems);
     },
 
     fetchEcosystemBySkillId: async skillId => {
-      const { rows } = await pg.query('select-ecosystem-by-skill', skillId);
+      const { rows } = await pg.query('select-ecosystem-by-skill', [skillId]);
       return rows[0];
     },
 
@@ -77,7 +77,7 @@ module.exports = () => {
       return rows[0];
     },
 
-    deleteEcosystem: async id => pg.formattedQuery('delete-by-id', { tableName: 'skill_ecosystem', id }),
+    deleteEcosystem: async id => pg.delete(`${pg.schema}.skill_ecosystem`, { id }),
 
   });
   return { start };
