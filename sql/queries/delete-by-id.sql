@@ -1,1 +1,1 @@
-DELETE FROM skills.%s:tableName WHERE id = %L:id;
+DELETE FROM skills.skill_ecosystem WHERE id = $1;

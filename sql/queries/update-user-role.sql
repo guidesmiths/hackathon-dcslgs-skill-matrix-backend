@@ -1,1 +1,1 @@
-UPDATE skills.user SET "role" = %L:newRole where user_id = %L:id returning *;
+UPDATE skills.user u SET "role" = $2 where u.user_id = $1 returning *;

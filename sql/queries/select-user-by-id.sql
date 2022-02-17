@@ -1,2 +1,2 @@
 SELECT *
-FROM skills.user where user_id = %L:id;
+FROM skills.user u where u.user_id = $1;
