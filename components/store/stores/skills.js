@@ -11,7 +11,7 @@ module.exports = () => {
     },
 
     fetchSkillById: async id => {
-      const { rows } = await pg.formattedQuery('select-skill-by-id', { id });
+      const { rows } = await pg.query('select-skill-by-id', [id]);
       const roles = rows.map(row => row.roleId);
 
       const {
@@ -33,14 +33,14 @@ module.exports = () => {
       return rows[0];
     },
 
-    deleteSkill: async id => pg.formattedQuery('delete-by-id', { tableName: 'skill_catalog', id }),
+    deleteSkill: async id => pg.delete(`${pg.schema}.skill_catalog`, { id }),
 
     insertRoleSkill: async payload => {
       const { rows } = await pg.upsert('skills.skill_role_catalog', payload);
       return rows[0];
     },
 
-    deleteRolesBySkillId: async id => pg.formattedQuery(`DELETE FROM skills.skill_role_catalog WHERE skill_id = ${id}`),
+    deleteRolesBySkillId: async id => pg.delete(`${pg.schema}.skill_role_catalog`, { id }),
 
   });
   return { start };

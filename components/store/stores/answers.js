@@ -1,26 +1,26 @@
 module.exports = () => {
   const start = async ({ pg }) => ({
-    fetchUsersFiltered: async (filters, query, totalItems) => {
-      const { rows } = await pg.fetchUsersFiltered(filters, query, totalItems);
-      return rows;
+    fetchUsersFiltered: async (filters, query) => {
+      const { total, users } = await pg.fetchUsersFiltered(filters, query);
+      return { total, users };
     },
 
     fetchAnswersByUser: async id => {
-      const { rows } = await pg.fetchAnswersByUser(id);
+      const { rows } = await pg.query('fetch-answers-by-user', [id]);
       return rows;
     },
 
     fetchAnswersByUserAndEcosystem: async (userId, ecoId) => {
-      const { rows } = await pg.formattedQuery('select-answers-by-user-and-ecosystem', { user_id: userId, eco_id: ecoId });
+      const { rows } = await pg.query('select-answers-by-user-and-ecosystem', [userId, ecoId]);
       return rows;
     },
 
     insertAnswer: async payload => {
-      const { rows } = await pg.upsert('skills.user_skill', payload, 'skill_id_per_user_uk');
+      const { rows } = await pg.upsert('skills.user_skill', payload, { conflictTarget: 'skill_id_per_user_uk', isTargetConstraint: true });
       return rows[0];
     },
 
-    deleteAnswer: async (userId, skillId) => pg.formattedQuery('delete-answer-by-skill-and-user', { user_id: userId, skill_id: skillId }),
+    deleteAnswer: async (userId, skillId) => pg.query('delete-answer-by-skill-and-user', [userId, skillId]),
 
   });
   return { start };

@@ -1,1 +1,1 @@
-UPDATE skills.user SET "country" = %L:newCountry where user_id = %L:id returning *;
+UPDATE skills.user u SET "country" = $2 where u.user_id = $1 returning *;

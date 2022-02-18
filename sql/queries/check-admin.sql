@@ -1,1 +1,1 @@
-SELECT * FROM skills.admins WHERE email = %L:email;
+SELECT * FROM skills.admins a WHERE a.email = $1;

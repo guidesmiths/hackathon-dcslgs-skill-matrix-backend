@@ -15,7 +15,7 @@ module.exports = () => {
       return rows[0];
     },
 
-    deleteSuggestion: async id => pg.formattedQuery('delete-by-id', { tableName: 'user_suggestion', id }),
+    deleteSuggestion: async id => pg.delete(`${pg.schema}.user_suggestion`, { id }),
 
   });
   return { start };

@@ -1,1 +1,1 @@
-select skill_value from skills.user_skill us where skill_id = %L:id and user_id = %L:userId;
+select skill_value from skills.user_skill us where us.skill_id = $1 and us.user_id = $2;

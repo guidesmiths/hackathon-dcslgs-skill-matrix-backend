@@ -41,12 +41,6 @@ module.exports = () => {
 
         const { id: newSkillId } = await store.skills.upsertSkill(newSkill);
 
-        // for await (const role of skillRoles) {
-        //   debug('Create a new role for the skill');
-        //   const roleSkill = { skill_id: newSkillId, role_id: role.id || role };
-        //   await store.skills.insertRoleSkill(roleSkill);
-        // }
-
         for await (const { level, levelDescription } of levels) {
           debug('Creating a new skill level');
           const newLevel = { level, description: levelDescription, skill_id: newSkillId };
