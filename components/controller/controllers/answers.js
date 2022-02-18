@@ -128,7 +128,7 @@ module.exports = () => {
         return store.answers.insertAnswer({ user_id: userId, ...answer });
       });
 
-      await Promise.all(promises);
+      await Promise.allSettled(promises);
       return fetchAnswersByUserAndEcosystem(userId, ecosystemId);
     };
 
