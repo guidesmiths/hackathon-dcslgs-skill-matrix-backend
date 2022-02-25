@@ -150,20 +150,6 @@ describe('Ecosystems API routes', () => {
       }));
   });
 
-  // We should move this test to the POST because now it is an upsert
-  describe.skip('PUT /api/v1/ecosystem/:id', () => {
-    it('should update an existing skill', () => request
-      .put('/api/v1/ecosystem/2')
-      .send({ name: 'Node.js' })
-      .expect(StatusCodes.OK)
-      .then(({ body }) => {
-        const {
-          name,
-        } = body;
-        expect(name).toEqual('Node.js');
-      }));
-  });
-
   describe('DELETE /api/v1/ecosystem/:id', () => {
     it('should delete a ecosystem', () => request
       .delete('/api/v1/ecosystem/2')

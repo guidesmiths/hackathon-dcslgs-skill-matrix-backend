@@ -20,7 +20,7 @@ describe('Answers API routes', () => {
   });
 
   afterAll(async () => {
-    await pgAPI.query('truncate-all');
+    // await pgAPI.query('truncate-all');
     await sys.stop();
   });
 
@@ -167,9 +167,9 @@ describe('Answers API routes', () => {
       }));
   });
 
-  describe('GET /api/v1/user/:userId/ecosystem/:ecoId/answers', () => {
-    it('should get the answers by user id & ecosystem id', () => request
-      .get('/api/v1/user/asldkan21ansdkasnd/ecosystem/1/answers')
+  describe('GET /api/v1/user/ecosystem/:ecoId/answers', () => {
+    it('should get the answers by user and ecosystem id', () => request
+      .get('/api/v1/user/ecosystem/1/answers')
       .expect(StatusCodes.OK)
       .then(({ body }) => {
         const {
