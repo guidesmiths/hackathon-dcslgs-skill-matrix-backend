@@ -46,11 +46,11 @@ module.exports = () => {
           // Avoid MS login in testing environment
           if (process.env.NODE_ENV === 'test') {
             const user = {
-              user_id: '12345678910',
-              email: 'Jorge.Adame@dcsl.com',
-              name: 'Jorge Adame',
+              user_id: 'asldkan21ansdkasnd',
+              email: 'johndoe@guidesmiths.com',
+              name: 'John Doe',
               role: 'user',
-              seniority: 'Intern',
+              seniority: null,
             };
             res.send(await controller.users.insertUser(user));
           } else {

@@ -6,11 +6,11 @@ const validateToken = adminList => (req, res, next) => {
   try {
     if (process.env.NODE_ENV === 'test') {
       req.user = {
-        user_id: '12345678910',
-        email: 'Jorge.Adame@dcsl.com',
-        name: 'Jorge Adame',
-        role: 'admin',
-        seniority: 'Intern',
+        user_id: 'asldkan21ansdkasnd',
+        email: 'johndoe@guidesmiths.com',
+        name: 'John Doe',
+        role: 'user',
+        seniority: null,
       };
       return next();
     }
