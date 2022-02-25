@@ -20,7 +20,7 @@ describe('Answers API routes', () => {
   });
 
   afterAll(async () => {
-    // await pgAPI.query('truncate-all');
+    await pgAPI.query('truncate-all');
     await sys.stop();
   });
 
