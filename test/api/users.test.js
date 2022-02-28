@@ -47,12 +47,12 @@ describe('Users API routes', () => {
           .get('/api/v1/users')
           .expect(StatusCodes.OK)
           .then(({ body }) => {
-            expect(body).toHaveLength(8);
+            expect(body).toHaveLength(7);
             const {
               email, name, role,
-            } = body[7];
-            expect(name).toEqual('Jorge Adame');
-            expect(email).toEqual('Jorge.Adame@dcsl.com');
+            } = body[6];
+            expect(name).toEqual('John Doe');
+            expect(email).toEqual('johndoe@guidesmiths.com');
             expect(role).toEqual('user');
           });
       }));
@@ -66,8 +66,8 @@ describe('Users API routes', () => {
         const {
           email, name, role,
         } = body;
-        expect(email).toEqual('Jorge.Adame@dcsl.com');
-        expect(name).toEqual('Jorge Adame');
+        expect(email).toEqual('johndoe@guidesmiths.com');
+        expect(name).toEqual('John Doe');
         expect(role).toEqual('user');
       }));
   });
@@ -108,11 +108,10 @@ describe('Users API routes', () => {
           .expect(StatusCodes.OK)
           .then(({ body }) => {
             const {
-              email, name, country,
-            } = body[7];
+              email, name,
+            } = body[6];
             expect(email).toEqual('johndoe@guidesmiths.com');
             expect(name).toEqual('John Doe');
-            expect(country).toEqual('UK');
           });
       }));
   });

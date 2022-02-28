@@ -43,7 +43,7 @@ module.exports = () => {
      * @security jwtAuth
      */
     app.post('/api/v1/answersByUser/:id',
-      validateToken(['user', 'admin']),
+      validateToken(['admin']),
       async (req, res, next) => {
         const { params: { id } } = req;
 
@@ -56,8 +56,8 @@ module.exports = () => {
       });
 
     /**
-     * GET /api/v1/user/{userId}/ecosystem/{ecoId}/answers
-     * @route GET /api/v1/user/{userId}/ecosystem/{ecoId}/answers
+     * GET /api/v1/ecosystem/{ecoId}/answers
+     * @route GET /api/v1/ecosystem/{ecoId}/answers
      * @summary Get answers filtered by user id & ecosystem id
      * @tags Answers
      * @param {number} userId.params.required - User id
@@ -68,10 +68,10 @@ module.exports = () => {
 
      * @security jwtAuth
      */
-    app.get('/api/v1/user/:userId/ecosystem/:ecoId/answers',
+    app.get('/api/v1/user/ecosystem/:ecoId/answers',
       validateToken(['user', 'admin']),
       async (req, res, next) => {
-        const { params: { userId, ecoId } } = req;
+        const { user: { user_id: userId }, params: { ecoId } } = req;
 
         try {
           const answers = await controller.answers.fetchAnswersByUserAndEcosystem(userId, ecoId);
