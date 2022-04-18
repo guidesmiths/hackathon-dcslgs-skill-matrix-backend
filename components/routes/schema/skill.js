@@ -1,8 +1,9 @@
 /**
  * A skill type
  * @typedef {object} SkillResponse
- * @property {number} id - The skill id
- * @property {string} name - The skill name
+ * @property {number} skillId - The skill id
+ * @property {string} skillName - The skill name
+ * @property {string} ecosystemName - The skill name
  */
 
 /**

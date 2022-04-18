@@ -32,10 +32,11 @@ describe('Skills API routes', () => {
       .then(({ body }) => {
         expect(body).toHaveLength(6);
         const {
-          id, name,
+          skillId, skillName, ecosystemName,
         } = body[0];
-        expect(id).toEqual(1);
-        expect(name).toEqual('React');
+        expect(skillId).toEqual(1);
+        expect(skillName).toEqual('React');
+        expect(ecosystemName).toEqual('React');
       }));
   });
 

@@ -6,7 +6,7 @@ module.exports = () => {
     const fetchSkills = async () => {
       logger.info('Fetching skills');
       debug('Fetching skills');
-      return store.skills.fetchSkills();
+      return store.skills.fetchSkillsWithEcosystem();
     };
 
     const upsertSkill = async payload => {
