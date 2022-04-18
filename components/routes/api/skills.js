@@ -12,7 +12,7 @@ module.exports = () => {
      * @tags Skills
      * @return {array<SkillResponse>} 200 - Successful operation
      * @example response - 200 - success response example
-     * [{"id":1,"name":"React"},{"id":2,"name":"Next.js"},{"id":3,"name":"Redux"},{"id":4,"name":"Redux-Sagas"},{"id":5,"name":"Gatsby"},{"id":6,"name":"Express"}]
+     * [{"skillId":1,"skillName":"React", "ecosystemName":"React"},{"skillId":2,"skillName":"Next.js", "ecosystemName":"React"},{"skillId":3,"skillName":"Redux", "ecosystemName":"React"},{"skillId":4,"skillName":"Redux-Sagas", "ecosystemName":"React"},{"skillId":5,"skillName":"Gatsby", "ecosystemName":"React"},{"skillId":6,"skillName":"Express", "ecosystemName":"React"}]
 
      * @security jwtAuth
      */
