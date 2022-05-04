@@ -65,11 +65,12 @@ module.exports = () => {
 
             const user = {
               user_id: id,
-              email: email.toLowerCase(),
+              email: email?.toLowerCase() || '',
               name,
               seniority,
-              country: country?.trim(),
+              country: country?.trim() || null,
             };
+
             // First we check if the user already exists
             let existingUser;
             existingUser = await controller.users.fetchUserInfo(id);
@@ -77,6 +78,7 @@ module.exports = () => {
             // If exists, the role won't change
             if (existsUser) {
               user.role = existingUser.role;
+              user.country = existingUser.country;
             } else {
               // Otherwise, we need to check if the user is an admin
               const isAdmin = await controller.users.checkIsAdmin(user.email);
