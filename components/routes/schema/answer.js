@@ -54,3 +54,11 @@
  * @property {string} skill.required - The skill id
  * @property {string} level.required - The level value
 */
+
+/**
+ * Filled skills count by ecosystem by user
+ * @typedef {object} FilledSkillsCount
+ * @property {number} ecosystemId - The ecosystem id
+ * @property {string} ecosystemName - The ecosystem name
+ * @property {number} filledSkillsCount - The filled skills count
+*/

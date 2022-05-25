@@ -106,6 +106,13 @@ module.exports = () => {
       return getAnswerByUser(answersByUser, userData);
     };
 
+    const fetchFilledSkillsCount = async userId => {
+      logger.info('Fetching filled skills count by ecosystem');
+      debug('Fetching filled skills count by ecosystem');
+
+      return store.answers.fetchFilledSkillsCount(userId);
+    };
+
     const insertAnswers = async (userId, answers, isMigration = false) => {
       logger.info('Creating new answers from an user');
 
@@ -159,6 +166,7 @@ module.exports = () => {
       fetchUsersFiltered,
       fetchAnswersByUser,
       fetchAnswersByUserAndEcosystem,
+      fetchFilledSkillsCount,
       insertAnswers,
       migrateAnswers,
     };

@@ -187,6 +187,20 @@ describe('Answers API routes', () => {
       }));
   });
 
+  describe('GET /api/v1/user/ecosystem/filledSkillsCount', () => {
+    it('should get the filled skills count by ecosystem', () => request
+      .get('/api/v1/user/ecosystem/filledSkillsCount')
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        const {
+          ecosystemId, ecosystemName, filledSkillsCount,
+        } = body[0];
+        expect(ecosystemId).toEqual(2);
+        expect(ecosystemName).toEqual('NodeJS');
+        expect(filledSkillsCount).toEqual(1);
+      }));
+  });
+
   describe('POST /api/v1/user/:id/answers', () => {
     it('should create new answers', () => request
       .post('/api/v1/user/asldka12312sdkasnd/answers')

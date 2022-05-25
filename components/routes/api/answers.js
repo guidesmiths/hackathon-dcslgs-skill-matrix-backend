@@ -82,6 +82,31 @@ module.exports = () => {
       });
 
     /**
+     * GET /api/v1/user/ecosystem/filledSkillsCount
+     * @route GET /api/v1/user/ecosystem/filledSkillsCount
+     * @summary Get filled skills count by ecosystem
+     * @tags Answers
+     * @param {number} userId.params.required - User id
+     * @return {FilledSkillsCount} 200 - Answers response
+     * @example response - 200 - success response example
+     * [{ecosystemId:2,ecosystemName:'NodeJS',filledSkillsCount:'1'},{ecosystemId:1,ecosystemName:'React',filledSkillsCount:'3'}]
+
+     * @security jwtAuth
+     */
+    app.get('/api/v1/user/ecosystem/filledSkillsCount',
+      validateToken(['user', 'admin']),
+      async (req, res, next) => {
+        const { user: { user_id: userId } } = req;
+
+        try {
+          const answers = await controller.answers.fetchFilledSkillsCount(userId);
+          res.send(answers);
+        } catch (error) {
+          next(tagError(error));
+        }
+      });
+
+    /**
      * POST /api/v1/user/{id}/answers
      * @route POST /api/v1/user/{id}/answers
      * @summary Create, update or delete answers
