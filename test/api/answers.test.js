@@ -140,7 +140,7 @@ describe('Answers API routes', () => {
       }));
   });
 
-  describe('POST /api/v1/answersByUser', () => {
+  describe('POST /api/v1/answersByUser/:id', () => {
     it('should return the answers by user', () => request
       .post('/api/v1/answersByUser/asldkan21ansdkasnd')
       .expect(StatusCodes.OK)
@@ -164,6 +164,19 @@ describe('Answers API routes', () => {
         expect(skills[0].sublevel).toEqual('minus');
         expect(skills[0].interested).toEqual(true);
         expect(skills[0].comments).toEqual('');
+      }));
+  });
+
+  describe('POST /api/v1/skillsByUser/:id', () => {
+    it('should return the skill by user', () => request
+      .post('/api/v1/skillsByUser/asldkan21ansdkasnd')
+      .expect(StatusCodes.OK)
+      .then(({ body }) => {
+        const {
+          skillId, skillName,
+        } = body[0];
+        expect(skillId).toEqual(6);
+        expect(skillName).toEqual('Express');
       }));
   });
 

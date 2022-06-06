@@ -56,6 +56,31 @@ module.exports = () => {
       });
 
     /**
+     * POST /api/v1/skillsByUser/{id}
+     * @route POST /api/v1/skillsByUser/{id}
+     * @summary Get skills by user
+     * @tags Answers
+     * @param {number} id.params.required - User id
+     * @return {array<SkillByUser>} 200 - Successful operation
+     * @example response - 200 - success response example
+     * [{"skillId":6,"skillName":"Express"},{"skillId":2,"skillName":"Next.js"},{"skillId":1,"skillName":"React"},{"skillId":4,"skillName":"Redux-Sagas"}]
+
+     * @security jwtAuth
+     */
+    app.post('/api/v1/skillsByUser/:id',
+      validateToken(['user']),
+      async (req, res, next) => {
+        const { params: { id } } = req;
+
+        try {
+          const skills = await controller.answers.fetchSkillsByUser(id);
+          res.send(skills);
+        } catch (error) {
+          next(tagError(error));
+        }
+      });
+
+    /**
      * GET /api/v1/ecosystem/{ecoId}/answers
      * @route GET /api/v1/ecosystem/{ecoId}/answers
      * @summary Get answers filtered by user id & ecosystem id

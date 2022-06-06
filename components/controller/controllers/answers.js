@@ -83,6 +83,13 @@ module.exports = () => {
       return groupedByUser.map(getAnswerByUser);
     };
 
+    const fetchSkillsByUser = async id => {
+      logger.info('Fetching skills by user');
+      debug('Fetching skills by user');
+
+      return store.answers.fetchSkillsByUser(id);
+    };
+
     const fetchAnswersByUserAndEcosystem = async (userId, ecoId) => {
       logger.info('Fetching answers by user');
       debug('Fetching answers by user');
@@ -165,6 +172,7 @@ module.exports = () => {
     return {
       fetchUsersFiltered,
       fetchAnswersByUser,
+      fetchSkillsByUser,
       fetchAnswersByUserAndEcosystem,
       fetchFilledSkillsCount,
       insertAnswers,

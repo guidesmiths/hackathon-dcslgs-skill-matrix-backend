@@ -10,6 +10,11 @@ module.exports = () => {
       return rows;
     },
 
+    fetchSkillsByUser: async id => {
+      const { rows } = await pg.query('select-skills-by-user', [id]);
+      return rows;
+    },
+
     fetchAnswersByUserAndEcosystem: async (userId, ecoId) => {
       const { rows } = await pg.query('select-answers-by-user-and-ecosystem', [userId, ecoId]);
       return rows;

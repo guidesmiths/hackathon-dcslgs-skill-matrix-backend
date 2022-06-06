@@ -62,3 +62,10 @@
  * @property {string} ecosystemName - The ecosystem name
  * @property {number} filledSkillsCount - The filled skills count
 */
+
+/**
+ * Skills by user
+ * @typedef {object} SkillByUser
+ * @property {number} skillId - The skill id
+ * @property {string} skillName - The skill name
+*/
